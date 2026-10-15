@@ -2,6 +2,9 @@
 
 Static source for the ConsoliData public website intended for
 [cdatats.com](https://cdatats.com).
+`www.cdatats.com`, `consolidatats.com`, and `www.consolidatats.com` are legacy
+or convenience entry points that will redirect one way to the same path and
+query string on `https://cdatats.com`; the domains never redirect to each other.
 
 Status: pre-launch source review. The public domain has not been cut over to
 this version.
