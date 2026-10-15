@@ -1,0 +1,31 @@
+# Secrets and environment
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*
+secrets*
+
+# Private operational and customer data
+private/
+data/
+research/
+ops/
+deploy/
+tasks/
+docs/
+*.csv
+*.xlsx
+*.jsonl
+
+# Local artifacts
+__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db
+browser-artifacts/
+*.bak
+*.log
