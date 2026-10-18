@@ -10,6 +10,7 @@ credentials*
 secrets*
 
 # Private operational and customer data
+PROJECT_LOG.md
 private/
 data/
 research/

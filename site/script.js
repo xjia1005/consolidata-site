@@ -1,6 +1,5 @@
 const menuButton = document.querySelector('[data-menu-button]');
 const menu = document.querySelector('[data-menu]');
-
 if (menuButton && menu) {
   const menuLabel = menuButton.querySelector('.sr-only');
   const setMenuOpen = (open) => {
@@ -8,18 +7,10 @@ if (menuButton && menu) {
     menu.classList.toggle('is-open', open);
     if (menuLabel) menuLabel.textContent = open ? 'Close navigation' : 'Open navigation';
   };
-
-  menuButton.addEventListener('click', () => {
-    const open = menuButton.getAttribute('aria-expanded') === 'true';
-    setMenuOpen(!open);
-  });
-
+  menuButton.addEventListener('click', () => setMenuOpen(menuButton.getAttribute('aria-expanded') !== 'true'));
   menu.addEventListener('click', (event) => {
-    if (event.target instanceof HTMLAnchorElement) {
-      setMenuOpen(false);
-    }
+    if (event.target instanceof Element && event.target.closest('a')) setMenuOpen(false);
   });
-
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && menuButton.getAttribute('aria-expanded') === 'true') {
       setMenuOpen(false);
@@ -27,65 +18,89 @@ if (menuButton && menu) {
     }
   });
 }
-
 document.querySelectorAll('[data-year]').forEach((node) => {
   node.textContent = String(new Date().getFullYear());
 });
 
-const builder = document.querySelector('[data-fit-builder]');
-const prepareButton = document.querySelector('[data-prepare-request]');
-const result = document.querySelector('[data-form-result]');
-
-if (builder instanceof HTMLElement && prepareButton instanceof HTMLButtonElement && result instanceof HTMLElement) {
-  prepareButton.addEventListener('click', () => {
-    const fields = Array.from(builder.querySelectorAll('[data-fit-field]'));
-    const invalidField = fields.find((field) =>
-      (field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement) && !field.checkValidity()
-    );
-    if (invalidField instanceof HTMLInputElement || invalidField instanceof HTMLTextAreaElement) {
-      invalidField.reportValidity();
-      return;
+const callForm = document.querySelector('[data-call-request]');
+const callResult = document.querySelector('[data-call-result]');
+if (callForm instanceof HTMLFormElement && callResult instanceof HTMLElement) {
+  const clearResult = () => {
+    callResult.hidden = true;
+    callResult.replaceChildren();
+  };
+  callForm.addEventListener('input', clearResult);
+  callForm.addEventListener('reset', clearResult);
+  callForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    for (const field of callForm.querySelectorAll('input[required], textarea[required]')) {
+      field.setCustomValidity(field.value.trim() ? '' : 'Please enter this detail.');
     }
-
-    const valueOf = (fieldName) => {
-      const field = builder.querySelector(`[data-fit-field="${fieldName}"]`);
+    if (!callForm.reportValidity()) return;
+    const value = (name) => {
+      const field = callForm.elements.namedItem(name);
       return field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement ? field.value.trim() : '';
     };
     const request = [
-      'CONSOLIDATA BUYER-PATH FIT REVIEW',
+      'CONSOLIDATA — 20-minute sales-workflow call request',
       '',
-      `Name: ${valueOf('name')}`,
-      `Work email: ${valueOf('email')}`,
-      `Company: ${valueOf('company')}`,
-      `Product page: ${valueOf('product_url')}`,
+      'Name: ' + value('name'),
+      'Company: ' + value('company'),
+      'Work email: ' + value('email'),
+      'Phone (optional): ' + value('phone'),
+      'WeChat (optional): ' + value('wechat'),
+      'Public page (optional): ' + value('page'),
       '',
-      'Buyer decision to understand:',
-      valueOf('question'),
+      'Sales question:',
+      value('question'),
+      '',
+      'Preferred times and time zone: ' + value('times'),
+      '',
+      'Please reply to agree a meeting time.'
     ].join('\n');
-
-    result.hidden = false;
-    result.innerHTML = '';
-
-    const title = document.createElement('strong');
-    title.textContent = 'Your request is ready to review.';
+    clearResult();
+    const heading = document.createElement('strong');
+    heading.textContent = 'Your request is prepared. Nothing has been sent.';
     const note = document.createElement('p');
-    note.textContent = 'This local preview has not transmitted or stored your information. Copy the request for review; secure submission will be enabled before launch.';
-    const pre = document.createElement('pre');
-    pre.textContent = request;
-    const copyButton = document.createElement('button');
-    copyButton.type = 'button';
-    copyButton.className = 'copy-button';
-    copyButton.textContent = 'Copy request';
-    copyButton.addEventListener('click', async () => {
+    note.textContent = 'Review the text below. Copy it or open your email app and send it yourself. A meeting time still needs personal confirmation.';
+    const preview = document.createElement('pre');
+    preview.textContent = request;
+    preview.tabIndex = 0;
+    preview.setAttribute('aria-label', 'Prepared call request');
+    const actions = document.createElement('div');
+    actions.className = 'request-actions';
+    const email = document.createElement('a');
+    email.className = 'button button-primary';
+    email.textContent = 'Open email draft';
+    email.href = 'mailto:alvinj@consolidatats.com?subject=' + encodeURIComponent('20-minute sales-workflow call request') + '&body=' + encodeURIComponent(request);
+    const copy = document.createElement('button');
+    copy.type = 'button';
+    copy.className = 'button button-quiet';
+    copy.textContent = 'Copy request';
+    copy.addEventListener('click', async () => {
       try {
+        if (!navigator.clipboard) throw new Error('Clipboard unavailable');
         await navigator.clipboard.writeText(request);
-        copyButton.textContent = 'Copied';
+        copy.textContent = 'Copied';
       } catch {
-        copyButton.textContent = 'Select and copy the text above';
+        copy.textContent = 'Select and copy the text above';
+        preview.focus();
       }
     });
-
-    result.append(title, note, pre, copyButton);
-    result.focus();
+    actions.append(email, copy);
+    callResult.append(heading, note, preview, actions);
+    callResult.hidden = false;
+    callResult.focus();
   });
+  callForm.addEventListener('input', (event) => {
+    const field = event.target;
+    if (field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement) field.setCustomValidity('');
+  });
+  // Fail closed: enable inputs only after both submit and change handlers exist.
+  const fields = callForm.querySelector('[data-call-fields]');
+  if (fields instanceof HTMLFieldSetElement) {
+    fields.disabled = false;
+    const status = callForm.querySelector('[data-request-status]');
+    if (status instanceof HTMLElement) status.hidden = true;
+  }
 }

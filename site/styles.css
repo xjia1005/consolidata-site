@@ -344,3 +344,93 @@ button, a { -webkit-tap-highlight-color: transparent; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }
+
+/* Sales-feedback page: preserve existing brand geometry; readable operating text. */
+body { font-family: "Segoe UI", Arial, ui-sans-serif, sans-serif; }
+.hero h1, .section-heading h2, .measurement h2, .review-copy h2, .subpage-hero h1 { font-family: "Segoe UI", Arial, ui-sans-serif, sans-serif; font-weight: 650; }
+.hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 52px; min-height: 740px; }
+.hero h1 { font-size: clamp(3rem, 5.4vw, 5.25rem); line-height: 1.03; }
+.hero-emphasis { font-family: inherit; font-style: normal; font-size: clamp(1.35rem, 2vw, 1.8rem); line-height: 1.3; }
+.eyebrow { font-size: .875rem; letter-spacing: .08em; flex-wrap: wrap; }
+.site-nav a { display: inline-flex; align-items: center; min-height: 44px; font-size: .9375rem; }
+.site-nav .nav-cta { min-height: 48px; }
+.site-nav { gap: 16px; }
+.button { min-height: 48px; font-size: 1rem; white-space: normal; text-align: center; }
+.offer-facts dt, .offer-facts dd, .path-step small, .path-step p, .visual-head, .visual-foot, .week-label, .problem-number { font-size: .875rem; }
+.path-step p { color: var(--paper); }
+.path-step { grid-template-columns: 44px minmax(0,1fr); }
+.path-step strong { font-size: 1.0625rem; }
+.visual-head { flex-wrap: wrap; gap: 12px; }
+.visual-foot { line-height: 1.5; }
+.status-pill { font-size: .75rem; white-space: normal; }
+.section-heading h2, .measurement h2, .review-copy h2 { font-size: clamp(2rem,4.2vw,3.7rem); line-height: 1.08; }
+.week-grid p, .week-grid li, .fit-card p, .fit-card li { font-size: 1rem; }
+.measurement-card > div:first-child { display: block; }
+.measurement-card > p, .measurement-card > div > p, .measurement-card .boundary-note { color: var(--paper); font-size: 1rem; }
+.metric-flow { grid-template-columns: repeat(9,auto); gap: 10px; }
+.metric-flow span { font-size: 1rem; overflow-wrap: anywhere; }
+.metric-flow small { display: inline-grid; place-items: center; flex-shrink: 0; font-size: .875rem; inline-size: 2em; min-inline-size: 2em; block-size: 2em; line-height: 1; white-space: nowrap; overflow-wrap: normal; }
+.example-section { padding-bottom: 96px; }
+.example-label, .example-note { color: var(--muted); font-size: 1rem; }
+.example-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 24px; }
+.example-grid article { padding: 24px; background: var(--paper-strong); border: 1px solid var(--line); border-radius: 16px; }
+.example-grid h3 { margin: 0 0 16px; font-size: 1.25rem; }
+.example-grid p { color: var(--ink-soft); }
+.fit-section { padding-bottom: 96px; }
+.fit-card { padding: 28px; }
+.fit-card ul { padding-left: 22px; }
+.fit-card li { padding-bottom: 12px; }
+.fit-review { gap: 40px; padding: 48px; align-items: start; }
+.review-copy > p:not(.eyebrow):not(.privacy-line), .privacy-line, .email-note { color: var(--paper); font-size: 1rem; }
+.privacy-line { display: block; }
+.request-panel, .request-grid, .request-grid label, .request-result { min-width: 0; }
+.request-fieldset { min-width: 0; border: 0; margin: 0; padding: 0; }
+.request-fieldset:disabled .button { opacity: .65; cursor: default; }
+.request-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
+.request-grid label { display: grid; gap: 8px; color: var(--paper); font-size: 1rem; font-weight: 600; }
+.request-grid label span { font-weight: 400; font-size: .875rem; }
+.request-wide { grid-column: 1 / -1; }
+.request-grid input, .request-grid textarea { width: 100%; min-height: 48px; padding: 12px; border: 1px solid #83928a; border-radius: 8px; color: var(--ink); background: var(--paper-strong); font-size: 1rem; }
+.request-grid textarea { resize: vertical; min-height: 120px; }
+.request-grid input::placeholder, .request-grid textarea::placeholder { color: #55635e; opacity: 1; }
+.request-panel .form-note { color: var(--paper); font-size: .9375rem; line-height: 1.6; }
+.request-panel .button-primary { background: var(--lime); color: var(--ink); border-color: var(--lime); }
+.request-panel .button-quiet { color: var(--paper); background: transparent; border-color: #83928a; }
+.request-fieldset > .button { margin-bottom: 12px; }
+.request-panel :focus-visible, .fit-review a:focus-visible { outline-color: var(--lime); }
+.request-result { margin-top: 16px; border: 1px solid #83928a; padding: 20px; border-radius: 12px; }
+.request-result[hidden] { display: none; }
+.request-result p { color: var(--paper); }
+.request-result pre { padding: 16px; color: var(--ink); background: var(--paper-strong); border-radius: 8px; font-family: inherit; font-size: 1rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+.request-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.site-footer p, .footer-meta, .footer-links { color: var(--paper); font-size: .9375rem; }
+.footer-links a { display: inline-flex; align-items: center; min-height: 44px; }
+:target { scroll-margin-top: 112px; }
+@media (max-width: 1100px) {
+  .site-nav { gap: 12px; }
+  .site-nav a { font-size: .875rem; }
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-copy { max-width: 850px; }
+  .decision-visual { max-width: 760px; }
+  .metric-flow { grid-template-columns: 1fr; justify-items: start; }
+  .metric-flow i { transform: rotate(90deg); }
+}
+@media (max-width: 760px) {
+  .hero { gap: 40px; padding-top: 56px; }
+  .hero h1 { font-size: clamp(2.7rem,11vw,4.4rem); }
+  .hero-emphasis { font-size: 1.4rem; }
+  .hero .eyebrow { font-size: .875rem; }
+  .section-heading h2, .measurement h2, .review-copy h2 { font-size: clamp(2rem,8.5vw,3rem); }
+  .example-grid, .request-grid { grid-template-columns: 1fr; }
+  .example-section, .fit-section { padding-bottom: 72px; }
+  .fit-review { gap: 32px; padding: 48px 20px; }
+  .request-wide { grid-column: auto; }
+  .request-fieldset > .button { width: 100%; }
+  .offer-facts dt, .offer-facts dd, .visual-foot { font-size: .875rem; }
+  .subpage-nav .nav-cta { max-width: 180px; }
+  .footer-meta { text-transform: none; }
+}
+.problem-grid p, .week-grid li, .fit-card li, .faq-list details p, .section-heading-split > p { font-size: 1rem; }
+.hero-copy, .review-copy, .week-grid article, .fit-card, .path-step > div { min-width: 0; }
+h1, h2, .offer-facts dd, .request-panel label { overflow-wrap: anywhere; }
+.footer-links { display: flex; flex-wrap: wrap; }
