@@ -47,6 +47,10 @@ test('legacy page offers a labelled real payment fallback without JavaScript',()
   assert.ok(site('checkout.html').includes('href="'+config.paymentLink+'"'));
   assert.ok(!/Continue to Stripe|Loading checkout/.test(site('checkout.html')));
 });
+test('legacy redirect scripts use a fresh cache identity after replacing the old click flow',()=>{
+  assert.ok(/src="checkout\.js\?v=direct-20261019"/.test(site('checkout.html')));
+  assert.ok(/src="checkout-guard\.js\?v=direct-20261019"/.test(site('checkout.html')));
+});
 test('discovery describes the direct destination and omits the obsolete interstitial',()=>{
   const manifest=JSON.parse(site('site-manifest.json'));
   assert.equal(manifest.purchaseUrl,config.paymentLink);
