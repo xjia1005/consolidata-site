@@ -1,0 +1,23 @@
+.checkout-body { font-family: Arial, "Segoe UI", sans-serif; }
+.checkout-body .site-header { position: relative; flex-wrap: wrap; gap: 16px; padding: 16px 20px; }
+.checkout-body .back-link { display: inline-flex; align-items: center; min-height: 48px; font-size: 16px; }
+.checkout-layout { width: min(1120px, calc(100% - 40px)); margin: 64px auto; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 48px; align-items: start; }
+.checkout-body h1 { margin: 0 0 24px; font: 600 clamp(36px, 4.3vw, 60px)/1.08 Arial, sans-serif; letter-spacing: -.035em; }
+.checkout-body h2 { font-size: 28px; line-height: 1.2; }
+.checkout-body .eyebrow { font-size: 14px; }
+.checkout-panel { background: var(--paper-strong); padding: 32px; border: 1px solid #7c8983; border-radius: 20px; }
+.checkout-price { margin: 24px 0 8px; font-size: 48px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.checkout-price span { font-size: 16px; font-weight: 400; }
+.checkout-panel ul, .journey-list { padding-left: 24px; }
+.checkout-panel li, .journey-list li { margin: 16px 0; }
+.checkout-panel .button { width: 100%; min-height: 52px; margin: 8px 0; font-size: 16px; padding: 12px 20px; text-align: center; }
+.checkout-panel button:disabled { cursor: not-allowed; opacity: 1; background: #dce7df; color: #294039; border: 1px solid #7c8983; transform: none; }
+.review-notice { background: #ece8df; padding: 20px; border-left: 4px solid #294039; margin: 24px 0 16px; }
+.review-notice p { margin-bottom: 0; }
+.small-note { font-size: 14px; color: #294039; }
+.checkout-support { grid-column: 1/-1; border-top: 1px solid #7c8983; padding-top: 24px; max-width: 880px; }
+.checkout-footer { padding: 32px 20px; text-align: center; border-top: 1px solid #7c8983; }
+.checkout-body a:focus-visible { outline: 3px solid #9e462f; outline-offset: 4px; }
+.checkout-body a { overflow-wrap: anywhere; }
+@media (max-width: 760px) { .checkout-layout { grid-template-columns: 1fr; margin: 40px auto; gap: 32px; } .checkout-panel { padding: 24px; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }

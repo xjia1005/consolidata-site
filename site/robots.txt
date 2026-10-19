@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /assessment.html
+Sitemap: https://cdatats.com/sitemap.xml

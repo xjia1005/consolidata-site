@@ -1,22 +1,27 @@
-# CONSOLIDATA website
+# CONSOLIDATA Marketing Checkup
 
-Static, dependency-free HTML/CSS/JavaScript source for the company website. This branch is a local review version; production has not been updated.
+Static dependency-free website for owners of already-selling consumer businesses in the United States. Canonical URL: https://cdatats.com/.
 
-## Positioning
-For US/Canada business owners, CEOs and authorized decision-makers with an existing product or service. Connect buying reasons, approved sales material, inquiries, sales follow-up and commercial outcomes to the next action. Start with one offer, buyer situation, channel and next action. Service scope, timing, responsibilities and fees follow a discussion and written proposal; public pages contain no monetary quote or revenue guarantee.
+## Offer and delivery
+USD27 one time plus applicable tax, paid through hosted Stripe checkout. Ten questions and optional notes produce a fixed-rule, answer-based marketing report: described strengths, unknowns, up to three priorities, practical actions, discussion prompts and a full answer summary. Optional notes appear as written and do not change findings. Account audits, customer interviews, campaign testing and ongoing work require a separate agreement. No commercial outcome is guaranteed.
 
-The positioning decision and English X article draft are held in the private project records. They are excluded from this public-source repository and have no publication authorization.
+The user approved a lightweight edition: Stripe returns to a shareable questionnaire URL. No account, per-order access authentication, server payment verification or cloud report storage is provided. Public config selects checkout presentation only; a return URL/session parameter never proves payment. Save/download/print the report before closing. Assessment answers are not transmitted or persisted by site code. Support can supply the questionnaire link but cannot recover unsaved answers. No external AI model is connected.
 
-## Local preview
-Run Python's standard HTTP server against site/ bound to 127.0.0.1. This task uses port4188. No install or build is required.
+## Run and verify
+- Preview: `python -m http.server 4197 --bind 127.0.0.1 --directory site`
+- Unit checks: `node --test tests/*.test.cjs`
+- Static checks: `python tools/validate-checkup.py`
+- Syntax: `node --check` for each site JavaScript file.
+- Verify actual desktop/phone questionnaire, back/edit/reset, downloads, print and contact-request behavior in a real browser.
 
-## Contact behavior
-The call-request builder runs in browser memory, validates fields and prepares text. It never submits, sends or stores data. The visitor can copy text or open a mail draft for manual review and sending. The existing website email address is retained; actual delivery is unverified. No calendar slot is confirmed automatically. No backend, analytics, cookies, payment or new external integration is added.
+Machine contract: `system_registry/codecraft/codebase-map.json`; public discovery: `robots.txt`, `sitemap.xml`, `llms.txt`, `site-manifest.json`. Assessment is noindex and excluded from the sitemap, which is not an access-control mechanism.
 
-## Checks
-Run Python ops/validate_sales_feedback_site.py, Node --check site/script.js, and the browser checks in the task packet. Browser evidence and contrast results are under docs/design/2026-10-18. Actual demand, payments, repeat purchase and incremental revenue remain unverified.
+## Release
+The user authorized this lightweight launch. Only reviewed commits on origin/main may release. On the existing configured host, from the dedicated CONSOLIDATA repository, use `bash deploy/checkup-release.sh release <full-reviewed-sha>`; rollback uses `bash deploy/checkup-release.sh rollback <previous-full-sha>`. The script validates static source, creates an immutable release and changes only this site's current symlink. It does not edit nginx, DNS, credentials, payment settings or other websites. Stripe return configuration and link activation are separate authorized account actions; no real charge is part of code QA. Record deployment verification separately; source readiness is not proof of a successful charge or market demand.
+
+The contact-request builder only prepares text; the visitor reviews and sends manually from their email app. No calendar slot is booked or marketing email subscription inferred. USD is the charge currency; payout/bank currency is not configured or verified by this site.
 
 ## Source boundary
-No prospect/contact lists, private recordings/transcripts, credentials, customer data, payments or internal financial ledgers belong in this source repository. Earlier fixed-fee or channel-specific drafts in other worktrees are historical and remain untouched.
+Private prospect lists, recordings, customer data, credentials and internal business records do not belong in this source repository. Operational evidence is retained separately; no marketing post or email is sent by publishing this code.
 
 Copyright 2026 CONSOLIDATA. All rights reserved.

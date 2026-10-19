@@ -1,0 +1,10 @@
+# CONSOLIDATA
+Canonical: https://cdatats.com/
+Language: English
+For owners of already-selling US consumer businesses deciding what marketing spend deserves another round.
+Marketing Checkup: USD27 once plus applicable tax. Ten selected-answer questions produce a browser-local fixed-rule self-assessment report with strengths, unknowns, up to three priorities and discussion prompts. Notes do not change findings.
+Purchase: https://cdatats.com/checkout.html — hosted Stripe payment, followed by a shareable questionnaire URL. No account, order-authenticated access, cloud report storage or automatic email delivery. The questionnaire URL is not proof of payment.
+No external AI analysis, account audit, advertising campaign execution, or guaranteed commercial result is included. Save/download the report before closing. Further services and calls are optional and separately agreed.
+Terms: https://cdatats.com/terms.html
+Privacy: https://cdatats.com/privacy.html
+Contact: alvinj@consolidatats.com

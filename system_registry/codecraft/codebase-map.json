@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "task": "2026-10-18-marketing-checkup-27",
+  "delivery": "shareable-browser-report",
+  "nodes": [
+    {"id":"entry","files":["site/index.html","site/entry.js","site/entry.css"],"dependsOn":["config","shared-ui"]},
+    {"id":"checkout","files":["site/checkout.html","site/checkout.js","site/checkout-guard.js","site/checkout-flow.css"],"dependsOn":["config","external-stripe","shared-ui"]},
+    {"id":"config","files":["site/config.js"],"dependsOn":[]},
+    {"id":"external-stripe","files":[],"dependsOn":["assessment"],"boundary":"Externally configured hosted payment return; static code never verifies orders"},
+    {"id":"assessment","files":["site/assessment.html","site/assessment.js","site/assessment.css"],"dependsOn":["engine","shared-ui"]},
+    {"id":"engine","files":["site/checkup-engine.js"],"dependsOn":[]},
+    {"id":"shared-ui","files":["site/styles.css","site/script.js","site/favicon.svg"],"dependsOn":[]},
+    {"id":"disclosures","files":["site/faq.html","site/terms.html","site/privacy.html","site/llms.txt","site/robots.txt","site/sitemap.xml","site/site-manifest.json"],"dependsOn":["entry","checkout","assessment"]},
+    {"id":"release","files":["deploy/checkup-release.sh","tools/validate-checkup.py"],"dependsOn":["entry","checkout","assessment","disclosures"]}
+  ],
+  "checks":["node --test tests/*.test.cjs","python tools/validate-checkup.py","node --check site/*.js (each file)","real browser desktop/mobile report/download","independent review"],
+  "limitations":["No external model","No cloud answer storage","No per-order access authentication","No automated marketing post"]
+}

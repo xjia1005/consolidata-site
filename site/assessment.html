@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Complete your ten-question marketing checkup and download a report prepared in your browser.">
+  <title>Marketing Checkup — CONSOLIDATA</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="assessment.css">
+  <script src="config.js" defer></script>
+  <script src="checkup-engine.js" defer></script>
+  <script src="assessment.js" defer></script>
+</head>
+<body class="subpage-body checkup-body">
+  <a class="skip-link" href="#main">Skip to checkup</a>
+  <header class="site-header checkup-header">
+    <a class="brand" href="index.html" aria-label="CONSOLIDATA home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>CONSOLIDATA</a>
+    <a class="checkup-home" href="index.html">Back to home</a>
+  </header>
+  <main class="checkup-main" id="main">
+    <div class="preview-banner" role="note"><strong>Keep a copy of your report.</strong> Complete the ten questions, review your answers and download your report before leaving this page.</div>
+    <section class="checkup-intro" aria-labelledby="checkup-heading">
+      <p class="eyebrow"><span></span>Marketing Checkup</p>
+      <h1 id="checkup-heading">Make your next marketing decision clearer.</h1>
+      <p>Review how you connect customer situations, marketing work and orders. Ten choices produce a report with the practices you describe, the unknowns to check and up to three practical priorities.</p>
+      <p class="checkup-disclosure">Your checkup includes ten questions and a downloadable report. The report uses fixed rules and your selected answers; no artificial intelligence model processes your answers.</p>
+      <p class="privacy-note">Start below. This return page is shareable and does not verify payment. Bookmark it to start another checkup later; previous answers and reports are not saved here. For payment or access help, email <a href="mailto:alvinj@consolidatats.com">alvinj@consolidatats.com</a>. Do not send card details.</p>
+      <p class="privacy-note">Your answers and optional notes stay in this page’s memory. They are not sent or saved by this checkup. Refreshing or closing resets the checkup; your browser may restore form fields under its own settings. Avoid names and sensitive customer information. Download a copy if you want to keep it.</p>
+    </section>
+    <noscript><p class="checkup-alert">JavaScript is needed for this browser-only checkup. Your browser has not sent any answers. You can <a href="index.html">return home</a>.</p></noscript>
+    <p id="load-error" class="checkup-alert" hidden>The checkup could not load. Refresh to try again. No answers have been sent.</p>
+
+    <section id="question-view" class="checkup-panel" aria-labelledby="question-title" hidden>
+      <div class="step-meta"><p id="step-label"></p><p id="answer-count"></p></div>
+      <progress id="question-progress" max="10" value="1" aria-label="Question progress"></progress>
+      <p id="edit-notice" class="editing-notice" hidden>You are editing an answer. The previous report has been cleared. Review your answers and build a fresh report.</p>
+      <h2 id="question-title" tabindex="-1"></h2>
+      <p id="question-explanation" class="question-explanation"></p>
+      <form id="question-form" novalidate>
+        <fieldset id="question-options" aria-labelledby="question-title" aria-describedby="question-explanation question-error"></fieldset>
+        <p id="question-error" class="field-error" role="alert" hidden>Choose an answer to continue. “I am not sure” is a valid answer.</p>
+        <label class="note-label" for="question-note">Add context <span>(optional, up to 600 characters)</span></label>
+        <textarea id="question-note" rows="3" maxlength="600" aria-describedby="note-help note-count"></textarea>
+        <div class="note-meta"><p id="note-help">Notes appear in your report as written. They do not change the fixed-rule findings.</p><p id="note-count">0 / 600</p></div>
+        <div class="checkup-actions"><button id="back-button" class="button button-quiet" type="button">Back</button><button id="next-button" class="button button-primary" type="submit">Next question</button></div>
+      </form>
+    </section>
+
+    <section id="review-view" class="checkup-panel" aria-labelledby="review-title" hidden>
+      <p class="eyebrow"><span></span>Before your report</p>
+      <h2 id="review-title" tabindex="-1">Review your ten answers.</h2>
+      <p>You can edit any answer or note. “Not sure” remains unknown; “does not apply” does not create a gap. The report reflects your selections and does not verify your business records.</p>
+      <ol id="review-list" class="review-answers"></ol>
+      <p id="report-error" class="field-error" role="alert" hidden></p>
+      <div class="checkup-actions"><button id="review-back" class="button button-quiet" type="button">Back to question 10</button><button id="build-report" class="button button-primary" type="button">Build my report</button></div>
+    </section>
+
+    <section id="report-view" class="checkup-panel report-panel" aria-labelledby="report-title" hidden>
+      <div class="report-heading"><p class="eyebrow"><span></span>Your report</p><h2 id="report-title" tabindex="-1">A starting point for your next review.</h2><p id="report-overview"></p><p class="report-basis">Based only on your selected answers. These findings are self-reported, not independently verified. Optional notes are included as context; no profit, return or causal effect is estimated.</p></div>
+      <div class="report-tools"><button id="download-text" class="button button-quiet" type="button">Download text</button><button id="download-json" class="button button-quiet" type="button">Download JSON</button><button id="print-report" class="button button-quiet" type="button">Print / save as PDF</button><button id="edit-answers" class="button button-quiet" type="button">Edit my answers</button></div>
+      <p class="download-note">Downloads stay on your device. Your browser’s print dialog can save a PDF. A file you share may include your notes.</p>
+      <section class="report-section" aria-labelledby="strengths-title"><h3 id="strengths-title">Practices you describe</h3><ul id="report-strengths"></ul><p id="strengths-empty" hidden>No established practices were selected. This does not establish that they are absent.</p></section>
+      <section class="report-section" aria-labelledby="unknowns-title"><h3 id="unknowns-title">Unknowns to clarify</h3><ul id="report-unknowns"></ul><p id="unknowns-empty" hidden>You did not select “not sure.” The checkup has not independently verified these answers.</p></section>
+      <section class="report-section" aria-labelledby="priorities-title"><h3 id="priorities-title">A focused set of priorities</h3><p>Up to three priorities are shown, in question order, to keep the next review manageable. Your complete answer summary follows.</p><div id="report-priorities"></div><p id="priorities-empty" hidden>Your selections do not identify a priority gap in these topics. Keep the practices that are useful and check them against actual customer and order records.</p></section>
+      <section class="report-section" aria-labelledby="discussion-title"><h3 id="discussion-title">Questions for your next review</h3><ul id="report-discussion"></ul></section>
+      <section class="report-section" aria-labelledby="summary-title"><h3 id="summary-title">Your complete answer summary</h3><ol id="report-summary" class="report-summary"></ol></section>
+      <aside class="report-next"><h3>Want to discuss one decision?</h3><p>Your report stands on its own. If a short conversation would help, you can prepare an optional 20-minute request on the home page. No request or report is sent automatically.</p><a class="button button-primary" href="index.html#fit-review">Prepare a 20-minute request</a></aside>
+    </section>
+    <div id="restart-area" class="restart-area" hidden><button id="restart-checkup" class="button button-quiet" type="button">Restart this checkup</button><p>Restarting clears all answers, notes and the current report from this page.</p></div>
+    <p id="checkup-status" class="sr-only" role="status" aria-live="polite"></p>
+  </main>
+  <footer class="checkup-footer"><p>CONSOLIDATA · Marketing Checkup</p><nav aria-label="Footer"><a href="index.html">Home</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav></footer>
+</body>
+</html>
