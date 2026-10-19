@@ -22,7 +22,7 @@
       ready,
       paymentUrl: ready ? config.paymentLink : null,
       reason: ready
-        ? 'Continue to Stripe. After payment, open the questionnaire and download your report.'
+        ? 'Opening your Marketing Checkup payment form. After payment, complete the questionnaire and download your report.'
         : 'Checkout is temporarily unavailable. Please contact us for help.'
     };
   }

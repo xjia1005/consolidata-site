@@ -48,11 +48,17 @@ assert 'noindex' not in home
 config = (SITE / 'config.js').read_text(encoding='utf-8')
 assert "currency: 'USD'" in config and "price: 27" in config
 assert "delivery: 'shareable-browser-report'" in config
+payment_url = re.search(r"paymentLink: '([^']+)'", config).group(1)
+for name in ['index.html', 'faq.html', 'terms.html']:
+    assert 'checkout.html' not in pages[name].links, name + ': obsolete extra-click purchase link'
+    assert payment_url in pages[name].links, name + ': missing direct payment entry'
 for item in ['checkout.html','assessment.html','checkup-engine.js','assessment.js','checkout.js','robots.txt','sitemap.xml','llms.txt','site-manifest.json']:
     assert (SITE / item).is_file(), item
 assert 'noindex' in (SITE / 'assessment.html').read_text(encoding='utf-8')
 manifest = json.loads((SITE / 'site-manifest.json').read_text(encoding='utf-8'))
 assert manifest['price']['amount'] == 27 and manifest['price']['currency'] == 'USD'
+assert manifest['purchaseUrl'] == payment_url
+assert '/checkout.html' not in (SITE / 'sitemap.xml').read_text(encoding='utf-8')
 tree = ET.parse(SITE / 'sitemap.xml')
 for location in tree.findall('.//{*}loc'):
     url = urlsplit(location.text)

@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "task": "2026-10-18-marketing-checkup-27",
+  "task": "2026-10-19-direct-payment",
   "delivery": "shareable-browser-report",
   "nodes": [
-    {"id":"entry","files":["site/index.html","site/entry.js","site/entry.css"],"dependsOn":["config","shared-ui"]},
-    {"id":"checkout","files":["site/checkout.html","site/checkout.js","site/checkout-guard.js","site/checkout-flow.css"],"dependsOn":["config","external-stripe","shared-ui"]},
+    {"id":"entry","files":["site/index.html","site/entry.js","site/entry.css"],"dependsOn":["config","external-stripe","shared-ui"]},
+    {"id":"checkout","files":["site/checkout.html","site/checkout.js","site/checkout-guard.js","site/checkout-flow.css"],"dependsOn":["config","external-stripe","shared-ui"],"purpose":"Legacy automatic redirect and no-JavaScript payment fallback; new purchase links bypass this route"},
     {"id":"config","files":["site/config.js"],"dependsOn":[]},
     {"id":"external-stripe","files":[],"dependsOn":["assessment"],"boundary":"Externally configured hosted payment return; static code never verifies orders"},
     {"id":"assessment","files":["site/assessment.html","site/assessment.js","site/assessment.css"],"dependsOn":["engine","shared-ui"]},

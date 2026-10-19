@@ -5,6 +5,8 @@ Static dependency-free website for owners of already-selling consumer businesses
 ## Offer and delivery
 USD27 one time plus applicable tax, paid through hosted Stripe checkout. Ten questions and optional notes produce a fixed-rule, answer-based marketing report: described strengths, unknowns, up to three priorities, practical actions, discussion prompts and a full answer summary. Optional notes appear as written and do not change findings. Account audits, customer interviews, campaign testing and ongoing work require a separate agreement. No commercial outcome is guaranteed.
 
+Purchase buttons open the existing hosted product-summary/payment form directly in the same tab. There is no extra pre-payment confirmation screen. The old checkout.html URL automatically replaces itself with the configured destination; without JavaScript it offers a labelled direct payment link. Query strings are never copied to the destination. Checkout remains hosted; no embedded payment backend or account changes are introduced.
+
 The user approved a lightweight edition: Stripe returns to a shareable questionnaire URL. No account, per-order access authentication, server payment verification or cloud report storage is provided. Public config selects checkout presentation only; a return URL/session parameter never proves payment. Save/download/print the report before closing. Assessment answers are not transmitted or persisted by site code. Support can supply the questionnaire link but cannot recover unsaved answers. No external AI model is connected.
 
 ## Run and verify
