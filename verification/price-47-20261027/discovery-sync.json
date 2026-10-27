@@ -1,0 +1,87 @@
+{
+  "date": "2026-10-27T23:23:09.917211+00:00",
+  "release_commit": "2d8d23e3a8a9c4d4c92b695324754ed5b12eca42",
+  "scope": "US$27 to US$47 only; same product, content and existing browser delivery",
+  "checks": [
+    {
+      "url": "https://cdatats.com/",
+      "status": 200,
+      "matches_reviewed_source": true,
+      "sha256_normalized": "1204a56587c80591863f3131b0b6bf879c5cadf45904d40e32bb84ecc765ed40"
+    },
+    {
+      "url": "https://cdatats.com/faq.html",
+      "status": 200,
+      "matches_reviewed_source": true,
+      "sha256_normalized": "d4a0dd9e68156c09981a79e1a95cc4f1224721ec4768751e7e25b02f4fbde824"
+    },
+    {
+      "url": "https://cdatats.com/terms.html",
+      "status": 200,
+      "matches_reviewed_source": true,
+      "sha256_normalized": "832dd801e3d19123e18f752b34c4eb22b1839f63d2df3e758d0a5cee24b57c0d"
+    },
+    {
+      "url": "https://cdatats.com/privacy.html",
+      "status": 200,
+      "matches_reviewed_source": true,
+      "sha256_normalized": "45b6a65a6753c25c451d08b44e6b7f9bbf39a7d62b5fcc526fc67ad6f702e6c7"
+    },
+    {
+      "url": "https://cdatats.com/robots.txt",
+      "status": 200,
+      "matches_reviewed_source": true,
+      "sha256_normalized": "ad21af6631dbfe825afc6030701dfac3160374c804576243667290bf2c9f8438"
+    },
+    {
+      "url": "https://cdatats.com/sitemap.xml",
+      "status": 200,
+      "matches_reviewed_source": true,
+      "sha256_normalized": "17b70ef4a6a71d8a7d0242478f58ba15dc8002750fa4a01704610fb7b3354dbd"
+    },
+    {
+      "url": "https://cdatats.com/llms.txt",
+      "status": 200,
+      "matches_reviewed_source": true,
+      "sha256_normalized": "0ae39a5ec457ddf72589450a6892605033ed76ba1bfad4ae93fa977267ea8403"
+    },
+    {
+      "url": "https://cdatats.com/site-manifest.json",
+      "status": 200,
+      "matches_reviewed_source": true,
+      "sha256_normalized": "9bb50440be582e915e8cd454f486b58cc321c57700427944e82ea826e811b780"
+    },
+    {
+      "url": "https://cdatats.com/config.js?v=price47-20261027",
+      "status": 200,
+      "matches_reviewed_source": true,
+      "sha256_normalized": "181dafdc011444c9e003b35c7427ea35ad620e5113b7233205117bcdcca19a80"
+    },
+    {
+      "url": "https://cdatats.com/checkout-guard.js?v=price47-20261027",
+      "status": 200,
+      "matches_reviewed_source": true,
+      "sha256_normalized": "0f4921dd75b18dbbcfdf44c706ce73fe82322653bb295c6aa89506013e6b000e"
+    },
+    {
+      "url": "https://cdatats.com/assessment.html",
+      "status": 200,
+      "matches_reviewed_source": true,
+      "sha256_normalized": "32edd0f4cd416883a6d73886ada36a72323987178482dbebfabbb86d3779d078"
+    },
+    {
+      "url": "https://cdatats.com/checkout.html",
+      "status": 200,
+      "matches_reviewed_source": true,
+      "sha256_normalized": "ca6b27e14befb44623e77b11d7a035d6e4ef1a7bb5952a3126bf33e4ce1b3802"
+    }
+  ],
+  "structured_data": "No JSON-LD existed in base; current metadata and manifest price verified. No new schema added in price-only scope.",
+  "search_console": {
+    "status": "not_submitted",
+    "reason": "No Search Console integration configured in this website repository. Existing public sitemap and robots verified.",
+    "next_action": "Use authorized Search Console property to resubmit the unchanged sitemap if desired."
+  },
+  "next_metric": "Observe actual paid orders, refunds and revenue; no conversion improvement claim from price change.",
+  "other_actions": "No real purchase, email sending, social publishing, ad spend or backend deployment."
+}
