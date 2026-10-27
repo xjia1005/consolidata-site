@@ -15,7 +15,7 @@
     } catch { /* Missing configuration is an expected review state. */ }
     // This explicitly approved delivery model has no paid-access entitlement.
     // Public flags select checkout presentation; they never verify a payment.
-    const ready = validLink && config.mode === 'live' && config.price === 27 &&
+    const ready = validLink && config.mode === 'live' && config.price === 47 &&
       config.currency === 'USD' && config.fulfillmentReady === true &&
       config.delivery === 'shareable-browser-report';
     return {

@@ -3,7 +3,7 @@
 Static dependency-free website for owners of already-selling consumer businesses in the United States. Canonical URL: https://cdatats.com/.
 
 ## Offer and delivery
-USD27 one time plus applicable tax, paid through hosted Stripe checkout. Ten questions and optional notes produce a fixed-rule, answer-based marketing report: described strengths, unknowns, up to three priorities, practical actions, discussion prompts and a full answer summary. Optional notes appear as written and do not change findings. Account audits, customer interviews, campaign testing and ongoing work require a separate agreement. No commercial outcome is guaranteed.
+USD47 one time plus applicable tax, paid through hosted Stripe checkout. Ten questions and optional notes produce a fixed-rule, answer-based marketing report: described strengths, unknowns, up to three priorities, practical actions, discussion prompts and a full answer summary. Optional notes appear as written and do not change findings. Account audits, customer interviews, campaign testing and ongoing work require a separate agreement. No commercial outcome is guaranteed.
 
 Purchase buttons open the existing hosted product-summary/payment form directly in the same tab. There is no extra pre-payment confirmation screen. The old checkout.html URL automatically replaces itself with the configured destination; without JavaScript it offers a labelled direct payment link. Query strings are never copied to the destination. Checkout remains hosted; no embedded payment backend or account changes are introduced.
 

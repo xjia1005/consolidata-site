@@ -32,6 +32,7 @@ for page in SITE.glob('*.html'):
     pages[page.name] = parser
     assert '<html lang="en"' in body, page.name
     assert 'viewport' in body and '<h1' in body, page.name
+    assert not re.search(r'\b(?:US\$|USD\s*)27\b', body), page.name + ': stale offer price'
     assert not re.search(r'Local review|Payments are not open|Payment unavailable|US\$6,500|Free preview mode|no live checkout', body, re.I), page.name
 for name, page in pages.items():
     for link in page.links:
@@ -43,10 +44,10 @@ for name, page in pages.items():
         if url.fragment and target.suffix == '.html':
             assert unquote(url.fragment) in pages[target.name].ids, (name, link)
 home = (SITE / 'index.html').read_text(encoding='utf-8')
-assert 'US$27' in home and 'Which marketing spend is worth repeating?' in home
+assert 'US$47' in home and 'Which marketing spend is worth repeating?' in home
 assert 'noindex' not in home
 config = (SITE / 'config.js').read_text(encoding='utf-8')
-assert "currency: 'USD'" in config and "price: 27" in config
+assert "currency: 'USD'" in config and "price: 47" in config
 assert "delivery: 'shareable-browser-report'" in config
 payment_url = re.search(r"paymentLink: '([^']+)'", config).group(1)
 for name in ['index.html', 'faq.html', 'terms.html']:
@@ -56,7 +57,8 @@ for item in ['checkout.html','assessment.html','checkup-engine.js','assessment.j
     assert (SITE / item).is_file(), item
 assert 'noindex' in (SITE / 'assessment.html').read_text(encoding='utf-8')
 manifest = json.loads((SITE / 'site-manifest.json').read_text(encoding='utf-8'))
-assert manifest['price']['amount'] == 27 and manifest['price']['currency'] == 'USD'
+assert manifest['price']['amount'] == 47 and manifest['price']['currency'] == 'USD'
+assert not re.search(r'\b(?:US\$|USD\s*)27\b', (SITE / 'llms.txt').read_text(encoding='utf-8'))
 assert manifest['purchaseUrl'] == payment_url
 assert '/checkout.html' not in (SITE / 'sitemap.xml').read_text(encoding='utf-8')
 tree = ET.parse(SITE / 'sitemap.xml')

@@ -1,6 +1,10 @@
 {
-  "version": 1,
-  "task": "2026-10-19-direct-payment",
+  "version": 2,
+  "task": "2026-10-27-price-47-only",
+  "price": {"amount":47,"currency":"USD"},
+  "priceAssetVersion": "price47-20261027",
+  "changeScope": "Price-only update; product, questionnaire and current browser-local delivery remain unchanged",
+  "paymentLinkGate": "Verified by integrator in Stripe UI and hosted checkout on2026-10-27: unchanged payment URL now uses one-timeUSD47 default price; no payment performed. Static source checks do not independently verify the hosted amount",
   "delivery": "shareable-browser-report",
   "nodes": [
     {"id":"entry","files":["site/index.html","site/entry.js","site/entry.css"],"dependsOn":["config","external-stripe","shared-ui"]},

@@ -3,7 +3,7 @@
   "url": "https://cdatats.com/",
   "language": "en",
   "audience": "Owners and CEOs of already-selling consumer businesses in the United States",
-  "price": {"amount": 27, "currency": "USD", "recurring": false, "tax": "Additional where applicable, shown at Stripe checkout"},
+  "price": {"amount": 47, "currency": "USD", "recurring": false, "tax": "Additional where applicable, shown at Stripe checkout"},
   "purchaseUrl": "https://buy.stripe.com/5kQ00l3Vf4t0a8AaE983C0e",
   "actionStatus": "Purchase buttons open the hosted product-and-payment form directly, followed by shareable browser-local questionnaire",
   "deliverable": "Ten-question fixed-rule report, strengths, unknowns, up to three priorities, actions and full answer summary; local download/print",
