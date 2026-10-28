@@ -1,4 +1,4 @@
-.checkup-body { background: var(--paper); font-size: 1rem; }
+.checkup-body { --control-border: #718178; background: var(--paper); font-size: 1rem; }
 .checkup-body [hidden] { display: none !important; }
 .checkup-header { position: relative; gap: 16px; flex-wrap: wrap; }
 .checkup-header .brand, .checkup-home { min-height: 48px; display: inline-flex; align-items: center; }
@@ -25,7 +25,7 @@
 #question-progress::-moz-progress-bar { border-radius: 8px; background: var(--ink); }
 .question-explanation { margin-bottom: 28px; color: var(--ink-soft); }
 #question-options { display: grid; gap: 12px; margin: 0; padding: 0; border: 0; min-width: 0; }
-.answer-option { display: flex; align-items: flex-start; gap: 12px; min-height: 56px; padding: 16px; border: 1px solid #8a9890; border-radius: 10px; background: var(--paper-strong); cursor: pointer; }
+.answer-option { display: flex; align-items: flex-start; gap: 12px; min-height: 56px; padding: 16px; border: 1px solid var(--control-border); border-radius: 10px; background: var(--paper-strong); cursor: pointer; }
 .answer-option:hover { border-color: var(--ink); background: var(--paper); }
 .answer-option:has(input:checked) { border: 2px solid var(--ink); padding: 15px; background: #e6ede4; }
 .answer-option:has(input:focus-visible) { outline: 3px solid var(--coral); outline-offset: 3px; }
@@ -33,7 +33,7 @@
 .answer-option span { min-width: 0; overflow-wrap: anywhere; }
 .note-label { display: block; margin: 28px 0 8px; font-weight: 600; }
 .note-label span { font-weight: 400; }
-#question-note { display: block; width: 100%; min-height: 112px; padding: 12px; border: 1px solid #8a9890; border-radius: 8px; color: var(--ink); background: #fff; resize: vertical; font-size: 1rem; }
+#question-note { display: block; width: 100%; min-height: 112px; padding: 12px; border: 1px solid var(--control-border); border-radius: 8px; color: var(--ink); background: var(--paper-strong); resize: vertical; font-size: 1rem; }
 .note-meta { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
 .note-meta p { margin: 8px 0; color: var(--muted); font-size: 1rem; }
 #note-help { max-width: 580px; }
@@ -45,14 +45,24 @@
 .checkup-actions { justify-content: space-between; }
 .checkup-actions .button:only-child { margin-left: auto; }
 .checkup-body .button { min-height: 48px; }
-.checkup-body .button-quiet { color: var(--ink); border-color: #8a9890; background: var(--paper-strong); }
+.checkup-body .button-quiet { color: var(--ink); border-color: var(--control-border); background: var(--paper-strong); }
+.service-notice { padding: 16px 20px; margin: 0 0 24px; color: var(--ink-soft); border: 1px solid var(--control-border); border-radius: 12px; background: var(--paper-strong); }
+.consent-label { display: flex; align-items: flex-start; gap: 12px; min-height: 48px; padding: 16px; border: 1px solid var(--control-border); border-radius: 10px; }
+.consent-label input { width: 22px; height: 22px; flex-shrink: 0; margin-top: 3px; accent-color: var(--ink); }
+#email-form { margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--line); }
+#email-form input[type="email"] { width: 100%; min-height: 52px; padding: 12px; font: inherit; border: 1px solid var(--control-border); border-radius: 8px; color: var(--ink); background: var(--paper-strong); }
+#email-form .button { margin-top: 16px; }
+.purchase-price { margin-top: 24px; font-size: clamp(1.25rem, 4vw, 1.65rem); line-height: 1.4; }
+#purchase-email, #resume-email-note { overflow-wrap: anywhere; }
+#status-checkout { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); }
+.checkup-body button:disabled { opacity: .65; cursor: not-allowed; }
 .review-answers, .report-summary { list-style: none; padding: 0; margin: 28px 0; }
 .review-answers > li, .report-summary > li { padding: 24px 0; border-top: 1px solid var(--line); }
 .review-answers h3, .report-summary h3 { margin: 0 0 12px; font-size: 1.0625rem; }
 .review-answers p, .report-summary p { margin: 8px 0; }
 .answer-edit { margin-top: 8px; }
 .summary-note-label { color: var(--ink-soft); font-weight: 600; }
-.summary-note { white-space: pre-wrap; overflow-wrap: anywhere; padding: 12px 16px; border-left: 3px solid #8a9890; background: var(--paper); }
+.summary-note { white-space: pre-wrap; overflow-wrap: anywhere; padding: 12px 16px; border-left: 3px solid var(--control-border); background: var(--paper); }
 .report-heading .eyebrow { margin-bottom: 16px; }
 .report-heading h2 { margin-top: 0; }
 .report-basis, .download-note { color: var(--muted); }

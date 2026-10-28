@@ -1,22 +1,172 @@
 {
-  "version": 2,
-  "task": "2026-10-27-price-47-only",
-  "price": {"amount":47,"currency":"USD"},
-  "priceAssetVersion": "price47-20261027",
-  "changeScope": "Price-only update; product, questionnaire and current browser-local delivery remain unchanged",
-  "paymentLinkGate": "Verified by integrator in Stripe UI and hosted checkout on2026-10-27: unchanged payment URL now uses one-timeUSD47 default price; no payment performed. Static source checks do not independently verify the hosted amount",
-  "delivery": "shareable-browser-report",
+  "version": 3,
+  "task": "2026-10-27-assessment-first-b",
+  "price": {
+    "amount": 47,
+    "currency": "USD"
+  },
+  "changeScope": "Assessment-first B: work-email save before purchase review; no prices in homepage/buttons; A preserved",
+  "delivery": "email-pdf-attachment",
   "nodes": [
-    {"id":"entry","files":["site/index.html","site/entry.js","site/entry.css"],"dependsOn":["config","external-stripe","shared-ui"]},
-    {"id":"checkout","files":["site/checkout.html","site/checkout.js","site/checkout-guard.js","site/checkout-flow.css"],"dependsOn":["config","external-stripe","shared-ui"],"purpose":"Legacy automatic redirect and no-JavaScript payment fallback; new purchase links bypass this route"},
-    {"id":"config","files":["site/config.js"],"dependsOn":[]},
-    {"id":"external-stripe","files":[],"dependsOn":["assessment"],"boundary":"Externally configured hosted payment return; static code never verifies orders"},
-    {"id":"assessment","files":["site/assessment.html","site/assessment.js","site/assessment.css"],"dependsOn":["engine","shared-ui"]},
-    {"id":"engine","files":["site/checkup-engine.js"],"dependsOn":[]},
-    {"id":"shared-ui","files":["site/styles.css","site/script.js","site/favicon.svg"],"dependsOn":[]},
-    {"id":"disclosures","files":["site/faq.html","site/terms.html","site/privacy.html","site/llms.txt","site/robots.txt","site/sitemap.xml","site/site-manifest.json"],"dependsOn":["entry","checkout","assessment"]},
-    {"id":"release","files":["deploy/checkup-release.sh","tools/validate-checkup.py"],"dependsOn":["entry","checkout","assessment","disclosures"]}
+    {
+      "id": "entry",
+      "files": [
+        "site/index.html",
+        "site/entry.js",
+        "site/entry.css"
+      ],
+      "dependsOn": [
+        "config",
+        "assessment",
+        "shared-ui"
+      ]
+    },
+    {
+      "id": "legacy-checkout-entry",
+      "files": [
+        "site/checkout.html",
+        "site/checkout.js",
+        "site/checkout-guard.js"
+      ],
+      "dependsOn": [
+        "config",
+        "assessment"
+      ],
+      "purpose": "Old checkout entry routes to assessment, not payment"
+    },
+    {
+      "id": "config",
+      "files": [
+        "site/config.js"
+      ],
+      "dependsOn": []
+    },
+    {
+      "id": "assessment",
+      "files": [
+        "site/assessment.html",
+        "site/assessment.js",
+        "site/assessment.css"
+      ],
+      "dependsOn": [
+        "public-questions",
+        "private-api",
+        "shared-ui"
+      ]
+    },
+    {
+      "id": "public-questions",
+      "files": [
+        "site/checkup-engine.js"
+      ],
+      "dependsOn": [],
+      "boundary": "Question definitions and validation only, no full report findings"
+    },
+    {
+      "id": "private-api",
+      "files": [
+        "backend/email_service.py",
+        "backend/service.py"
+      ],
+      "dependsOn": [
+        "private-report",
+        "payment-provider",
+        "transaction-mail"
+      ],
+      "boundary": "Private database, opaque token, email save, fixed checkout and signed paid callback; no report download endpoint"
+    },
+    {
+      "id": "private-report",
+      "files": [
+        "backend/report.py",
+        "backend/questions.json"
+      ],
+      "dependsOn": [],
+      "boundary": "Full rules and PDF server-side"
+    },
+    {
+      "id": "payment-provider",
+      "files": [
+        "backend/service.py"
+      ],
+      "dependsOn": [],
+      "boundary": "Real Stripe configuration required; no browser paid flags"
+    },
+    {
+      "id": "transaction-mail",
+      "files": [
+        "backend/service.py"
+      ],
+      "dependsOn": [
+        "private-report"
+      ],
+      "boundary": "TLS SMTP outbox; acceptance is not inbox delivery"
+    },
+    {
+      "id": "shared-ui",
+      "files": [
+        "site/styles.css",
+        "site/script.js",
+        "site/favicon.svg"
+      ],
+      "dependsOn": []
+    },
+    {
+      "id": "disclosures",
+      "files": [
+        "site/faq.html",
+        "site/terms.html",
+        "site/privacy.html",
+        "site/llms.txt",
+        "site/robots.txt",
+        "site/sitemap.xml",
+        "site/site-manifest.json"
+      ],
+      "dependsOn": [
+        "entry",
+        "assessment",
+        "private-api"
+      ]
+    },
+    {
+      "id": "verification",
+      "files": [
+        "tools/validate-checkup.py",
+        "tests/assessment-pending.test.cjs",
+        "tests/test_email_service.py"
+      ],
+      "dependsOn": [
+        "entry",
+        "assessment",
+        "private-api",
+        "disclosures"
+      ]
+    }
   ],
-  "checks":["node --test tests/*.test.cjs","python tools/validate-checkup.py","node --check site/*.js (each file)","real browser desktop/mobile report/download","independent review"],
-  "limitations":["No external model","No cloud answer storage","No per-order access authentication","No automated marketing post"]
+  "checks": [
+    "node --test tests/*.test.cjs",
+    "python -B -m unittest discover -s tests -p test_email_service.py -q",
+    "python -B tools/validate-checkup.py",
+    "node --check each site JavaScript",
+    "real browser desktop/mobile assessment-email-purchase order",
+    "independent review"
+  ],
+  "limitations": [
+    "No live B deployment yet",
+    "Payment and mail integration require real verification",
+    "No voice or external model enabled",
+    "No automatic marketing subscription or follow-up",
+    "A/B effectiveness not yet measured"
+  ],
+  "status": "B candidate; A remains live",
+  "preservedA": "versions/a-20261027.json",
+  "journey": [
+    "start-assessment",
+    "ten-questions",
+    "review-submit",
+    "work-email-save",
+    "purchase-review",
+    "verified-payment",
+    "transaction-email-attachment"
+  ]
 }

@@ -1,0 +1,12 @@
+{
+  "version": "A",
+  "preserved_at": "2026-10-27",
+  "journey": "homepage -> US$47 Stripe payment -> questionnaire -> browser-local report",
+  "source_commit": "3a5cb0148fe96dc5027a46732bdd378cfd004058",
+  "production_commit": "2d8d23e3a8a9c4d4c92b695324754ed5b12eca42",
+  "production_release": "/srv/www/cdatats/releases/2d8d23e3a8a9c4d4c92b695324754ed5b12eca42",
+  "public_url": "https://cdatats.com/",
+  "payment_url": "https://buy.stripe.com/5kQ00l3Vf4t0a8AaE983C0e",
+  "status_at_B_start": "A remains live; B is a separate candidate",
+  "no_outcome_claim": true
+}

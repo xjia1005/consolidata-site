@@ -1,10 +1,14 @@
 # CONSOLIDATA
 Canonical: https://cdatats.com/
 Language: English
-For owners of already-selling US consumer businesses deciding what marketing spend deserves another round.
-Marketing Checkup: USD47 once plus applicable tax. Ten selected-answer questions produce a browser-local fixed-rule self-assessment report with strengths, unknowns, up to three priorities and discussion prompts. Notes do not change findings.
-Purchase: https://buy.stripe.com/5kQ00l3Vf4t0a8AaE983C0e — purchase buttons open the product details and payment form directly, followed by a shareable questionnaire URL. The old /checkout.html route automatically redirects. No account, order-authenticated access, cloud report storage or automatic email delivery. The questionnaire URL is not proof of payment.
-No external AI analysis, account audit, advertising campaign execution, or guaranteed commercial result is included. Save/download the report before closing. Further services and calls are optional and separately agreed.
+Audience: owners of already-selling businesses in the United States and Canada with inconsistent marketing results or slowing growth.
+Marketing Checkup: USD47 once plus applicable tax. Ten selected-answer questions and optional notes. Answer and review first, then create a limited preview on the server. Full report uses fixed rules: described strengths, unknowns, up to three priorities, actions and answer summary. Notes accompany findings as context without changing them.
+Entry: https://cdatats.com/assessment.html — noindex questionnaire, limited preview, required work-email save, separate US$47 purchase review, then server-created Stripe checkout when configured. An old /checkout.html entry redirects to the questionnaire. Saving email does not create a payment session, send mail or subscribe the visitor to marketing. Payment verification is server-side; a browser return never establishes payment.
+Delivery: complete report only as a PDF email attachment after verified payment. No public full-report display, download or export endpoint. Opaque browser session reference restores status only. Payment and email-delivery statuses remain distinct; email service acceptance does not guarantee inbox arrival.
+Availability: checkout readiness is controlled by /api/checkup/config. Missing verified payment/email configuration disables purchase. Text questions are available; no live voice or external AI feature is promised.
+Limitations: self-reported information, no independent account audit, no guaranteed cause, campaign performance, sales or profit. Further services and calls separately agreed; purchase does not subscribe to marketing.
 Terms: https://cdatats.com/terms.html
 Privacy: https://cdatats.com/privacy.html
 Contact: alvinj@consolidatats.com
+
+Assessment-first B: homepage and action buttons contain no prices. POST /api/checkup/email saves the work email without payment or email delivery. US$47 one time plus applicable tax is disclosed in the separate purchase review before secure payment. Only the opaque assessment reference is kept in browser session storage.

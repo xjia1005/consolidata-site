@@ -1,13 +1,54 @@
 {
   "color": {
-    "canvas": {"$type":"color","$value":"#f6f1e7"},
-    "panel": {"$type":"color","$value":"#fffdf8"},
-    "text": {"$type":"color","$value":"#12211d"},
-    "secondary": {"$type":"color","$value":"#294039"},
-    "muted": {"$type":"color","$value":"#55635e"},
-    "focus": {"$type":"color","$value":"#9e462f"},
-    "border": {"$type":"color","$value":"#7c8983"}
+    "canvas": {
+      "$type": "color",
+      "$value": "#f6f1e7"
+    },
+    "panel": {
+      "$type": "color",
+      "$value": "#fffdf8"
+    },
+    "text": {
+      "$type": "color",
+      "$value": "#12211d"
+    },
+    "secondary": {
+      "$type": "color",
+      "$value": "#294039"
+    },
+    "muted": {
+      "$type": "color",
+      "$value": "#55635e"
+    },
+    "focus": {
+      "$type": "color",
+      "$value": "#9e462f"
+    },
+    "border": {
+      "$type": "color",
+      "$value": "#7c8983"
+    },
+    "controlBorder": {
+      "$type": "color",
+      "$value": "#718178"
+    }
   },
-  "spacing": {"unit":{"$type":"dimension","$value":{"value":4,"unit":"px"}}},
-  "touch": {"primary":{"$type":"dimension","$value":{"value":48,"unit":"px"}}}
+  "spacing": {
+    "unit": {
+      "$type": "dimension",
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      }
+    }
+  },
+  "touch": {
+    "primary": {
+      "$type": "dimension",
+      "$value": {
+        "value": 48,
+        "unit": "px"
+      }
+    }
+  }
 }

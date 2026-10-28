@@ -2,11 +2,30 @@
   "name": "CONSOLIDATA Marketing Checkup",
   "url": "https://cdatats.com/",
   "language": "en",
-  "audience": "Owners and CEOs of already-selling consumer businesses in the United States",
-  "price": {"amount": 47, "currency": "USD", "recurring": false, "tax": "Additional where applicable, shown at Stripe checkout"},
-  "purchaseUrl": "https://buy.stripe.com/5kQ00l3Vf4t0a8AaE983C0e",
-  "actionStatus": "Purchase buttons open the hosted product-and-payment form directly, followed by shareable browser-local questionnaire",
-  "deliverable": "Ten-question fixed-rule report, strengths, unknowns, up to three priorities, actions and full answer summary; local download/print",
-  "limitations": ["Self-reported selections, no independent account audit", "Notes do not change findings", "No external AI processing", "No per-order access authentication or cloud storage", "No guaranteed sales, profit or winning campaign", "Follow-on services separately agreed"],
-  "contact": "alvinj@consolidatats.com"
+  "audience": "Owners of already-selling businesses in the United States and Canada",
+  "price": {
+    "amount": 47,
+    "currency": "USD",
+    "recurring": false,
+    "tax": "Additional where applicable, shown before payment"
+  },
+  "assessmentUrl": "https://cdatats.com/assessment.html",
+  "purchaseUrl": null,
+  "readinessEndpoint": "/api/checkup/config",
+  "actionStatus": "Start assessment; ten questions; save work email; review US$47 purchase; payment enabled only after server configuration is ready",
+  "delivery": "email-pdf-attachment",
+  "deliverable": "Ten-question fixed-rule report emailed as a PDF attachment after server-verified payment; described practices, unknowns, up to three priorities, actions and answer summary",
+  "limitations": [
+    "Self-reported selections, no independent account audit",
+    "Notes do not change findings",
+    "No external AI or voice processing in this release",
+    "No public full-report display, download or export endpoint",
+    "Email acceptance does not prove inbox delivery",
+    "No guaranteed sales, profit or winning campaign",
+    "Follow-on services separately agreed",
+    "Saving a work email does not verify address ownership or subscribe the visitor to marketing"
+  ],
+  "contact": "alvinj@consolidatats.com",
+  "version": "assessment-first-b-20261027",
+  "emailEndpoint": "/api/checkup/email"
 }

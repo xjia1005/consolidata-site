@@ -1,29 +1,36 @@
-# CONSOLIDATA Marketing Checkup
+# ConsoliData Marketing Checkup — B candidate
 
-Static dependency-free website for owners of already-selling consumer businesses in the United States. Canonical URL: https://cdatats.com/.
+This branch preserves the existing A reference and builds an assessment-first B journey. A remains live at https://cdatats.com/ until a separately verified B release. See versions/a-20261027.json for immutable A source/release commits. These are journey versions, not an automatically randomized experiment.
 
-## Offer and delivery
-USD47 one time plus applicable tax, paid through hosted Stripe checkout. Ten questions and optional notes produce a fixed-rule, answer-based marketing report: described strengths, unknowns, up to three priorities, practical actions, discussion prompts and a full answer summary. Optional notes appear as written and do not change findings. Account audits, customer interviews, campaign testing and ongoing work require a separate agreement. No commercial outcome is guaranteed.
+## B journey
 
-Purchase buttons open the existing hosted product-summary/payment form directly in the same tab. There is no extra pre-payment confirmation screen. The old checkout.html URL automatically replaces itself with the configured destination; without JavaScript it offers a labelled direct payment link. Query strings are never copied to the destination. Checkout remains hosted; no embedded payment backend or account changes are introduced.
+Start assessment -> ten questions -> review and submit answers -> enter/confirm work email -> review the US$47 one-time report purchase and applicable tax -> secure payment -> signed paid confirmation -> full PDF report by transaction email attachment.
 
-The user approved a lightweight edition: Stripe returns to a shareable questionnaire URL. No account, per-order access authentication, server payment verification or cloud report storage is provided. Public config selects checkout presentation only; a return URL/session parameter never proves payment. Save/download/print the report before closing. Assessment answers are not transmitted or persisted by site code. Support can supply the questionnaire link but cannot recover unsaved answers. No external AI model is connected.
+Homepage and action buttons omit prices. The purchase review discloses the amount before payment. Starting does not charge a visitor. Saving an email does not subscribe them to marketing. Syntax validation does not establish mailbox ownership or a business role.
+
+The same ten question definitions and fixed-rule report logic are reused. Notes accompany the answers and do not change findings. The report describes practices, unknowns and next checks; it does not establish causes, validate account data or guarantee sales.
+
+## Private delivery
+
+Submitted answers and email are stored outside the public site tree. Browser responses provide coverage and delivery status only. No public full-report, PDF, print or export endpoint exists. A return URL never proves payment. The server fixes USD4700 and checks the matching signed paid event before queuing a PDF attachment. SMTP acceptance differs from inbox delivery; uncertain sends require review.
+
+No speech recognition, external model, advertisement, outreach, recurring task, post or marketing subscription is enabled by this change.
 
 ## Run and verify
-- Preview: `python -m http.server 4197 --bind 127.0.0.1 --directory site`
-- Unit checks: `node --test tests/*.test.cjs`
-- Static checks: `python tools/validate-checkup.py`
-- Syntax: `node --check` for each site JavaScript file.
-- Verify actual desktop/phone questionnaire, back/edit/reset, downloads, print and contact-request behavior in a real browser.
 
-Machine contract: `system_registry/codecraft/codebase-map.json`; public discovery: `robots.txt`, `sitemap.xml`, `llms.txt`, `site-manifest.json`. Assessment is noindex and excluded from the sitemap, which is not an access-control mechanism.
+```powershell
+python -B -m backend.email_service --host 127.0.0.1 --port 4197 --data-dir private/checkup-b-preview --site-dir site --public-origin http://127.0.0.1:4197 --no-worker
+node --test tests/*.test.cjs
+python -B -m unittest discover -s tests -p test_email_service.py -q
+python -B tools/validate-checkup.py
+```
 
-## Release
-The user authorized this lightweight launch. Only reviewed commits on origin/main may release. On the existing configured host, from the dedicated CONSOLIDATA repository, use `bash deploy/checkup-release.sh release <full-reviewed-sha>`; rollback uses `bash deploy/checkup-release.sh rollback <previous-full-sha>`. The script validates static source, creates an immutable release and changes only this site's current symlink. It does not edit nginx, DNS, credentials, payment settings or other websites. Stripe return configuration and link activation are separate authorized account actions; no real charge is part of code QA. Record deployment verification separately; source readiness is not proof of a successful charge or market demand.
+Open http://127.0.0.1:4197/. Local preview supports questions, submission and work-email save. Payment stays disabled until real payment and report-mail configuration is verified. No runtime fixture-payment switch exists. Tests inject isolated provider fixtures. See backend/README.md for requirements.
 
-The contact-request builder only prepares text; the visitor reviews and sends manually from their email app. No calendar slot is booked or marketing email subscription inferred. USD is the charge currency; payout/bank currency is not configured or verified by this site.
+## Release boundary
 
-## Source boundary
-Private prospect lists, recordings, customer data, credentials and internal business records do not belong in this source repository. Operational evidence is retained separately; no marketing post or email is sent by publishing this code.
+Do not use the old static-only release script for B: it cannot install the private API, worker, payment callback or mail configuration. Production needs a reviewed dedicated loopback service, private database, restricted same-origin proxy, Stripe key and signed webhook configuration, and authenticated TLS mail sender. No secret belongs in Git or browser code.
 
-Copyright 2026 CONSOLIDATA. All rights reserved.
+Live A, its checkout and /studio/ remain unchanged while B is a candidate. Before production, review the exact service/proxy diff, real fulfillment, attachment receipt and rollback. Source or fixture success does not establish production readiness or demand.
+
+Task: docs/tasks/2026-10-27-assessment-first-b.md. Map: system_registry/codecraft/codebase-map.json.
