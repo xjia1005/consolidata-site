@@ -1,31 +1,35 @@
 {
-  "name": "CONSOLIDATA Marketing Checkup",
+  "name": "CONSOLIDATA Growth Decision Assessment",
   "url": "https://cdatats.com/",
   "language": "en",
-  "audience": "Owners of already-selling businesses in the United States and Canada",
+  "audience": "Startup company owners, chief executives, product leads and marketing leaders in the United States and Canada; current focus is at least one venture-funding round in the past three years, existing users or customers and growth below expectations",
   "price": {
-    "amount": 47,
+    "amount": 99,
     "currency": "USD",
     "recurring": false,
     "tax": "Additional where applicable, shown before payment"
   },
+  "questionCount": 30,
+  "structure": "Six common questions plus six groups of four: reach, response, first useful result, purchase, continued use and evidence",
   "assessmentUrl": "https://cdatats.com/assessment.html",
   "purchaseUrl": null,
   "readinessEndpoint": "/api/checkup/config",
-  "actionStatus": "Start assessment; ten questions; save work email; review US$47 purchase; payment enabled only after server configuration is ready",
+  "emailEndpoint": "/api/checkup/email",
+  "actionStatus": "Start assessment; answer or defer 30 questions; review; save work email; review US$99 report purchase and applicable tax; payment enabled only when payment and report-email services are ready",
   "delivery": "email-pdf-attachment",
-  "deliverable": "Ten-question fixed-rule report emailed as a PDF attachment after server-verified payment; described practices, unknowns, up to three priorities, actions and answer summary",
+  "deliverable": "Initial answer-based report preserving written context, plausible explanations for selected symptom areas, four customer-value questions, one proposed bounded evidence check and the complete answer record; emailed as a report attachment after server-verified payment",
+  "method": "Consistent question-bank rules using symptom and evidence-category selections; written answers and notes retained as context",
   "limitations": [
-    "Self-reported selections, no independent account audit",
-    "Notes do not change findings",
-    "No external AI or voice processing in this release",
+    "All submitted information is self-reported and not independently verified",
+    "No external artificial intelligence model interprets the written answers",
+    "No certified single cause, outcome probability or guaranteed growth, sales or profit",
+    "No human advisory review, interviews or campaign execution included",
     "No public full-report display, download or export endpoint",
-    "Email acceptance does not prove inbox delivery",
-    "No guaranteed sales, profit or winning campaign",
-    "Follow-on services separately agreed",
-    "Saving a work email does not verify address ownership or subscribe the visitor to marketing"
+    "Email-service acceptance does not prove inbox delivery",
+    "Follow-on services separately scoped and agreed",
+    "Saving a work email does not verify address ownership or subscribe the visitor to marketing",
+    "Payment willingness or funding alone does not establish suitability or the cause of a growth problem"
   ],
   "contact": "alvinj@consolidatats.com",
-  "version": "assessment-first-b-20261027",
-  "emailEndpoint": "/api/checkup/email"
+  "version": "growth-assessment99-20261101"
 }

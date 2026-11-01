@@ -176,6 +176,11 @@
   .checkup-body .site-footer { padding-left: 20px; padding-right: 20px; }
   .checkup-body .footer-links { gap: 8px 20px; }
 }
+/* Growth assessment99 entry: visible price and honest purchase availability. */
+.checkup-body .hero-price { margin: 24px 0 0; }
+.checkup-body .purchase-availability { padding: 16px 20px; border: 1px solid #718178; border-left: 3px solid var(--coral); color: var(--ink-soft); background: var(--paper-strong); font-size: 1rem; line-height: 1.6; }
+.question-map { padding-left: 24px; display: grid; gap: 12px; color: var(--ink-soft); }
+.question-map strong { color: var(--ink); }
 @media (prefers-reduced-motion: reduce) {
   .checkup-body .button:hover { transform: none; }
 }

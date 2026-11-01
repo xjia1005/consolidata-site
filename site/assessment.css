@@ -25,6 +25,13 @@
 #question-progress::-moz-progress-bar { border-radius: 8px; background: var(--ink); }
 .question-explanation { margin-bottom: 28px; color: var(--ink-soft); }
 #question-options { display: grid; gap: 12px; margin: 0; padding: 0; border: 0; min-width: 0; }
+.question-group { color: var(--ink-soft); font-weight: 600; margin: 24px 0 8px; }
+.answer-label { display: block; margin-bottom: 8px; font-weight: 600; }
+#question-answer { display: block; width: 100%; min-height: 180px; padding: 12px; border: 1px solid var(--control-border); border-radius: 8px; font: inherit; line-height: 1.6; color: var(--ink); background: var(--paper-strong); resize: vertical; }
+#answer-character-count { flex-shrink: 0; }
+.question-map, .question-help { margin: 20px 0; }
+.question-map summary, .question-help summary { min-height: 44px; display: list-item; padding: 8px 0; cursor: pointer; font-weight: 600; }
+.review-answer-text { white-space: pre-wrap; overflow-wrap: anywhere; }
 .answer-option { display: flex; align-items: flex-start; gap: 12px; min-height: 56px; padding: 16px; border: 1px solid var(--control-border); border-radius: 10px; background: var(--paper-strong); cursor: pointer; }
 .answer-option:hover { border-color: var(--ink); background: var(--paper); }
 .answer-option:has(input:checked) { border: 2px solid var(--ink); padding: 15px; background: #e6ede4; }

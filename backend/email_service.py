@@ -158,7 +158,7 @@ def handler_for(service, site_dir=None):
                 action = location.path.rsplit("/", 1)[-1]
                 self._request_limit(action, 8 if action == "assessments" else 15)
                 try:
-                    payload = json.loads(self._body(32768))
+                    payload = json.loads(self._body(262144 if action == "assessments" else 32768))
                 except (ValueError, UnicodeError, RecursionError):
                     raise ServiceError("invalid_json", "The JSON request is not valid.", 400) from None
                 if location.path.endswith("assessments"):

@@ -1,0 +1,506 @@
+{
+  "started_at_utc": "2026-11-01T19:44:37.449993+00:00",
+  "finished_at_utc": "2026-11-01T19:45:50.913469+00:00",
+  "status": "passed",
+  "url": "http://127.0.0.1:4198",
+  "environment": "Actual installed Chromium on Windows, headless, loopback service with --no-worker and no live providers",
+  "viewports": [
+    "1440x1000",
+    "390x844"
+  ],
+  "fixture": "Fictional QA only; example.invalid email addresses are saved locally, no message or payment requested",
+  "journeys": [
+    "desktop full30answer/review/consent/email/purchase-preview/status recovery",
+    "mobile all30unknown/defer/review/email/purchase-preview"
+  ],
+  "assertion_count": 89,
+  "prompt_assertion_count": 30,
+  "checks": [
+    {
+      "check": "Home English first",
+      "passed": true
+    },
+    {
+      "check": "Home upfront99USD plus applicable tax",
+      "passed": true
+    },
+    {
+      "check": "Home30question purpose and startup audience",
+      "passed": true
+    },
+    {
+      "check": "Home accurately reports unavailable purchase",
+      "passed": true
+    },
+    {
+      "check": "Home desktop1440 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "Keyboard reaches visible skip navigation with focus outline",
+      "passed": true,
+      "detail": {
+        "text": "Skip to content",
+        "outline": "solid",
+        "width": "3px"
+      }
+    },
+    {
+      "check": "Homepage sample produces bounded first-task check",
+      "passed": true
+    },
+    {
+      "check": "Homepage sample keeps cause uncertain",
+      "passed": true
+    },
+    {
+      "check": "Primary action opens local questionnaire",
+      "passed": true
+    },
+    {
+      "check": "Question progress30 derived from bank",
+      "passed": true
+    },
+    {
+      "check": "Browser bank exposes exact five fields",
+      "passed": true
+    },
+    {
+      "check": "Public five-field bank matches backend semantics",
+      "passed": true
+    },
+    {
+      "check": "Form explains local input and private submission",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question C01",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question C02",
+      "passed": true
+    },
+    {
+      "check": "Over1500characters visibly rejected without advancing",
+      "passed": true
+    },
+    {
+      "check": "1500supplementaryUnicodepoints accepted",
+      "passed": true
+    },
+    {
+      "check": "Back preserves boundary answer",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question C03",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question C04",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question C05",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question C06",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question R01",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question R02",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question R03",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question R04",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question S01",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question S02",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question S03",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question S04",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question V01",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question V02",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question V03",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question V04",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question P01",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question P02",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question P03",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question P04",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question T01",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question T02",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question T03",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question T04",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question E01",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question E02",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question E03",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question E04",
+      "passed": true
+    },
+    {
+      "check": "Explicit defer remains visible",
+      "passed": true
+    },
+    {
+      "check": "Review contains all30records",
+      "passed": true
+    },
+    {
+      "check": "Mixed symptoms retained in review",
+      "passed": true
+    },
+    {
+      "check": "Injected answer remains inert text",
+      "passed": true
+    },
+    {
+      "check": "Review desktop no overflow",
+      "passed": true
+    },
+    {
+      "check": "Edit returns to saved first answer",
+      "passed": true
+    },
+    {
+      "check": "Edit and return preserves changed answer",
+      "passed": true
+    },
+    {
+      "check": "No consent causes visible error",
+      "passed": true
+    },
+    {
+      "check": "No submission before data acknowledgment",
+      "passed": true
+    },
+    {
+      "check": "Consent submits private assessment withcoverageonly",
+      "passed": true
+    },
+    {
+      "check": "Coverage receipt has30answers",
+      "passed": true
+    },
+    {
+      "check": "No private report in browser preview",
+      "passed": true
+    },
+    {
+      "check": "Source answer is not leaked in APIpreview",
+      "passed": true
+    },
+    {
+      "check": "Only opaque token kept in session storage",
+      "passed": true
+    },
+    {
+      "check": "Mismatched emails blocked visibly",
+      "passed": true
+    },
+    {
+      "check": "Matching email saved without checkout",
+      "passed": true
+    },
+    {
+      "check": "Separate99USD purchase review",
+      "passed": true
+    },
+    {
+      "check": "Checkout disabled while actual service unconfigured",
+      "passed": true
+    },
+    {
+      "check": "No checkout request was issued",
+      "passed": true
+    },
+    {
+      "check": "No full report or download controls",
+      "passed": true
+    },
+    {
+      "check": "Reload resumes server status without payment claim",
+      "passed": true
+    },
+    {
+      "check": "Status recovery uses Bearer and noquery token",
+      "passed": true
+    },
+    {
+      "check": "Resume requires email reconfirmation",
+      "passed": true
+    },
+    {
+      "check": "Same-document success flag does not display verified payment",
+      "passed": true
+    },
+    {
+      "check": "Forged success fragment cannot verify payment",
+      "passed": true
+    },
+    {
+      "check": "No public full/private-file endpoint /api/checkup/report",
+      "passed": true,
+      "detail": 404
+    },
+    {
+      "check": "No public full/private-file endpoint /api/checkup/report.pdf",
+      "passed": true,
+      "detail": 404
+    },
+    {
+      "check": "No public full/private-file endpoint /private/public-assessment99-preview/checkup.sqlite3",
+      "passed": true,
+      "detail": 404
+    },
+    {
+      "check": "No public full/private-file endpoint /backend/service.py",
+      "passed": true,
+      "detail": 404
+    },
+    {
+      "check": "Home mobile390 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "Mobile menu opens and stays inviewport",
+      "passed": true
+    },
+    {
+      "check": "Mobile assessment first question no overflow",
+      "passed": true
+    },
+    {
+      "check": "Mobile unknown-only review preserves30records",
+      "passed": true
+    },
+    {
+      "check": "Mobile long review no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "Unknown-only submission reports30unknowns",
+      "passed": true
+    },
+    {
+      "check": "Mobile email step no overflow",
+      "passed": true
+    },
+    {
+      "check": "Mobile99purchase preview remains disabled and fits",
+      "passed": true
+    },
+    {
+      "check": "Contrast primary body",
+      "passed": true,
+      "detail": {
+        "role": "primary body",
+        "foreground": "#12211d",
+        "background": "#f6f1e7",
+        "ratio": 14.793,
+        "minimum": 6
+      }
+    },
+    {
+      "check": "Contrast secondary body",
+      "passed": true,
+      "detail": {
+        "role": "secondary body",
+        "foreground": "#55635e",
+        "background": "#fffdf8",
+        "ratio": 6.199,
+        "minimum": 4.5
+      }
+    },
+    {
+      "check": "Contrast focus indicator",
+      "passed": true,
+      "detail": {
+        "role": "focus indicator",
+        "foreground": "#9e462f",
+        "background": "#fffdf8",
+        "ratio": 6.128,
+        "minimum": 3
+      }
+    },
+    {
+      "check": "Contrast control boundary",
+      "passed": true,
+      "detail": {
+        "role": "control boundary",
+        "foreground": "#718178",
+        "background": "#fffdf8",
+        "ratio": 4.04,
+        "minimum": 3
+      }
+    },
+    {
+      "check": "No page JavaScript exceptions",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "No external page requests attempted",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "errors": [],
+  "console_errors": [],
+  "external_requests": [],
+  "api_request_summary": [
+    {
+      "path": "/api/checkup/config",
+      "method": "GET",
+      "has_bearer": false
+    },
+    {
+      "path": "/api/checkup/config",
+      "method": "GET",
+      "has_bearer": false
+    },
+    {
+      "path": "/api/checkup/assessments",
+      "method": "POST",
+      "has_bearer": false
+    },
+    {
+      "path": "/api/checkup/config",
+      "method": "GET",
+      "has_bearer": false
+    },
+    {
+      "path": "/api/checkup/email",
+      "method": "POST",
+      "has_bearer": false
+    },
+    {
+      "path": "/api/checkup/config",
+      "method": "GET",
+      "has_bearer": false
+    },
+    {
+      "path": "/api/checkup/status",
+      "method": "GET",
+      "has_bearer": true
+    },
+    {
+      "path": "/api/checkup/config",
+      "method": "GET",
+      "has_bearer": false
+    },
+    {
+      "path": "/api/checkup/status",
+      "method": "GET",
+      "has_bearer": true
+    },
+    {
+      "path": "/api/checkup/config",
+      "method": "GET",
+      "has_bearer": false
+    },
+    {
+      "path": "/api/checkup/config",
+      "method": "GET",
+      "has_bearer": false
+    },
+    {
+      "path": "/api/checkup/config",
+      "method": "GET",
+      "has_bearer": false
+    },
+    {
+      "path": "/api/checkup/assessments",
+      "method": "POST",
+      "has_bearer": false
+    },
+    {
+      "path": "/api/checkup/config",
+      "method": "GET",
+      "has_bearer": false
+    },
+    {
+      "path": "/api/checkup/email",
+      "method": "POST",
+      "has_bearer": false
+    },
+    {
+      "path": "/api/checkup/config",
+      "method": "GET",
+      "has_bearer": false
+    }
+  ],
+  "limits": [
+    "No real Stripe checkout, signed provider callback, report email or inbox delivery tested",
+    "No production deployment, customer usefulness or price-acceptance conclusion",
+    "CSSmobile viewport and keyboard observations are not physical-phone or ambient-light validation",
+    "Counted assertions are not independent end-to-end journeys"
+  ]
+}

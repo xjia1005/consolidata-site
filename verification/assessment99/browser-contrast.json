@@ -1,0 +1,30 @@
+[
+  {
+    "role": "primary body",
+    "foreground": "#12211d",
+    "background": "#f6f1e7",
+    "ratio": 14.793,
+    "minimum": 6
+  },
+  {
+    "role": "secondary body",
+    "foreground": "#55635e",
+    "background": "#fffdf8",
+    "ratio": 6.199,
+    "minimum": 4.5
+  },
+  {
+    "role": "focus indicator",
+    "foreground": "#9e462f",
+    "background": "#fffdf8",
+    "ratio": 6.128,
+    "minimum": 3
+  },
+  {
+    "role": "control boundary",
+    "foreground": "#718178",
+    "background": "#fffdf8",
+    "ratio": 4.04,
+    "minimum": 3
+  }
+]

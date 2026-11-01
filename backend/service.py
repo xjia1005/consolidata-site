@@ -27,8 +27,9 @@ from urllib.request import HTTPRedirectHandler, Request, build_opener, HTTPSHand
 
 from .report import AnswerError, build_report, coverage, pdf_available, render_pdf, validate_answers
 
-PRICE_CENTS = 4700
-STRIPE_PRICE_ID = "price_1UVJbpRpzjXsSjtTqCDsy6Sp"
+PRICE_CENTS = 9900
+STRIPE_PRODUCT_ID = "prod_VT2svoLk60Wjcp"
+PRICE_ID_RE = re.compile(r"^price_[A-Za-z0-9]{8,200}$")
 TOKEN_RE = re.compile(r"^[A-Za-z0-9_-]{43}$")
 STRIPE_ID_RE = re.compile(r"^cs_live_[A-Za-z0-9]{8,200}$")
 SOURCE_RE = re.compile(r"^[A-Za-z0-9._:-]{0,96}$")
@@ -72,6 +73,7 @@ class Settings:
     data_dir: Path
     public_origin: str = "https://cdatats.com"
     stripe_secret_key: str = ""
+    stripe_price_id: str = ""
     stripe_webhook_secret: str = ""
     smtp_host: str = ""
     smtp_port: int = 587
@@ -80,6 +82,7 @@ class Settings:
     smtp_password: str = ""
     from_email: str = ""
     live_enabled: bool = False
+    checkout_paused: bool = False
 
     @classmethod
     def from_environment(cls):
@@ -87,16 +90,18 @@ class Settings:
             port = int(os.environ.get("CHECKUP_SMTP_PORT", "587"))
         except ValueError:
             port = 0
-        return cls(data_dir=Path(os.environ.get("CHECKUP_DATA_DIR", "/var/lib/consolidata-checkup")),
+        return cls(data_dir=Path(os.environ.get("CHECKUP_DATA_DIR", "/var/lib/consolidata-growth99")),
                    public_origin=os.environ.get("CHECKUP_PUBLIC_ORIGIN", "https://cdatats.com").rstrip("/"),
                    stripe_secret_key=os.environ.get("CHECKUP_STRIPE_SECRET_KEY", ""),
+                   stripe_price_id=os.environ.get("CHECKUP_STRIPE_PRICE_ID", ""),
                    stripe_webhook_secret=os.environ.get("CHECKUP_STRIPE_WEBHOOK_SECRET", ""),
                    smtp_host=os.environ.get("CHECKUP_SMTP_HOST", ""), smtp_port=port,
                    smtp_security=os.environ.get("CHECKUP_SMTP_SECURITY", "starttls"),
                    smtp_username=os.environ.get("CHECKUP_SMTP_USERNAME", ""),
                    smtp_password=os.environ.get("CHECKUP_SMTP_PASSWORD", ""),
                    from_email=os.environ.get("CHECKUP_FROM_EMAIL", ""),
-                   live_enabled=os.environ.get("CHECKUP_LIVE_ENABLED") == "1")
+                   live_enabled=os.environ.get("CHECKUP_LIVE_ENABLED") == "1",
+                   checkout_paused=os.environ.get("CHECKUP_CHECKOUT_PAUSED") == "1")
 
     def mail_ready(self):
         try:
@@ -116,7 +121,8 @@ class Settings:
                          not origin.username and not origin.password)
         except ValueError:
             origin_ok = False
-        return bool(self.live_enabled and self.stripe_secret_key.startswith("sk_live_") and
+        return bool(self.live_enabled and not self.checkout_paused and self.stripe_secret_key.startswith(("sk_live_", "rk_live_")) and
+                    isinstance(self.stripe_price_id, str) and PRICE_ID_RE.fullmatch(self.stripe_price_id) and
                     len(self.stripe_secret_key) >= 24 and self.stripe_webhook_secret.startswith("whsec_") and
                     len(self.stripe_webhook_secret) >= 24 and self.mail_ready() and pdf_available() and
                     origin_ok)
@@ -128,23 +134,10 @@ class NoRedirect(HTTPRedirectHandler):
 
 
 class StripeClient:
-    def __init__(self, secret_key):
-        self.secret_key = secret_key
+    def __init__(self, secret_key, price_id):
+        self.secret_key, self.price_id = secret_key, price_id
 
-    def create_session(self, assessment_id, email, origin):
-        fields = {"mode": "payment", "customer_email": email,
-                  "payment_method_types[0]": "card", "client_reference_id": assessment_id,
-                  "metadata[assessment_id]": assessment_id,
-                  "payment_intent_data[metadata][assessment_id]": assessment_id,
-                  "line_items[0][price]": STRIPE_PRICE_ID,
-                  "line_items[0][quantity]": "1", "automatic_tax[enabled]": "true",
-                  "billing_address_collection": "auto",
-                  "success_url": origin + "/assessment.html#assessment=" + assessment_id + "&payment=success",
-                  "cancel_url": origin + "/assessment.html#assessment=" + assessment_id + "&payment=cancel"}
-        request = Request("https://api.stripe.com/v1/checkout/sessions", data=urlencode(fields).encode("ascii"), method="POST",
-                          headers={"Authorization": "Bearer " + self.secret_key,
-                                   "Idempotency-Key": "checkup47-" + assessment_id,
-                                   "Content-Type": "application/x-www-form-urlencoded"})
+    def _request(self, request):
         try:
             opener = build_opener(NoRedirect, HTTPSHandler(context=ssl.create_default_context()))
             with opener.open(request, timeout=22) as response:
@@ -156,8 +149,45 @@ class StripeClient:
                 raise ValueError()
             return result
         except (HTTPError, URLError, TimeoutError, OSError, ValueError):
-            # Upstream bodies may include addresses, identifiers, or configuration.
+            # Never expose provider bodies or credentials through API errors.
             raise ServiceError("checkout_unavailable", "Checkout could not be opened. Please try again later.", 503) from None
+
+    def verify_price(self):
+        if not isinstance(self.price_id, str) or not PRICE_ID_RE.fullmatch(self.price_id):
+            raise ServiceError("checkout_unavailable", "The assessment price is not configured.", 503)
+        request = Request("https://api.stripe.com/v1/prices/" + self.price_id,
+                          headers={"Authorization": "Bearer " + self.secret_key})
+        price = self._request(request)
+        if (price.get("id") != self.price_id or price.get("livemode") is not True or
+                price.get("active") is not True or price.get("type") != "one_time" or
+                type(price.get("unit_amount")) is not int or price["unit_amount"] != PRICE_CENTS or
+                price.get("currency") != "usd" or price.get("product") != STRIPE_PRODUCT_ID or
+                price.get("tax_behavior") != "exclusive" or
+                price.get("recurring") is not None or price.get("billing_scheme") != "per_unit" or
+                price.get("custom_unit_amount") is not None or price.get("transform_quantity") is not None):
+            raise ServiceError("checkout_unavailable", "The configured assessment price could not be verified.", 503)
+        return price
+
+    def create_session(self, assessment_id, email, origin):
+        # A configuration typo must fail before creating a chargeable session.
+        self.verify_price()
+        fields = {"mode": "payment", "customer_email": email,
+                  "payment_method_types[0]": "card", "client_reference_id": assessment_id,
+                  "metadata[assessment_id]": assessment_id,
+                  "metadata[price_id]": self.price_id,
+                  "payment_intent_data[metadata][assessment_id]": assessment_id,
+                  "payment_intent_data[metadata][price_id]": self.price_id,
+                  "line_items[0][price]": self.price_id,
+                  "line_items[0][quantity]": "1", "automatic_tax[enabled]": "true",
+                  "expand[0]": "line_items",
+                  "billing_address_collection": "auto",
+                  "success_url": origin + "/assessment.html#assessment=" + assessment_id + "&payment=success",
+                  "cancel_url": origin + "/assessment.html#assessment=" + assessment_id + "&payment=cancel"}
+        request = Request("https://api.stripe.com/v1/checkout/sessions", data=urlencode(fields).encode("ascii"), method="POST",
+                          headers={"Authorization": "Bearer " + self.secret_key,
+                                   "Idempotency-Key": "checkup99-" + assessment_id,
+                                   "Content-Type": "application/x-www-form-urlencoded"})
+        return self._request(request)
 
 
 class SMTPMailer:
@@ -207,7 +237,7 @@ class SMTPMailer:
 class CheckupService:
     def __init__(self, settings, stripe=None, mailer=None, clock=time.time, pdf_renderer=render_pdf):
         self.settings, self.clock = settings, clock
-        self.stripe = stripe if stripe is not None else StripeClient(settings.stripe_secret_key)
+        self.stripe = stripe if stripe is not None else StripeClient(settings.stripe_secret_key, settings.stripe_price_id)
         self.mailer = mailer if mailer is not None else SMTPMailer(settings)
         self.pdf_renderer = pdf_renderer
         root = settings.data_dir.expanduser()
@@ -226,11 +256,14 @@ class CheckupService:
         if os.name != "nt":
             self.database.chmod(0o600)
         with self.connect() as db:
+            existing = db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='assessments'").fetchone()
+            if existing and "stripe_price_id" not in {row[1] for row in db.execute("PRAGMA table_info(assessments)")}:
+                raise ValueError("Use a dedicated 99USD assessment data directory; the existing database belongs to an earlier product version.")
             db.executescript("""
               PRAGMA journal_mode=WAL;
               CREATE TABLE IF NOT EXISTS assessments(
                 id TEXT PRIMARY KEY,created REAL NOT NULL,answers TEXT NOT NULL,notes TEXT NOT NULL,
-                source TEXT NOT NULL,report TEXT NOT NULL,email TEXT,checkout_id TEXT UNIQUE,checkout_url TEXT,
+                source TEXT NOT NULL,report TEXT NOT NULL,email TEXT,stripe_price_id TEXT,checkout_id TEXT UNIQUE,checkout_url TEXT,
                 checkout_state TEXT NOT NULL DEFAULT 'none',checkout_started REAL,
                 payment_status TEXT NOT NULL DEFAULT 'unpaid',paid_at REAL,
                 delivery_status TEXT NOT NULL DEFAULT 'not_requested',delivery_error TEXT);
@@ -239,6 +272,8 @@ class CheckupService:
                 status TEXT NOT NULL,attempts INTEGER NOT NULL DEFAULT 0,next_attempt REAL NOT NULL,
                 lease_until REAL,accepted_at REAL,last_error TEXT);
             """)
+            if "stripe_price_id" not in {row[1] for row in db.execute("PRAGMA table_info(assessments)")}:
+                raise ValueError("Use a dedicated 99USD assessment data directory; the existing database belongs to an earlier product version.")
 
     @contextmanager
     def connect(self):
@@ -256,12 +291,12 @@ class CheckupService:
             db.close()
 
     def config(self):
-        return {"price": 47, "currency": "USD", "purchase_enabled": self.settings.purchase_ready(),
+        return {"price": 99, "currency": "USD", "purchase_enabled": self.settings.purchase_ready(),
                 "voice_available": False, "delivery": "email-pdf-attachment"}
 
     def create_assessment(self, payload):
         if not isinstance(payload, dict) or not set(payload).issubset({"answers", "notes", "source"}):
-            raise ServiceError("invalid_assessment", "Use the ten-question assessment form.", 422)
+            raise ServiceError("invalid_assessment", "Use the 30-question assessment form.", 422)
         try:
             answers, notes = validate_answers(payload.get("answers"), payload.get("notes", {}))
         except AnswerError as error:
@@ -332,18 +367,36 @@ class CheckupService:
             if row["email"].casefold() != email.casefold():
                 raise ServiceError("email_already_bound", "This checkout already uses a report email address. Please contact support to correct it.", 409)
             email = row["email"]
+            if row["stripe_price_id"] and row["stripe_price_id"] != self.settings.stripe_price_id:
+                raise ServiceError("price_already_bound", "This assessment uses an earlier checkout price. Contact support before purchasing again.", 409)
             if row["checkout_state"] == "open" and row["checkout_url"]:
                 return {"checkout_url": row["checkout_url"]}
             if row["checkout_state"] == "creating" and now - row["checkout_started"] < 60:
                 raise ServiceError("checkout_pending", "Checkout is opening. Please try again shortly.", 409)
             if not self._can_resume_checkout(row, now):
                 raise ServiceError("checkout_not_resumable", "This checkout cannot be reopened. Please contact support before purchasing again.", 409)
-            db.execute("UPDATE assessments SET checkout_state='creating',checkout_started=?,payment_status='pending' WHERE id=?",
-                       (now, token))
+            db.execute("UPDATE assessments SET checkout_state='creating',checkout_started=?,payment_status='pending',stripe_price_id=? WHERE id=?",
+                       (now, self.settings.stripe_price_id, token))
         try:
             session = self.stripe.create_session(token, email, self.settings.public_origin)
             url = urlsplit(session.get("url", ""))
-            if not STRIPE_ID_RE.fullmatch(str(session.get("id", ""))) or session.get("livemode") is not True or session.get("amount_subtotal") != PRICE_CENTS or session.get("currency") != "usd" or url.scheme != "https" or url.hostname != "checkout.stripe.com" or url.username or url.password or url.port not in (None, 443) or url.fragment:
+            line_items = session.get("line_items", {})
+            items = line_items.get("data", []) if isinstance(line_items, dict) else []
+            if not isinstance(items, list):
+                items = []
+            metadata = session.get("metadata")
+            if not isinstance(metadata, dict):
+                metadata = {}
+            price = items[0].get("price") if len(items) == 1 and isinstance(items[0], dict) else None
+            price_id = price.get("id") if isinstance(price, dict) else price
+            if (not STRIPE_ID_RE.fullmatch(str(session.get("id", ""))) or session.get("livemode") is not True or
+                    type(session.get("amount_subtotal")) is not int or session["amount_subtotal"] != PRICE_CENTS or
+                    session.get("currency") != "usd" or price_id != self.settings.stripe_price_id or
+                    type(items[0].get("quantity")) is not int or items[0]["quantity"] != 1 or line_items.get("has_more") is not False or
+                    metadata.get("assessment_id") != token or
+                    metadata.get("price_id") != self.settings.stripe_price_id or
+                    url.scheme != "https" or url.hostname != "checkout.stripe.com" or url.username or url.password or
+                    url.port not in (None, 443) or url.fragment or not url.path.startswith("/c/")):
                 raise ServiceError("checkout_unavailable", "Checkout could not be verified. No new checkout will be opened until it is checked.", 503)
             with self.connect() as db:
                 db.execute("UPDATE assessments SET checkout_id=?,checkout_url=?,checkout_state='open' WHERE id=?",
@@ -377,7 +430,8 @@ class CheckupService:
         if not row:
             raise ServiceError("assessment_not_found", "This assessment could not be found.", 404)
         return {"payment_status": row["payment_status"], "delivery_status": row["delivery_status"],
-                "masked_email": masked_email(row["email"]), "can_resume_checkout": self._can_resume_checkout(row, self.clock())}
+                "masked_email": masked_email(row["email"]),
+                "can_resume_checkout": not self.settings.checkout_paused and self._can_resume_checkout(row, self.clock())}
 
     def _verify_signature(self, body, signature):
         secret = self.settings.stripe_webhook_secret
@@ -443,8 +497,10 @@ class CheckupService:
                 if previous["body_hash"] != digest:
                     raise ServiceError("event_conflict", "Conflicting payment event.", 400)
                 return {"received": True, "duplicate": True}
-            row = db.execute("SELECT checkout_id,email,payment_status,checkout_state FROM assessments WHERE id=?", (token,)).fetchone()
-            if not row or row["checkout_id"] != session["id"] or not row["email"] or row["email"].casefold() != customer_email.casefold():
+            row = db.execute("SELECT checkout_id,email,payment_status,checkout_state,stripe_price_id FROM assessments WHERE id=?", (token,)).fetchone()
+            if (not row or row["checkout_id"] != session["id"] or not row["email"] or
+                    row["email"].casefold() != customer_email.casefold() or not row["stripe_price_id"] or
+                    session["metadata"].get("price_id") != row["stripe_price_id"]):
                 raise ServiceError("payment_mismatch", "The payment does not match this assessment.", 400)
             db.execute("INSERT INTO stripe_events(id,body_hash,received) VALUES(?,?,?)", (event["id"], digest, self.clock()))
             if row["payment_status"] != "paid":
@@ -465,11 +521,11 @@ class CheckupService:
         message["From"] = "ConsoliData <" + valid_email(self.settings.from_email) + ">"
         message["To"] = valid_email(email)
         message["Reply-To"] = valid_email(self.settings.from_email)
-        message["Subject"] = "Your ConsoliData marketing checkup report"
+        message["Subject"] = "Your ConsoliData growth assessment report"
         digest = hashlib.sha256(token.encode("ascii")).hexdigest()[:28]
         message["Message-ID"] = "<checkup." + digest + "@" + self.settings.from_email.rsplit("@", 1)[1] + ">"
-        message.set_content("Your complete marketing checkup report is attached as a PDF.\n\nIt is based on your selected answers. Notes are included as written; the report does not independently verify your records or campaign results.\n\nIf the attachment is missing or you need help with this report, reply to this email.\n\nConsoliData")
-        message.add_attachment(pdf, maintype="application", subtype="pdf", filename="ConsoliData-Marketing-Checkup.pdf")
+        message.set_content("Your initial growth assessment report is attached.\n\nIt organizes your submitted answers, candidate explanations, evidence gaps and a next check. Your statements have not been independently verified. The report does not establish a unique cause or guarantee growth.\n\nIf the attachment is missing or you need help with this report, reply to this email.\n\nConsoliData")
+        message.add_attachment(pdf, maintype="application", subtype="pdf", filename="ConsoliData-Growth-Assessment.pdf")
         return message
 
     def work_once(self):

@@ -1,4 +1,15 @@
 # CONSOLIDATA website design contract
+
+## Current candidate: US$99 / 30-question growth assessment — 2026-11-01
+
+The current candidate discloses US$99 one time, plus applicable tax, on the homepage. It serves a startup owner or growth decision maker facing growth below expectations. The page states the customer's decision, the initial report and one primary action: start the assessment. Price and funding remain qualification signals; they do not establish a company's need, budget or a proven growth cause.
+
+The 30-question bank comprises six common questions and six groups of four. One question appears at a time, with written responses, multiple selections, unknown/defer, back/edit and review. Text answers allow 1,500 Unicode codepoints; optional notes retain the 600 UTF-16-unit bound. Alternatives, four customer-value questions and a next evidence check remain provisional. Full reports are private and delivered by email attachment only after matching verified payment. Page memory, submitted private records and browser status references have distinct disclosures.
+
+Preserve the existing warm canvas/ink palette, brand, light-only scope, semantic tokens, at least 16px operating text, visible focus and existing 44/48px control targets. Purchase availability appears in words on the homepage. Readiness controls prevent a mismatched price or unavailable mail fulfillment from enabling payment. Starting and saving a work email remain separate from purchasing. Existing request locks, email confirmation, opaque-token status, resume decisions and delivery-uncertainty notices remain.
+
+Changed asset references use `20261101-growth99` consistently. The new public bank script loads before the engine and assessment controller. Static checks cover bank parity, US$99 / 30-question source facts, local references, cache identities and the version 4 capability map. They do not establish actual provider delivery, customer usefulness, growth effectiveness or physical-device usability. Actual desktop/mobile, focus/text-growth, contrast and report-rendering evidence belongs to the integrator's current verification packet. Earlier dated design sections below preserve historical decisions rather than the current offer or deployment status.
+
 Administrative marketing site for US/Canada business owners and CEOs, desktop and phone in ordinary indoor use. No medical/safety-interface certification claimed. Preserve existing brand geometry, neutral warm paper and dark ink.
 Tokens: canvas #f6f1e7; panel #fffdf8; text #12211d; secondary #294039; muted #55635e; accent #9e462f; dark-panel foreground #f6f1e7; CTA #f0ff6a with dark text.
 Use Arial/Segoe UI sans-serif >=16px body, >=400 weight. Existing system-font fallback is a scope-preserving exception to bundling fonts. Uppercase CONSOLIDATA is an approved brand exception. Four-pixel spacing scale; primary controls >=48px, essential links >=44px; visible focus.

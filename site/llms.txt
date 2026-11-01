@@ -1,14 +1,17 @@
 # CONSOLIDATA
 Canonical: https://cdatats.com/
 Language: English
-Audience: owners of already-selling businesses in the United States and Canada with inconsistent marketing results or slowing growth.
-Marketing Checkup: USD47 once plus applicable tax. Ten selected-answer questions and optional notes. Answer and review first, then create a limited preview on the server. Full report uses fixed rules: described strengths, unknowns, up to three priorities, actions and answer summary. Notes accompany findings as context without changing them.
-Entry: https://cdatats.com/assessment.html — noindex questionnaire, limited preview, required work-email save, separate US$47 purchase review, then server-created Stripe checkout when configured. An old /checkout.html entry redirects to the questionnaire. Saving email does not create a payment session, send mail or subscribe the visitor to marketing. Payment verification is server-side; a browser return never establishes payment.
-Delivery: complete report only as a PDF email attachment after verified payment. No public full-report display, download or export endpoint. Opaque browser session reference restores status only. Payment and email-delivery statuses remain distinct; email service acceptance does not guarantee inbox arrival.
-Availability: checkout readiness is controlled by /api/checkup/config. Missing verified payment/email configuration disables purchase. Text questions are available; no live voice or external AI feature is promised.
-Limitations: self-reported information, no independent account audit, no guaranteed cause, campaign performance, sales or profit. Further services and calls separately agreed; purchase does not subscribe to marketing.
+Growth Decision Assessment: USD99 one time plus applicable tax, disclosed before payment. The homepage shows the price upfront.
+Audience: startup company owners, chief executives, product leads and marketing leaders in the United States and Canada. Current focus: at least one venture-funding round in the past three years, existing users or customers, a belief the product meets a real need and growth below expectations. Funding or payment willingness alone does not establish suitability, budget or a growth cause.
+Purpose: clarify the current growth decision, preserve customer context and reported symptoms, examine plausible explanations and plan one bounded evidence check.
+Question structure: 30 questions, comprising six starting questions and six groups of four. Groups cover reach, customer response, first useful result, purchase, continued use and evidence. Unknown and deferred answers remain visible.
+Method: consistent question-bank rules select alternatives and proposed checks from symptom and evidence-category selections. Written answers and notes are preserved as context. No external artificial intelligence model interprets them, no underlying records are independently audited and no human advisory review is included.
+Four customer-value questions: desired result, credible basis for believing it can be achieved, waiting time and customer effort or sacrifice. Actual delivery, exposure, costs and business results require separate evidence.
+Entry: https://cdatats.com/assessment.html — noindex questionnaire, answer review and submission acknowledgment, limited coverage preview, work-email save and confirmation, separate US$99 purchase review, then secure hosted payment when available.
+Delivery: complete private report only as a portable document format (PDF) email attachment after verified payment. No public full-report display, download or export endpoint. The report includes context, candidate explanations, four customer-value questions, one proposed next check and the complete answer record.
+Availability: homepage displays current purchase availability. /api/checkup/config controls checkout readiness; missing payment or report-email readiness disables purchase. Starting or saving work email creates no charge and no marketing subscription.
+Privacy: unsubmitted answers remain in page memory; confirmed answers and separately saved email are stored privately on the server. Only an opaque assessment reference is kept in browser session storage. Returning from checkout never proves payment. Payment verification, email processing and email-service acceptance remain separate; service acceptance does not prove inbox arrival.
+Limits: no certified single cause, measured outcome probability, guaranteed growth, revenue or profit. Interviews, records review, positioning, service-package design and marketing execution require a separate written scope and commercial agreement. No campaign or further service starts automatically.
 Terms: https://cdatats.com/terms.html
 Privacy: https://cdatats.com/privacy.html
 Contact: alvinj@consolidatats.com
-
-Assessment-first B: homepage and action buttons contain no prices. POST /api/checkup/email saves the work email without payment or email delivery. US$47 one time plus applicable tax is disclosed in the separate purchase review before secure payment. Only the opaque assessment reference is kept in browser session storage.

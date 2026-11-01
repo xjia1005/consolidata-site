@@ -1,13 +1,13 @@
 const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const {checkoutState,validStripeCheckout,sanitizeCampaign}=require('../site/checkout-guard.js');
-const ready={price:47,currency:'USD',delivery:'email-pdf-attachment',purchase_enabled:true};
+const ready={price:99,currency:'USD',delivery:'email-pdf-attachment',purchase_enabled:true};
 test('only a matching configured server response enables checkout',()=>{
   assert.equal(checkoutState(ready).ready,true);
-  for(const config of [null,{}, {...ready,price:27},{...ready,currency:'CAD'},{...ready,purchase_enabled:false},{...ready,delivery:'shareable-browser-report'}])assert.equal(checkoutState(config).ready,false);
+  for(const config of [null,{}, {...ready,price:27},{...ready,price:47},{...ready,currency:'CAD'},{...ready,purchase_enabled:false},{...ready,delivery:'shareable-browser-report'}])assert.equal(checkoutState(config).ready,false);
 });
 test('return flags and payment references cannot enable checkout or issue entitlement',()=>{
-  assert.equal(checkoutState({paid:true,session_id:'cs_fake',price:47}).ready,false);
+  assert.equal(checkoutState({paid:true,session_id:'cs_fake',price:99}).ready,false);
   assert.equal(checkoutState({...ready,paid:true}).paymentUrl,undefined);
 });
 test('checkout destination is a hosted HTTPS Stripe checkout URL',()=>{

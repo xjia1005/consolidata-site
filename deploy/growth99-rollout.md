@@ -1,0 +1,42 @@
+# Growth assessment99: staged deployment and recovery
+
+Prepared2026-11-01. **Not executed.** This packet does not enable purchases.
+
+## Verified target and remaining gates
+
+The named host is `cdatats.com` at34.226.16.122, reached using the existing `tmd-prod` SSH alias. The alias name is historical; operate only on the paths below. A read-only host check found the current static release at `/srv/www/cdatats/releases/2d8d23e3a8a9c4d4c92b695324754ed5b12eca42` (47USD,10questions), with the site's Nginx configuration `/etc/nginx/conf.d/cdatats.conf`. The existing `/studio/` service at127.0.0.1:4188 and all other sites stay unchanged.
+
+No growth99 environment file or service existed at the check. Source/tests and a new Stripe price are prepared; server credentials, webhook registration, actual email delivery, report usefulness and production operation remain unverified. Automatic review initially rejected a temporary local credential-intake operation for insufficiently specific authorization. The owner subsequently explicitly approved the three dedicated credentials, loopback intake, encrypted SSH handoff to the named environment file and temporary-file cleanup. The helper still needs permission hardening, independent review and a new successful execution approval before use; no bypass of the earlier rejection is permitted.
+
+## Reviewable installation scope
+
+- A dedicated unprivileged `consolidata-growth99` account and group, with no interactive login.
+- Root-owned immutable source releases under `/opt/consolidata-growth99/releases/<reviewed-sha>` and an atomic `current` symlink. Copy the committed backend files only; no `.git`, private trial data or local environment files. Reject source symlinks.
+- A dedicated virtual environment `/opt/consolidata-growth99/venv`, using an independently verified supported Python and the pinned `backend/requirements.txt`. Dependency installation is a separate recorded host mutation.
+- Root-owned configuration `/etc/consolidata-growth99/environment`, mode0640, in a0750 directory, readable only by root and the service group. Its dedicated credentials must never appear in source, command arguments, logs or the rollout receipt. Keep `CHECKUP_LIVE_ENABLED=0` initially.
+- Private state `/var/lib/consolidata-growth99`, mode0700, owned by the service account. Never point to old47USD orders or copy operator trial records into production.
+- The reviewed `consolidata-growth99.service` unit, bound only to127.0.0.1:4190. Verify that port is free before installing. Do not use a public bind or `--site-dir` in production.
+- Add only the `growth99-nginx.location.conf` block to the canonical HTTPS server. Its API proxy overwrites client-address headers and disables API access logging. Bound request bodies are256KiB. Keep redirects, certificate settings, static root and all `/studio/` locations as found.
+- In the **canonical public static response header only**, change `connect-src 'none'` to `connect-src 'self'` so the assessment can call its same-origin API. Keep the remaining policy directives. Do not change the separate Studio policy or weaken scripts/styles to inline.
+
+## Staged sequence
+
+1. Record the exact reviewed source commit, clean Git state, tests, independent code and production-diff reviews. Verify the upstream remote is `https://github.com/xjia1005/consolidata-site.git`, and source ancestry. Push only reviewed task-owned files. Do not publish private reports, credentials or account receipts.
+2. Read the current static release and hash the exact named Nginx config again. Stop if either changed since review. Check4190, Python/systemd availability, disk space and service account/path conflicts. Read-only preflight found4190free and `/usr/bin/python3.11` version3.11.14; use that supported interpreter rather than the default3.9. Inspect applicable SELinux policy; do not disable SELinux or change a host-wide boolean merely to make a proxy work.
+3. Create a root-only dated backup of that Nginx file and record both hashes and the prior release. Install the dedicated inactive service/source and fresh private state. Retain the previous static release and existing Studio process untouched.
+4. With the live gate off, start the dedicated service and verify loopback `/api/checkup/config`:99USD, email attachment delivery, purchase disabled. Verify database ownership and that the public root contains no backend/state/private files. Review the exact Nginx diff and run `nginx -t` before any reload.
+5. Configure only specifically approved dedicated credentials through the approved secure channel. Register the exact Stripe endpoint `https://cdatats.com/api/checkup/stripe/webhook` for `checkout.session.completed`, `checkout.session.async_payment_succeeded` and `checkout.session.expired`. No real purchase is authorized by this packet.
+6. Verify the actual Stripe price `price_1UX4UORpzjXsSjtTi0POceqC`: live, active, one-time, USD9900, exclusive of applicable tax, intended product. Use the restricted key with Prices read and Checkout Sessions write. Configuration presence is not this check.
+7. Test the actual authenticated mail connection and one specifically approved own-address report attachment. Inspect the received attachment, source answers and message, separately record SMTP acceptance and inbox arrival. No paid event may be fabricated in the production database. A controlled transactional test does not authorize marketing mail or imply successful paid fulfillment.
+8. Resolve the own-service report-value review and record what the report does and cannot establish. The current deterministic initial assessment preserves text and uses selected stages; it does not independently analyze free-text evidence or establish the single most important cause. Technical success does not establish value at99USD.
+9. Only after the above gates pass, coordinate the final reviewed static release, same-origin proxy, purchase live gate, current Stripe product description/default price and historical payment-link handling. Avoid any interval charging99USD for the old10-question/browser-report service. Do not redirect historic paid orders into new entitlement. Preserve the prior price objects.
+10. Verify actual public homepage/30questions/config/CSP and an uncharged hosted checkout's exact amount/email/return behavior. Test payment completion only with separate explicit authorization and a documented safe plan. Inspect worker, signed-event and retry/uncertainty behavior without manufacturing paid evidence. Keep purchase disabled if the paid delivery path remains unresolved.
+11. Read back public canonical/robots/sitemap/llms/manifest and changed asset identities. Record actual source/release/config/provider states. Search discovery submission requires existing verified access; no indexing or growth claim follows from deployment.
+
+## Recovery
+
+Before ANY hosted99USD checkout session is created, rollback is the prior immutable static release, exact backed-up Nginx file, and stop/disable only `consolidata-growth99`. Validate Nginx before reload and verify Studio and the previous public page still work. Do not delete private assessments or Stripe objects as cleanup.
+
+Once ANY hosted99USD session has been created, it may still be paid even if the website is rolled back. Set `CHECKUP_CHECKOUT_PAUSED=1` while keeping `CHECKUP_LIVE_ENABLED=1`; restart only this service and verify config reports purchase disabled. This pauses new/reopened checkout while preserving signature verification and the paid outbox worker. Retain the service, API proxy, state and credentials for existing sessions/orders until all open sessions are explicitly reconciled or expired and all paid orders fulfilled. Restoring an old static page must not abandon fulfillment or trigger repeat charges. Reconcile every pending/uncertain delivery and obtain the applicable resend/refund authorization. No destructive database rollback or automatic uncertain resend is permitted. Do not use the global live-off flag as a checkout-only pause.
+
+No code/config/account mutations on the host have been performed by this packet. Record each actual change, exact hash and verification before updating this statement.

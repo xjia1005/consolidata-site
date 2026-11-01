@@ -1,5 +1,6 @@
 """Critical privacy/payment/delivery boundary tests; every provider is a fixture."""
 import copy
+from contextlib import closing
 from dataclasses import replace
 from email import policy
 from email.parser import BytesParser
@@ -10,6 +11,7 @@ import json
 import os
 from pathlib import Path
 import smtplib
+import sqlite3
 import ssl
 import tempfile
 import threading
@@ -19,7 +21,9 @@ from urllib.parse import parse_qs
 
 from backend.email_service import QuietServer, handler_for
 from backend.report import DEFINITIONS, build_report, render_pdf
-from backend.service import CheckupService, DeliveryError, ServiceError, Settings, SMTPMailer, StripeClient, valid_email
+from backend.service import CheckupService, DeliveryError, ServiceError, Settings, SMTPMailer, StripeClient, valid_email, STRIPE_PRODUCT_ID
+
+FIXTURE_PRICE_ID = "price_fixture99only"
 
 
 class FakeStripe:
@@ -31,7 +35,10 @@ class FakeStripe:
         self.calls.append((token, email, origin))
         identifier = "cs_live_" + hashlib.sha256(token.encode()).hexdigest()[:24]
         return {"id": identifier, "url": "https://checkout.stripe.com/c/pay/" + identifier,
-                "livemode": True, "amount_subtotal": 4700, "currency": "usd", **self.response_changes}
+                "livemode": True, "amount_subtotal": 9900, "currency": "usd",
+                "metadata": {"assessment_id": token, "price_id": FIXTURE_PRICE_ID},
+                "line_items": {"data": [{"price": {"id": FIXTURE_PRICE_ID}, "quantity": 1}], "has_more": False},
+                **self.response_changes}
 
 
 class FixtureMailer:
@@ -52,13 +59,15 @@ class FixtureCase(unittest.TestCase):
         self.root = Path(self.temporary.name)
         self.now = 1000000.0
         self.settings = Settings(self.root / "private", stripe_secret_key="sk_live_" + "k" * 36,
+                                 stripe_price_id=FIXTURE_PRICE_ID,
                                  stripe_webhook_secret="whsec_" + "s" * 36, smtp_host="smtp.example.com",
                                  smtp_username="sender", smtp_password="fixture-password", from_email="reports@example.com",
                                  live_enabled=True)
         self.stripe = FakeStripe()
         self.mailer = FixtureMailer()
         self.service = CheckupService(self.settings, stripe=self.stripe, mailer=self.mailer, clock=lambda: self.now)
-        self.answers = {item["id"]: item["values"][1] for item in DEFINITIONS}
+        self.answers = {item["id"]: ("A fictional case; compare the relevant records before deciding." if item["answer_type"] == "text" else ["unknown"])
+                        for item in DEFINITIONS}
 
     def assessment(self, answers=None, notes=None):
         return self.service.create_assessment({"answers": self.answers if answers is None else answers,
@@ -76,9 +85,9 @@ class FixtureCase(unittest.TestCase):
         return {"id": event_id, "type": "checkout.session.completed", "livemode": True,
                 "data": {"object": {"id": session_id, "mode": "payment", "livemode": True,
                         "status": "complete",
-                        "client_reference_id": token, "metadata": {"assessment_id": token},
-                        "payment_status": "paid", "currency": "usd", "amount_subtotal": 4700,
-                        "amount_total": 4700, "total_details": {"amount_tax": 0, "amount_discount": 0, "amount_shipping": 0},
+                        "client_reference_id": token, "metadata": {"assessment_id": token, "price_id": FIXTURE_PRICE_ID},
+                        "payment_status": "paid", "currency": "usd", "amount_subtotal": 9900,
+                        "amount_total": 9900, "total_details": {"amount_tax": 0, "amount_discount": 0, "amount_shipping": 0},
                         "customer_details": {"email": "buyer@example.com"}}}}
 
     def signed(self, event, timestamp=None):
@@ -94,40 +103,43 @@ class FixtureCase(unittest.TestCase):
 
 class AssessmentAndConfigTests(FixtureCase):
     def test_preview_exposes_coverage_only_and_private_storage(self):
-        result = self.assessment(notes={"buying_reason": "<script>private note</script>"})
+        result = self.assessment(notes={"C01": "<script>private note</script>"})
         self.assertEqual(set(result), {"assessment_id", "preview"})
         self.assertEqual(set(result["preview"]), {"answered", "unknowns", "message"})
         self.assertNotIn("private note", json.dumps(result))
-        self.assertNotIn(DEFINITIONS[0]["priority"]["action"], json.dumps(result))
+        self.assertNotIn("candidateAreas", json.dumps(result))
+        self.assertNotIn("answerSummary", json.dumps(result))
         status = self.service.status(result["assessment_id"])
         self.assertEqual(set(status), {"payment_status", "delivery_status", "masked_email", "can_resume_checkout"})
         self.assertEqual(status["payment_status"], "unpaid")
         self.assertFalse(self.service.database.resolve().is_relative_to(Path(__file__).resolve().parents[1] / "site"))
 
     def test_invalid_missing_extra_answers_and_oversize_notes_are_rejected(self):
-        broken = [[], {}, {**self.answers, "injected": "value"}, {**self.answers, "buying_reason": True},
-                  {**self.answers, "buying_reason": "invalid"}]
+        broken = [[], {}, {**self.answers, "injected": "value"}, {**self.answers, "C01": True},
+                  {**self.answers, "C01": "x" * 1501}, {**self.answers, "C04": "unknown"},
+                  {**self.answers, "C04": ["invalid"]}, {**self.answers, "C06": ["unknown", "unknown"]}]
         for answers in broken:
             with self.subTest(answers=type(answers).__name__), self.assertRaises(ServiceError):
                 self.assessment(answers=answers)
-        for notes in [[], {"extra": "no"}, {"buying_reason": "a" * 601}, {"buying_reason": "\x00"},
-                      {"buying_reason": "😀" * 301}]:
+        for notes in [[], {"extra": "no"}, {"C01": "a" * 601}, {"C01": "\x00"},
+                      {"C01": "😀" * 301}]:
             with self.subTest(notes=str(type(notes))), self.assertRaises(ServiceError):
                 self.assessment(notes=notes)
 
-    def test_unknown_and_not_applicable_do_not_become_priorities(self):
-        answers = {item["id"]: "na" for item in DEFINITIONS}
-        answers["buying_reason"] = "unknown"
+    def test_unknown_answers_do_not_become_proven_priorities(self):
+        answers = {item["id"]: ("Unknown / deferred" if item["answer_type"] == "text" else ["unknown"])
+                   for item in DEFINITIONS}
         report = build_report(answers, {})
-        self.assertEqual(len(report["unknowns"]), 1)
-        self.assertEqual(report["priorities"], [])
-        self.assertEqual(len(report["answerSummary"]), 10)
-        self.assertEqual(self.assessment(answers=answers)["preview"]["unknowns"], 1)
+        self.assertEqual(report["priority_status"], "insufficient_evidence")
+        self.assertEqual([area["id"] for area in report["candidateAreas"]], ["evidence"])
+        self.assertEqual(len(report["answerSummary"]), 30)
+        self.assertEqual(self.assessment(answers=answers)["preview"]["unknowns"], 30)
 
-    def test_ordered_three_priorities_are_explicit_and_pdf_is_real(self):
-        report = build_report(self.answers, {"buying_reason": "Plain note & markup <safe>"})
-        self.assertEqual([item["title"] for item in report["priorities"]],
-                         [item["priority"]["title"] for item in DEFINITIONS[:3]])
+    def test_private_report_preserves_bank_lenses_and_pdf_is_real(self):
+        report = build_report(self.answers, {"C01": "Plain note & markup <safe>"})
+        self.assertEqual(report["priority_status"], "insufficient_evidence")
+        self.assertEqual(len(report["valueReview"]), 4)
+        self.assertTrue(report["question_bank_hash"])
         pdf = render_pdf(report)
         self.assertTrue(pdf.startswith(b"%PDF-"))
         self.assertGreater(len(pdf), 5000)
@@ -135,6 +147,7 @@ class AssessmentAndConfigTests(FixtureCase):
 
     def test_settings_fail_closed_and_no_environment_test_mode(self):
         for settings in [replace(self.settings, live_enabled=False), replace(self.settings, smtp_password=""),
+                         replace(self.settings, stripe_price_id=""), replace(self.settings, stripe_price_id="../price_bad"),
                          replace(self.settings, stripe_secret_key="sk_test_fixture"),
                          replace(self.settings, stripe_webhook_secret=""), replace(self.settings, smtp_security="plain"),
                          replace(self.settings, public_origin="http://127.0.0.1:4197"),
@@ -145,6 +158,20 @@ class AssessmentAndConfigTests(FixtureCase):
             self.assertFalse(Settings.from_environment().purchase_ready())
         with patch("backend.service.pdf_available", return_value=False):
             self.assertFalse(self.settings.purchase_ready())
+
+    def test_earlier_product_database_is_rejected_without_reinterpreting_records(self):
+        root = self.root / "earlier-product"
+        root.mkdir()
+        database = root / "checkup.sqlite3"
+        with closing(sqlite3.connect(database)) as db:
+            db.execute("CREATE TABLE assessments(id TEXT PRIMARY KEY,answers TEXT)")
+            db.execute("INSERT INTO assessments VALUES('old47','preserve original answer')")
+            db.commit()
+        with self.assertRaises(ValueError):
+            CheckupService(replace(self.settings, data_dir=root), stripe=self.stripe, mailer=self.mailer)
+        with closing(sqlite3.connect(database)) as db:
+            self.assertEqual(db.execute("SELECT * FROM assessments").fetchall(), [("old47", "preserve original answer")])
+            self.assertEqual({row[0] for row in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}, {"assessments"})
 
     def test_unconfigured_checkout_and_worker_make_no_external_call(self):
         service = CheckupService(replace(self.settings, live_enabled=False), stripe=self.stripe, mailer=self.mailer)
@@ -326,8 +353,9 @@ class PaymentAndOutboxTests(FixtureCase):
         body, signature = self.signed(unpaid)
         self.assertTrue(self.service.webhook(body, signature)["received"])
         self.assertFalse(self.service.status(token)["can_resume_checkout"])
-        changes = [{"id": "cs_live_different0000"}, {"currency": "cad"}, {"amount_subtotal": 2700},
+        changes = [{"id": "cs_live_different0000"}, {"currency": "cad"}, {"amount_subtotal": 2700}, {"amount_subtotal": 4700},
                    {"amount_total": 9999}, {"livemode": False}, {"mode": "subscription"},
+                   {"metadata": {"assessment_id": token, "price_id": "price_other999"}},
                    {"customer_details": {"email": "wrong@example.com"}},
                    {"total_details": {"amount_tax": -1}}, {"total_details": {"amount_tax": 0, "amount_discount": 100}}]
         for index, change in enumerate(changes):
@@ -446,8 +474,8 @@ class PaymentAndOutboxTests(FixtureCase):
     def test_paid_tax_duplicate_webhooks_queue_once_and_fixture_smtp_gets_attachment(self):
         token = self.ready_checkout()
         event = self.event(token)
-        event["data"]["object"]["amount_total"] = 4935
-        event["data"]["object"]["total_details"]["amount_tax"] = 235
+        event["data"]["object"]["amount_total"] = 10395
+        event["data"]["object"]["total_details"]["amount_tax"] = 495
         body, signature = self.signed(event)
         self.service.webhook(body, signature)
         self.assertEqual(self.mailer.messages, [], "webhook must not send synchronously")
@@ -501,43 +529,97 @@ class PaymentAndOutboxTests(FixtureCase):
 
 
 class StripeAdapterTests(FixtureCase):
-    def test_transport_uses_original_product_price_without_inline_product_or_client_amount(self):
+    @staticmethod
+    def configured_price(**changes):
+        return {"id": FIXTURE_PRICE_ID, "livemode": True, "active": True, "type": "one_time",
+                "unit_amount": 9900, "currency": "usd", "product": STRIPE_PRODUCT_ID,
+                "billing_scheme": "per_unit", "recurring": None, "tax_behavior": "exclusive", **changes}
+
+    def test_transport_verifies_configured99_price_before_creating_bound_session(self):
         token = self.assessment()["assessment_id"]
         payload = {"assessment_id": token, "email": "buyer@example.com"}
         self.service.save_email(payload)
         captured = []
         session = {"id": "cs_live_transportfixture0001", "url": "https://checkout.stripe.com/c/pay/fixture",
-                   "livemode": True, "currency": "usd", "amount_subtotal": 4700}
+                   "livemode": True, "currency": "usd", "amount_subtotal": 9900,
+                   "metadata": {"assessment_id": token, "price_id": FIXTURE_PRICE_ID},
+                   "line_items": {"data": [{"price": {"id": FIXTURE_PRICE_ID}, "quantity": 1}], "has_more": False}}
+        verified_price = self.configured_price()
         class FixtureResponse:
+            def __init__(self, value): self.value = value
             def __enter__(self): return self
             def __exit__(self, *args): return False
-            def read(self, maximum): return json.dumps(session).encode()
+            def read(self, maximum): return json.dumps(self.value).encode()
         class FixtureTransport:
             def open(self, request, timeout):
-                captured.append((request.full_url, request.get_method(), parse_qs(request.data.decode("ascii")),
+                captured.append((request.full_url, request.get_method(), parse_qs(request.data.decode("ascii")) if request.data else {},
                                  request.get_header("Idempotency-key"), timeout))
-                return FixtureResponse()
-        self.service.stripe = StripeClient(self.settings.stripe_secret_key)
+                return FixtureResponse(verified_price if request.get_method() == "GET" else session)
+        self.service.stripe = StripeClient(self.settings.stripe_secret_key, self.settings.stripe_price_id)
         with patch("backend.service.build_opener", return_value=FixtureTransport()):
             result = self.service.checkout(payload)
             for injected in [{"amount": 1}, {"price": "price_other"}, {"currency": "cad"}]:
                 with self.subTest(injected=injected), self.assertRaises(ServiceError):
                     self.service.checkout({**payload, **injected})
         self.assertEqual(result, {"checkout_url": session["url"]})
-        self.assertEqual(len(captured), 1)
-        url, method, fields, idempotency, timeout = captured[0]
+        self.assertEqual(len(captured), 2)
+        self.assertEqual(captured[0][0:2], ("https://api.stripe.com/v1/prices/" + FIXTURE_PRICE_ID, "GET"))
+        url, method, fields, idempotency, timeout = captured[1]
         self.assertEqual(url, "https://api.stripe.com/v1/checkout/sessions")
         self.assertEqual(method, "POST")
-        self.assertEqual(fields["line_items[0][price]"], ["price_1UVJbpRpzjXsSjtTqCDsy6Sp"])
+        self.assertEqual(fields["line_items[0][price]"], [FIXTURE_PRICE_ID])
         self.assertEqual(fields["line_items[0][quantity]"], ["1"])
         self.assertFalse(any("price_data" in key or "product_data" in key or "unit_amount" in key for key in fields))
         self.assertNotIn("amount", fields)
         self.assertNotIn("currency", fields)
         self.assertEqual(fields["automatic_tax[enabled]"], ["true"])
         self.assertEqual(fields["customer_email"], ["buyer@example.com"])
-        self.assertEqual(idempotency, "checkup47-" + token)
+        self.assertEqual(fields["metadata[price_id]"], [FIXTURE_PRICE_ID])
+        self.assertEqual(fields["expand[0]"], ["line_items"])
+        self.assertEqual(idempotency, "checkup99-" + token)
         self.assertEqual(timeout, 22)
         self.assertEqual(self.mailer.messages, [])
+
+    def test_wrong_amount_currency_product_or_price_mode_never_creates_session(self):
+        client = StripeClient(self.settings.stripe_secret_key, FIXTURE_PRICE_ID)
+        changes = [{"unit_amount": 4700}, {"unit_amount": True}, {"currency": "cad"},
+                   {"id": "price_other0000"}, {"product": "prod_other"}, {"active": False},
+                   {"livemode": False}, {"type": "recurring"}, {"recurring": {"interval": "month"}},
+                   {"tax_behavior": "inclusive"}, {"tax_behavior": "unspecified"},
+                   {"billing_scheme": "tiered"}, {"custom_unit_amount": {"enabled": True}},
+                   {"transform_quantity": {"divide_by": 2, "round": "up"}}]
+        for change in changes:
+            with self.subTest(change=change):
+                observed = []
+                price = self.configured_price(**change)
+                class Response:
+                    def __enter__(self): return self
+                    def __exit__(self, *args): return False
+                    def read(self, maximum): return json.dumps(price).encode()
+                class Transport:
+                    def open(self, request, timeout):
+                        observed.append(request.get_method())
+                        return Response()
+                with patch("backend.service.build_opener", return_value=Transport()), self.assertRaises(ServiceError):
+                    client.create_session("a" * 43, "buyer@example.com", "https://cdatats.com")
+                self.assertEqual(observed, ["GET"], "A bad configured price must fail before a checkout POST")
+
+    def test_invalid_price_identifier_does_not_become_a_network_path(self):
+        for value in (None, "", "../prices/other", "price_id?expand[]=secret", "price_" + "x" * 201):
+            with self.subTest(value=value), patch("backend.service.build_opener") as opener, self.assertRaises(ServiceError):
+                StripeClient(self.settings.stripe_secret_key, value).create_session("a" * 43, "buyer@example.com", "https://cdatats.com")
+            opener.assert_not_called()
+
+    def test_new_configuration_cannot_reprice_or_duplicate_an_existing_checkout(self):
+        token = self.ready_checkout()
+        self.service.settings = replace(self.settings, stripe_price_id="price_changed9999")
+        with self.assertRaises(ServiceError) as failure:
+            self.service.checkout({"assessment_id": token, "email": "buyer@example.com"})
+        self.assertEqual(failure.exception.code, "price_already_bound")
+        self.assertEqual(len(self.stripe.calls), 1)
+        # A previously bound and correctly paid99USD session remains fulfillable.
+        self.pay(token)
+        self.assertEqual(self.service.status(token)["payment_status"], "paid")
 
 
 class SMTPAdapterTests(FixtureCase):
@@ -645,11 +727,23 @@ class HTTPBoundaryTests(FixtureCase):
         base = {"Content-Type": "application/json", "Origin": "https://cdatats.com"}
         self.assertEqual(self.request("POST", "/api/checkup/assessments", body, {**base, "Origin": "https://attacker.example"})[0], 403)
         self.assertEqual(self.request("POST", "/api/checkup/assessments", b"{", base)[0], 400)
-        self.assertEqual(self.request("POST", "/api/checkup/assessments", body, {**base, "Content-Length": "100000"})[0], 413)
+        self.assertEqual(self.request("POST", "/api/checkup/assessments", body, {**base, "Content-Length": "300000"})[0], 413)
         code, headers, result = self.request("POST", "/api/checkup/assessments", body, base)
         self.assertEqual(code, 201)
         self.assertEqual(set(json.loads(result)), {"assessment_id", "preview"})
         self.assertNotIn(b"priorities\":", result)
+
+    def test_maximum_unicode_assessment_fits_new_bounded_request(self):
+        answers = {item["id"]: ("😀" * 1500 if item["answer_type"] == "text" else ["unknown"])
+                   for item in DEFINITIONS}
+        body = json.dumps({"answers": answers, "notes": {"C01": "n" * 600}}, ensure_ascii=False).encode("utf-8")
+        self.assertGreater(len(body), 32768)
+        self.assertLess(len(body), 262144)
+        base = {"Content-Type": "application/json", "Origin": "https://cdatats.com"}
+        code, _, result = self.request("POST", "/api/checkup/assessments", body, base)
+        self.assertEqual(code, 201)
+        self.assertEqual(json.loads(result)["preview"]["answered"], 30)
+        self.assertNotIn(b"answerSummary", result)
 
     def test_email_route_persists_without_providers_and_rejects_unsafe_requests(self):
         self.service.settings = Settings(self.settings.data_dir)

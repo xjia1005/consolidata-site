@@ -34,7 +34,7 @@ const response=(data,ok=true)=>({ok,json:async()=>data});
 const flush=()=>new Promise(resolve=>setImmediate(resolve));
 function application({ready=true,initialToken='',hash='',payment='unpaid',delivery='not_requested',resumeAllowed=false}={}) {
   const registry=[],ids=new Map(),previews=[],emails=[],statuses=[],checkouts=[],assignments=[],stored=new Map();
-  if(initialToken)stored.set('consolidata_checkup_assessment',initialToken);
+  if(initialToken)stored.set('consolidata_growth_assessment99_v1',initialToken);
   const html=fs.readFileSync(path.join(__dirname,'../site/assessment.html'),'utf8');
   for(const [,tag,attrs] of html.matchAll(/<([a-z][a-z0-9-]*)\b([^>]*)>/gi)) {
     const match=attrs.match(/\bid="([^"]+)"/);if(!match)continue;
@@ -47,7 +47,7 @@ function application({ready=true,initialToken='',hash='',payment='unpaid',delive
     document:{getElementById:get,createElement:tag=>new Element(tag,registry),querySelectorAll:()=>registry.filter(node=>['BUTTON','INPUT','TEXTAREA','FIELDSET'].includes(node.tagName))},
     URLSearchParams,AbortController,setTimeout,clearTimeout,
     fetch:(url,options)=>{
-      if(url.endsWith('/config'))return Promise.resolve(response({price:47,currency:'USD',purchase_enabled:ready,delivery:'email-pdf-attachment'}));
+      if(url.endsWith('/config'))return Promise.resolve(response({price:99,currency:'USD',purchase_enabled:ready,delivery:'email-pdf-attachment'}));
       if(url.endsWith('/status')){statuses.push(options);return Promise.resolve(response({payment_status:payment,delivery_status:delivery,masked_email:'b***@example.com',can_resume_checkout:resumeAllowed}));}
       const held=deferred(),call={...held,body:JSON.parse(options.body)};
       if(url.endsWith('/assessments'))previews.push(call);
@@ -57,27 +57,27 @@ function application({ready=true,initialToken='',hash='',payment='unpaid',delive
       return held.promise;
     }};
   vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../site/assessment.js'),'utf8'),context);
-  function completeQuestions(){for(let i=0;i<10;i++){const choice=get('question-options').querySelectorAll('input')[0];choice.checked=true;choice.trigger('change');get('next-question').click();}get('submit-consent').checked=true;}
-  function choose(value){const input=get('question-options').querySelectorAll('input').find(x=>x.value===value);assert.ok(input);input.checked=true;input.trigger('change');}
-  const token=()=>stored.get('consolidata_checkup_assessment');
+  function completeQuestions(){for(const question of engine.questions){if(question.answer_type==='text'){get('question-answer').value='Fictional QA answer for '+question.id;get('question-answer').trigger('input');}else{const choice=get('question-options').querySelectorAll('input')[0];choice.checked=true;choice.trigger('change');}get('next-question').click();}get('submit-consent').checked=true;}
+  function choose(value){if(!get('text-answer-group').hidden){get('question-answer').value=value;get('question-answer').trigger('input');return;}const input=get('question-options').querySelectorAll('input').find(x=>x.value===value);assert.ok(input);input.checked=true;input.trigger('change');}
+  const token=()=>stored.get('consolidata_growth_assessment99_v1');
   async function completePreview(){completeQuestions();const pending=get('create-preview').trigger('click');const assessment='assessment_fixture_'+'x'.repeat(24);previews.at(-1).resolve(previewResponse(assessment));await pending;return assessment;}
   async function saveEmail(email='buyer@example.com'){get('delivery-email').value=email;get('confirm-email').value=email;const pending=get('email-form').trigger('submit');emails.at(-1).resolve(response({masked_email:'b***@example.com'}));await pending;}
   return{get,previews,emails,statuses,checkouts,assignments,completeQuestions,completePreview,saveEmail,choose,token,stored,location};
 }
-const previewResponse=token=>response({assessment_id:token,preview:{answered:10,unknowns:0,message:'Limited coverage preview.'}});
+const previewResponse=token=>response({assessment_id:token,preview:{answered:30,unknowns:0,message:'Limited coverage preview.'}});
 
 test('delayed preview locks review/back/edit and cannot attach an old token to edited answers',async()=>{
   const app=application();await flush();app.completeQuestions();
   const pending=app.get('create-preview').trigger('click');
   assert.equal(app.previews.length,1);
-  assert.equal(app.previews[0].body.answers.review_ownership,'named');
+  assert.equal(app.previews[0].body.answers.E04,'Fictional QA answer for E04');
   assert.equal(app.get('review-back').disabled,true);
   assert.equal(app.get('submit-consent').disabled,true);
   assert.equal(app.get('question-note').disabled,true);
-  const lastEdit=app.get('review-answers').children[9].querySelector('button');
+  const lastEdit=app.get('review-answers').children[29].querySelector('button');
   assert.equal(lastEdit.disabled,true);
   // Force queued/programmatic events too: handlers must preserve the in-flight snapshot.
-  app.get('review-back').trigger('click');lastEdit.trigger('click');app.choose('informal');
+  app.get('review-back').trigger('click');lastEdit.trigger('click');app.choose('Ignored while the request is pending');
   app.get('next-question').trigger('click');app.get('create-preview').trigger('click');
   assert.equal(app.get('question-view').hidden,true);
   assert.equal(app.get('review-view').hidden,false);
@@ -86,11 +86,11 @@ test('delayed preview locks review/back/edit and cannot attach an old token to e
   app.previews[0].resolve(previewResponse(firstToken));await pending;
   assert.equal(app.token(),firstToken);
   app.get('edit-answers').click();
-  assert.equal(app.get('review-answers').children[9].children[1].textContent,engine.questions[9].options[0].label);
+  assert.equal(app.get('review-answers').children[29].children[1].textContent,'Fictional QA answer for E04');
   // Editing is allowed after completion; a fresh preview must use the new answers/token.
-  app.get('review-answers').children[9].querySelector('button').click();app.choose('informal');app.get('next-question').click();
+  app.get('review-answers').children[29].querySelector('button').click();app.choose('Changed E04 QA answer');app.get('next-question').click();
   const second=app.get('create-preview').trigger('click');
-  assert.equal(app.previews[1].body.answers.review_ownership,'informal');
+  assert.equal(app.previews[1].body.answers.E04,'Changed E04 QA answer');
   const secondToken='assessment_second_'+'y'.repeat(24);
   app.previews[1].resolve(previewResponse(secondToken));await second;
   assert.equal(app.token(),secondToken);
@@ -191,6 +191,68 @@ test('a rejected delayed preview restores controls and permits a real edit',asyn
   app.previews[0].resolve(response({error:{message:'The preview could not be prepared.'}},false));await pending;
   assert.equal(app.get('review-back').disabled,false);assert.equal(app.get('submit-consent').disabled,false);
   assert.equal(app.get('preview-error').hidden,false);assert.equal(app.token(),undefined);
-  app.get('review-answers').children[9].querySelector('button').click();
+  app.get('review-answers').children[29].querySelector('button').click();
   assert.equal(app.get('question-view').hidden,false);
+});
+
+test('all30 text and multiselect answers are reviewed with consent before private submission',async()=>{
+  const app=application({ready:false});await flush();app.completeQuestions();
+  assert.equal(app.get('question-progress').max,30);
+  assert.equal(app.get('review-answers').children.length,30);
+  app.get('submit-consent').checked=false;
+  await app.get('create-preview').trigger('click');
+  assert.equal(app.previews.length,0);
+  assert.equal(app.get('preview-error').hidden,false);
+  app.get('submit-consent').checked=true;
+  const pending=app.get('create-preview').trigger('click');
+  assert.equal(Object.keys(app.previews[0].body.answers).length,30);
+  assert.deepEqual(Array.from(app.previews[0].body.answers.C04),['reach']);
+  assert.equal(app.previews[0].body.answers.C02,'Fictional QA answer for C02');
+  app.previews[0].resolve(previewResponse('assessment_thirty_'+'x'.repeat(24)));await pending;
+  assert.equal(app.get('email-view').hidden,false);
+});
+
+test('blank questions and the explicit defer control preserve truthful unknown answers',async()=>{
+  const app=application({ready:false});await flush();
+  app.get('next-question').click(); // Blank C01 becomes explicit unknown.
+  app.get('defer-question').click(); // C02 is intentionally deferred.
+  for(let i=1;i<engine.questions.length;i++)app.get('next-question').click();
+  assert.equal(app.get('review-answers').children.length,30);
+  assert.equal(app.get('review-answers').children[0].children[1].textContent,'Unknown / deferred');
+  app.get('submit-consent').checked=true;
+  const pending=app.get('create-preview').trigger('click');
+  assert.equal(app.previews[0].body.answers.C01,'Unknown / deferred');
+  assert.equal(app.previews[0].body.answers.C02,'Unknown / deferred');
+  assert.deepEqual(Array.from(app.previews[0].body.answers.C04),['unknown']);
+  app.previews[0].resolve(previewResponse('assessment_unknown_'+'x'.repeat(24)));await pending;
+});
+
+test('multiple symptom selections survive back navigation without becoming one cause',async()=>{
+  const app=application({ready:false});await flush();
+  for(let i=0;i<3;i++){app.choose('Fictional context '+i);app.get('next-question').click();}
+  app.choose('reach');app.choose('first_value');app.choose('unknown');
+  app.get('next-question').click();app.get('previous-question').click();
+  const selected=app.get('question-options').querySelectorAll('input').filter(input=>input.checked).map(input=>input.value);
+  assert.deepEqual(selected,['reach','first_value','unknown']);
+});
+
+test('oversized text stays available for correction and is not submitted',async()=>{
+  const app=application({ready:false});await flush();
+  app.choose('x'.repeat(1501));app.get('next-question').click();
+  assert.equal(app.get('step-label').textContent,'Question 1 of 30');
+  assert.equal(app.get('question-error').hidden,false);
+  assert.equal(app.get('question-answer').value.length,1501);
+  assert.equal(app.previews.length,0);
+  app.choose('😀'.repeat(1500));app.get('next-question').click();
+  assert.equal(app.get('step-label').textContent,'Question 2 of 30');
+});
+
+test('literal answer markup is displayed as source text in the review',async()=>{
+  const app=application({ready:false});await flush();app.completeQuestions();
+  app.get('review-answers').children[0].querySelector('button').click();
+  const answer='<img src=x onerror="doNotRun()"> literal customer description';
+  app.choose(answer);app.get('next-question').click();
+  const row=app.get('review-answers').children[0].children[1];
+  assert.equal(row.textContent,answer);
+  assert.equal(row.children.length,0);
 });

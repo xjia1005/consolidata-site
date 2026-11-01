@@ -1,0 +1,33 @@
+[Unit]
+Description=ConsoliData private growth assessment and report delivery
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=consolidata-growth99
+Group=consolidata-growth99
+WorkingDirectory=/opt/consolidata-growth99/current
+EnvironmentFile=/etc/consolidata-growth99/environment
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/opt/consolidata-growth99/venv/bin/python -B -m backend.email_service --host 127.0.0.1 --port 4190
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=40
+UMask=0077
+StateDirectory=consolidata-growth99
+StateDirectoryMode=0700
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+ReadWritePaths=/var/lib/consolidata-growth99
+
+[Install]
+WantedBy=multi-user.target

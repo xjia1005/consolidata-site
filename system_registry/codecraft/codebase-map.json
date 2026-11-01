@@ -1,11 +1,12 @@
 {
-  "version": 3,
-  "task": "2026-10-27-assessment-first-b",
+  "version": 5,
+  "task": "2026-11-01-public-assessment-99",
   "price": {
-    "amount": 47,
-    "currency": "USD"
+    "amount": 99,
+    "currency": "USD",
+    "tax_behavior": "exclusive"
   },
-  "changeScope": "Assessment-first B: work-email save before purchase review; no prices in homepage/buttons; A preserved",
+  "changeScope": "Growth assessment candidate: upfront99USD homepage,30reviewed questions, private initial report, server-verified configured price and paid report email",
   "delivery": "email-pdf-attachment",
   "nodes": [
     {
@@ -55,12 +56,23 @@
       ]
     },
     {
-      "id": "public-questions",
+      "id": "question-bank",
       "files": [
-        "site/checkup-engine.js"
+        "backend/questions.json"
       ],
       "dependsOn": [],
-      "boundary": "Question definitions and validation only, no full report findings"
+      "boundary": "Versioned reviewed30questions; browser exposes only the five agreed public fields; private reports retain canonical semantic hash"
+    },
+    {
+      "id": "public-questions",
+      "files": [
+        "site/checkup-engine.js",
+        "site/assessment-bank.js"
+      ],
+      "dependsOn": [
+        "question-bank"
+      ],
+      "boundary": "Public reviewed question subset and validation only; no complete report or private answers"
     },
     {
       "id": "private-api",
@@ -73,16 +85,17 @@
         "payment-provider",
         "transaction-mail"
       ],
-      "boundary": "Private database, opaque token, email save, fixed checkout and signed paid callback; no report download endpoint"
+      "boundary": "Private99USD database and opaque token; email save, server-owned price/session binding, signed matching paid callback and bounded outbox; no report access endpoint; checkout-only pause preserves existing-session signed payment and paid delivery"
     },
     {
       "id": "private-report",
       "files": [
-        "backend/report.py",
-        "backend/questions.json"
+        "backend/report.py"
       ],
-      "dependsOn": [],
-      "boundary": "Full rules and PDF server-side"
+      "dependsOn": [
+        "question-bank"
+      ],
+      "boundary": "Private version3.1 source-linked next-check worksheet, submitted proposal, unfilled agreement fields, alternatives and four value questions; no measured cause ranking"
     },
     {
       "id": "payment-provider",
@@ -90,7 +103,7 @@
         "backend/service.py"
       ],
       "dependsOn": [],
-      "boundary": "Real Stripe configuration required; no browser paid flags"
+      "boundary": "Explicit configured live active one-time USD9900 exclusive-tax price verified before checkout creation; no old47fallback or browser amount"
     },
     {
       "id": "transaction-mail",
@@ -132,8 +145,14 @@
       "id": "verification",
       "files": [
         "tools/validate-checkup.py",
+        "tests/checkup-engine.test.cjs",
         "tests/assessment-pending.test.cjs",
-        "tests/test_email_service.py"
+        "tests/checkout.test.cjs",
+        "tests/direct-payment.test.cjs",
+        "tests/test_email_service.py",
+        "tests/test_growth_report.py",
+        "tests/test_payment_key_types.py",
+        "tests/test_checkout_pause.py"
       ],
       "dependsOn": [
         "entry",
@@ -141,32 +160,50 @@
         "private-api",
         "disclosures"
       ]
+    },
+    {
+      "id": "deployment-preparation",
+      "files": [
+        "deploy/consolidata-growth99.service",
+        "deploy/growth99-nginx.location.conf",
+        "deploy/growth99-rollout.md"
+      ],
+      "dependsOn": [
+        "private-api",
+        "private-report",
+        "transaction-mail"
+      ],
+      "boundary": "Unexecuted named-site service/proxy/rollback template; actual merged config, credentials and delivery require independent verification"
     }
   ],
   "checks": [
     "node --test tests/*.test.cjs",
-    "python -B -m unittest discover -s tests -p test_email_service.py -q",
+    "python -B -m unittest discover -s tests -p test*.py -v",
     "python -B tools/validate-checkup.py",
-    "node --check each site JavaScript",
-    "real browser desktop/mobile assessment-email-purchase order",
-    "independent review"
+    "node --check each site JavaScript file",
+    "actual desktop/mobile30question-review-email-purchase journey and screenshots",
+    "independent correctness/security/scope/test-evidence review",
+    "actual provider and deployment verification recorded separately"
   ],
   "limitations": [
-    "No live B deployment yet",
-    "Payment and mail integration require real verification",
-    "No voice or external model enabled",
+    "Public99USD deployment is not established by local source or static tests",
+    "Live price creation is separate from bound checkout and signed payment verification",
+    "Configured price and SMTP readiness require actual verification before purchases are enabled",
+    "No external model or independently verified company diagnosis",
     "No automatic marketing subscription or follow-up",
-    "A/B effectiveness not yet measured"
+    "Customer usefulness, price acceptance and growth effectiveness are unmeasured"
   ],
-  "status": "B candidate; A remains live",
+  "status": "Local99USD candidate; recorded47USD A release remains production reference",
   "preservedA": "versions/a-20261027.json",
   "journey": [
-    "start-assessment",
-    "ten-questions",
+    "upfront99USD-assessment-entry",
+    "30questions-or-explicit-unknowns",
     "review-submit",
     "work-email-save",
-    "purchase-review",
+    "99USD-purchase-review",
     "verified-payment",
-    "transaction-email-attachment"
-  ]
+    "private-transaction-email-attachment"
+  ],
+  "questionCount": 30,
+  "assetCacheIdentity": "20261101-growth99"
 }

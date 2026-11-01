@@ -1,0 +1,354 @@
+{
+  "started_at_utc": "2026-11-01T19:43:08.217347+00:00",
+  "finished_at_utc": "2026-11-01T19:43:53.977155+00:00",
+  "status": "failed",
+  "url": "http://127.0.0.1:4198",
+  "environment": "Actual installed Chromium on Windows, headless, loopback service with --no-worker and no live providers",
+  "viewports": [
+    "1440x1000",
+    "390x844"
+  ],
+  "fixture": "Fictional QA only; example.invalid email addresses are saved locally, no message or payment requested",
+  "journeys": [
+    "desktop full30answer/review/consent/email/purchase-preview/status recovery",
+    "mobile all30unknown/defer/review/email/purchase-preview"
+  ],
+  "assertion_count": 69,
+  "prompt_assertion_count": 30,
+  "checks": [
+    {
+      "check": "Home English first",
+      "passed": true
+    },
+    {
+      "check": "Home upfront99USD plus applicable tax",
+      "passed": true
+    },
+    {
+      "check": "Home30question purpose and startup audience",
+      "passed": true
+    },
+    {
+      "check": "Home accurately reports unavailable purchase",
+      "passed": true
+    },
+    {
+      "check": "Home desktop1440 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "Keyboard reaches visible skip navigation with focus outline",
+      "passed": true,
+      "detail": {
+        "text": "Skip to content",
+        "outline": "solid",
+        "width": "3px"
+      }
+    },
+    {
+      "check": "Homepage sample produces bounded first-task check",
+      "passed": true
+    },
+    {
+      "check": "Homepage sample keeps cause uncertain",
+      "passed": true
+    },
+    {
+      "check": "Primary action opens local questionnaire",
+      "passed": true
+    },
+    {
+      "check": "Question progress30 derived from bank",
+      "passed": true
+    },
+    {
+      "check": "Browser bank exposes exact five fields",
+      "passed": true
+    },
+    {
+      "check": "Public five-field bank matches backend semantics",
+      "passed": true
+    },
+    {
+      "check": "Form explains local input and private submission",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question C01",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question C02",
+      "passed": true
+    },
+    {
+      "check": "Over1500characters visibly rejected without advancing",
+      "passed": true
+    },
+    {
+      "check": "1500supplementaryUnicodepoints accepted",
+      "passed": true
+    },
+    {
+      "check": "Back preserves boundary answer",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question C03",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question C04",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question C05",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question C06",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question R01",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question R02",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question R03",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question R04",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question S01",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question S02",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question S03",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question S04",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question V01",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question V02",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question V03",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question V04",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question P01",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question P02",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question P03",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question P04",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question T01",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question T02",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question T03",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question T04",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question E01",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question E02",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question E03",
+      "passed": true
+    },
+    {
+      "check": "Exact reviewed question E04",
+      "passed": true
+    },
+    {
+      "check": "Explicit defer remains visible",
+      "passed": true
+    },
+    {
+      "check": "Review contains all30records",
+      "passed": true
+    },
+    {
+      "check": "Mixed symptoms retained in review",
+      "passed": true
+    },
+    {
+      "check": "Injected answer remains inert text",
+      "passed": true
+    },
+    {
+      "check": "Review desktop no overflow",
+      "passed": true
+    },
+    {
+      "check": "Edit returns to saved first answer",
+      "passed": true
+    },
+    {
+      "check": "Edit and return preserves changed answer",
+      "passed": true
+    },
+    {
+      "check": "No consent causes visible error",
+      "passed": true
+    },
+    {
+      "check": "No submission before data acknowledgment",
+      "passed": true
+    },
+    {
+      "check": "Consent submits private assessment withcoverageonly",
+      "passed": true
+    },
+    {
+      "check": "Coverage receipt has30answers",
+      "passed": true
+    },
+    {
+      "check": "No private report in browser preview",
+      "passed": true
+    },
+    {
+      "check": "Source answer is not leaked in APIpreview",
+      "passed": true
+    },
+    {
+      "check": "Only opaque token kept in session storage",
+      "passed": true
+    },
+    {
+      "check": "Mismatched emails blocked visibly",
+      "passed": true
+    },
+    {
+      "check": "Matching email saved without checkout",
+      "passed": true
+    },
+    {
+      "check": "Separate99USD purchase review",
+      "passed": true
+    },
+    {
+      "check": "Checkout disabled while actual service unconfigured",
+      "passed": true
+    },
+    {
+      "check": "No checkout request was issued",
+      "passed": true
+    },
+    {
+      "check": "No full report or download controls",
+      "passed": true
+    },
+    {
+      "check": "Reload resumes server status without payment claim",
+      "passed": true
+    },
+    {
+      "check": "Status recovery uses Bearer and noquery token",
+      "passed": true
+    },
+    {
+      "check": "Resume requires email reconfirmation",
+      "passed": true
+    }
+  ],
+  "errors": [
+    "Traceback (most recent call last):\n  File \"E:\\consolidata-marketing\\.worktrees\\2026-11-01-public-assessment-99\\private\\qa_public99.py\", line 178, in <module>\n    page.locator(\"#status-view\").wait_for(state=\"visible\")\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\xjia1\\AppData\\Roaming\\Python\\Python314\\site-packages\\playwright\\sync_api\\_generated.py\", line 18074, in wait_for\n    self._sync(self._impl_obj.wait_for(timeout=timeout, state=state))\n    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\xjia1\\AppData\\Roaming\\Python\\Python314\\site-packages\\playwright\\_impl\\_sync_base.py\", line 115, in _sync\n    return task.result()\n           ~~~~~~~~~~~^^\n  File \"C:\\Users\\xjia1\\AppData\\Roaming\\Python\\Python314\\site-packages\\playwright\\_impl\\_locator.py\", line 710, in wait_for\n    await self._frame.wait_for_selector(\n        self._selector, strict=True, timeout=timeout, state=state\n    )\n  File \"C:\\Users\\xjia1\\AppData\\Roaming\\Python\\Python314\\site-packages\\playwright\\_impl\\_frame.py\", line 369, in wait_for_selector\n    await self._channel.send(\n        \"waitForSelector\", self._timeout, locals_to_params(locals())\n    )\n  File \"C:\\Users\\xjia1\\AppData\\Roaming\\Python\\Python314\\site-packages\\playwright\\_impl\\_connection.py\", line 69, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n    )\n    ^\n  File \"C:\\Users\\xjia1\\AppData\\Roaming\\Python\\Python314\\site-packages\\playwright\\_impl\\_connection.py\", line 559, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.TimeoutError: Locator.wait_for: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"#status-view\") to be visible\n    63 × locator resolved to hidden <section hidden=\"\" id=\"status-view\" class=\"checkup-panel\" aria-labelledby=\"status-title\">…</section>\n\n"
+  ],
+  "console_errors": [],
+  "external_requests": [],
+  "api_request_summary": [
+    {
+      "path": "/api/checkup/config",
+      "method": "GET",
+      "has_bearer": false
+    },
+    {
+      "path": "/api/checkup/config",
+      "method": "GET",
+      "has_bearer": false
+    },
+    {
+      "path": "/api/checkup/assessments",
+      "method": "POST",
+      "has_bearer": false
+    },
+    {
+      "path": "/api/checkup/config",
+      "method": "GET",
+      "has_bearer": false
+    },
+    {
+      "path": "/api/checkup/email",
+      "method": "POST",
+      "has_bearer": false
+    },
+    {
+      "path": "/api/checkup/config",
+      "method": "GET",
+      "has_bearer": false
+    },
+    {
+      "path": "/api/checkup/status",
+      "method": "GET",
+      "has_bearer": true
+    },
+    {
+      "path": "/api/checkup/config",
+      "method": "GET",
+      "has_bearer": false
+    }
+  ],
+  "limits": [
+    "No real Stripe checkout, signed provider callback, report email or inbox delivery tested",
+    "No production deployment, customer usefulness or price-acceptance conclusion",
+    "CSSmobile viewport and keyboard observations are not physical-phone or ambient-light validation",
+    "Counted assertions are not independent end-to-end journeys"
+  ]
+}
