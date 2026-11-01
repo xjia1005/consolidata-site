@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 6,
   "task": "2026-11-01-public-assessment-99",
   "price": {
     "amount": 99,
@@ -85,7 +85,7 @@
         "payment-provider",
         "transaction-mail"
       ],
-      "boundary": "Private99USD database and opaque token; email save, server-owned price/session binding, signed matching paid callback and bounded outbox; no report access endpoint; checkout-only pause preserves existing-session signed payment and paid delivery"
+      "boundary": "Private99USD database and opaque token; email save, server-owned price/session binding, signed matching paid callback and bounded outbox; no report access endpoint; checkout-only pause preserves existing-session signed payment and paid delivery; signature-first acknowledgement of clearly foreign shared-account events, strict matching for every potentially owned checkout"
     },
     {
       "id": "private-report",
@@ -152,7 +152,8 @@
         "tests/test_email_service.py",
         "tests/test_growth_report.py",
         "tests/test_payment_key_types.py",
-        "tests/test_checkout_pause.py"
+        "tests/test_checkout_pause.py",
+        "tests/test_unrelated_webhooks.py"
       ],
       "dependsOn": [
         "entry",
@@ -193,7 +194,7 @@
     "No automatic marketing subscription or follow-up",
     "Customer usefulness, price acceptance and growth effectiveness are unmeasured"
   ],
-  "status": "Local99USD candidate; recorded47USD A release remains production reference",
+  "status": "Backend stage verified with purchases disabled;99USD frontend activation and paid fulfillment remain separate gates",
   "preservedA": "versions/a-20261027.json",
   "journey": [
     "upfront99USD-assessment-entry",

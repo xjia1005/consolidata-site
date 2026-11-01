@@ -93,7 +93,7 @@ assert all(question['answer_type'] in {'text', 'multi_select'} for question in b
 assert set(bank['value_dimensions']) == {'outcome', 'likelihood', 'delay', 'effort'}
 assert assessment.index('assessment-bank.js') < assessment.index('checkup-engine.js') < assessment.index('assessment.js')
 code_map = json.loads((ROOT / 'system_registry/codecraft/codebase-map.json').read_text(encoding='utf-8'))
-assert code_map['version'] == 5 and code_map['price']['amount'] == 99
+assert code_map['version'] == 6 and code_map['price']['amount'] == 99
 assert code_map['questionCount'] == 30
 node_ids = {node['id'] for node in code_map['nodes']}
 assert len(node_ids) == len(code_map['nodes'])

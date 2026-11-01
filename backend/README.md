@@ -57,3 +57,10 @@ The usual service includes one outbox worker. `--worker-only` runs that worker; 
 The existing static-only deployment script is insufficient for this version. Review the exact service/proxy diff, private file permissions, backup and rollback before production. Proxy controls must preserve the same origin, overwrite the real-client-address header, bound bodies/timeouts and keep token-bearing API access logs disabled. The service does not print answers, addresses, payment bodies, credentials or mail exception details. Existing unrelated sites and `/studio/` routes stay outside this release scope.
 
 Database persistence is not offsite backup. Retention, deletion requests, delivery reputation, real refunds and recovery remain operator responsibilities. No current production activation, real payment, actual attachment receipt or customer-effectiveness claim follows from these source/tests.
+
+
+## Staged execution update2026-11-01
+
+The dedicated backend/API proxy has been installed with live delivery off and checkout paused. Actual canonical HTTPS configuration reads99USD/purchase disabled. Root/service-group configuration permissions and the unchanged47USD static release were read back. Company-sender authentication succeeded. One separately approved manual internal email, using the production mail transport, reached the exact company mailbox with a byte-identical12-page report; all30source answers and the worksheet survived extraction. This did not create a paid event, outbox job or customer result, and does not prove paid callback fulfillment.
+
+Shared merchant accounts generate callbacks for other products. The follow-up source acknowledges clearly foreign signed checkout events without database/outbox writes. A known checkout, assessment or recorded event, or a claim to the configured assessment price, retains all strict amount/session/email checks. Invalid signatures and malformed structures still fail. This repair prevents unrelated callback retry noise; it is not evidence of a previous entitlement bypass. Actual backend release details are recorded separately from frontend release and account activation.

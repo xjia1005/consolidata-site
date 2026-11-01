@@ -462,7 +462,29 @@ class CheckupService:
             if not re.fullmatch(r"evt_[A-Za-z0-9]{8,200}", str(event.get("id", ""))) or event.get("livemode") is not True:
                 raise ValueError()
             session = event["data"]["object"]
-            token = self._token(session["metadata"]["assessment_id"])
+            if (not isinstance(session, dict) or session.get("livemode") is not True or
+                    not STRIPE_ID_RE.fullmatch(str(session.get("id", ""))) or
+                    session.get("mode") not in {"payment", "setup", "subscription"}):
+                raise ValueError()
+            metadata = session.get("metadata")
+            if metadata is None:
+                metadata = {}
+            if not isinstance(metadata, dict) or any(not isinstance(v, str) for v in metadata.values()):
+                raise ValueError()
+            # This account can sell other products. A signed event is not proof
+            # that its checkout belongs to this assessment service. Preserve
+            # strict reconciliation for any owned record or current-price claim.
+            price_claim = bool(self.settings.stripe_price_id and metadata.get("price_id") == self.settings.stripe_price_id)
+            if not price_claim:
+                candidate = metadata.get("assessment_id")
+                candidate = candidate if isinstance(candidate, str) and TOKEN_RE.fullmatch(candidate) else None
+                with self.connect() as db:
+                    owned = db.execute("SELECT 1 FROM assessments WHERE checkout_id=? OR id=? LIMIT 1",
+                                       (session["id"], candidate)).fetchone()
+                    recorded = db.execute("SELECT 1 FROM stripe_events WHERE id=?", (event["id"],)).fetchone()
+                if not owned and not recorded:
+                    return {"received": True, "ignored": True}
+            token = self._token(metadata["assessment_id"])
             details = session.get("total_details") or {}
             tax = details.get("amount_tax", 0)
             if (session.get("livemode") is not True or session.get("mode") != "payment" or

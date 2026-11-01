@@ -10,6 +10,8 @@ This branch implements theUS$99 / 30-question candidate. The integrator verified
 
 The integrator created the live, one-time, exclusive-of-tax US$99 price `price_1UX4UORpzjXsSjtTi0POceqC`, on product `prod_VT2svoLk60Wjcp`. Price creation does not activate this website, bind its checkout, verify report email delivery or establish a completed payment. The backend requires the configured price identifier and verifies the actual provider price before opening checkout; it has no US$47 fallback.
 
+The dedicated backend was subsequently staged on the verified host with99USD configuration and purchases disabled. Its actual process identity, loopback/proxy, private state permissions and unchanged47USD static release were checked. The company report sender authenticated successfully; one explicitly approved internal report email was accepted and found in the company mailbox, and its downloaded12-page attachment matched the approved bytes and all30answers. This manual internal transport check does not establish signed paid fulfillment. The frontend remains the existing47USD release pending the coordinated99USD activation and Stripe key verification.
+
 ## Assessment and report journey
 
 Homepage with US$99 disclosure → 30 questions → answer review and explicit server-submission acknowledgment → limited coverage preview → save and confirm work email → separate US$99 purchase review → secure hosted payment when ready → matching signed payment confirmation → private report attachment by transaction email.
@@ -41,6 +43,6 @@ The existing static-only release script cannot deploy this private assessment se
 
 Keep purchases disabled until the exact price, payment matching, report attachment receipt, failure recovery and rollback have been verified. The earlier US$47 release and data remain the rollback reference. Publishing code and changing a Stripe price are separate from a working paid delivery or validated customer demand. No marketing posts, outreach, follow-ups, advertising or subscriptions are started by this source change.
 
-Canonical public URL: https://cdatats.com/. Machine contract: `system_registry/codecraft/codebase-map.json`, version 5. Public discovery files remain `robots.txt`, `sitemap.xml`, `llms.txt` and `site-manifest.json`. The assessment is noindex and excluded from the sitemap; this is not access control. Search indexing is not established by source validation.
+Canonical public URL: https://cdatats.com/. Machine contract: `system_registry/codecraft/codebase-map.json`, version 6. Public discovery files remain `robots.txt`, `sitemap.xml`, `llms.txt` and `site-manifest.json`. The assessment is noindex and excluded from the sitemap; this is not access control. Search indexing is not established by source validation.
 
 Copyright 2026 CONSOLIDATA. All rights reserved.

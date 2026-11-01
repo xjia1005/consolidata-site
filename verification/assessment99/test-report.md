@@ -1,6 +1,6 @@
 # Assessment99 verification and remaining launch gates
 
-Date2026-11-01. Scope: local public-site candidate, separately prepared deployment, one authorized live Stripe price. This is not a production or paid-fulfillment receipt.
+Date2026-11-01. Initial scope: local public-site candidate, separately prepared deployment, one authorized live Stripe price. Later executed backend and internal inbox-delivery results are in [phase2-report.md](phase2-report.md). Paid fulfillment remains unverified.
 
 ## Acceptance and executed evidence
 

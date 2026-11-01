@@ -1,6 +1,6 @@
 # Growth assessment99: staged deployment and recovery
 
-Prepared2026-11-01. **Not executed.** This packet does not enable purchases.
+Prepared2026-11-01; later backend-only stage executed using a separately reviewed exact-hash installer. Purchases remain disabled. See the execution update below; the staged service does not activate the99USD frontend.
 
 ## Verified target and remaining gates
 
@@ -40,3 +40,10 @@ Before ANY hosted99USD checkout session is created, rollback is the prior immuta
 Once ANY hosted99USD session has been created, it may still be paid even if the website is rolled back. Set `CHECKUP_CHECKOUT_PAUSED=1` while keeping `CHECKUP_LIVE_ENABLED=1`; restart only this service and verify config reports purchase disabled. This pauses new/reopened checkout while preserving signature verification and the paid outbox worker. Retain the service, API proxy, state and credentials for existing sessions/orders until all open sessions are explicitly reconciled or expired and all paid orders fulfilled. Restoring an old static page must not abandon fulfillment or trigger repeat charges. Reconcile every pending/uncertain delivery and obtain the applicable resend/refund authorization. No destructive database rollback or automatic uncertain resend is permitted. Do not use the global live-off flag as a checkout-only pause.
 
 No code/config/account mutations on the host have been performed by this packet. Record each actual change, exact hash and verification before updating this statement.
+
+
+## Backend-stage execution update
+
+The final installer was independently reviewed and copied to a root-controlled directory. Its updated actual preflight passed before apply. Dedicated backend source52de6c4, service, fresh private data and placeholder environment were installed; the exact reviewed API block and canonical same-origin connection directive were applied after backup and Nginx syntax verification. Both health boundaries verified the active service's unprivileged process and sole loopback4190socket. Public configuration reads99USD/purchase disabled. The original47USD static release and Studio listener were preserved; no SELinux setting was changed. Exact non-secret hashes and runtime results are in the operator's private stage receipts.
+
+The owner-approved company mail authorization and webhook signing value were transferred through encrypted SSH to the protected environment file, with local encrypted helper cleanup verified. Company mail authentication passed; one separately approved manual report email was accepted and actually received with byte-identical attachment. The restricted Stripe key still requires the account owner's verification at this update. Live remains0/checkout paused1. No real charge or paid-entitlement fabrication occurred. Recheck actual source/account/configuration before the later coordinated frontend/default-price/payment-link activation; do not reuse the original fresh-path installer over the staged service.
