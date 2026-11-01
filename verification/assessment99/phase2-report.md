@@ -10,12 +10,16 @@ Date:2026-11-01. These are later execution results, following the initial local 
 - The owner specifically approved the company mail authorization and this site's payment-notification signing value. They were transferred through encrypted SSH to the exact protected environment. Local current-user encrypted temporary files were deleted and shutdown verified. Credential values, personal account identifiers and browser capabilities remain absent from source and this receipt.
 - Company mail-server authentication succeeded. The owner separately approved one exact internal email to the same company address, with the reviewed body and12-page own-service report. The source-reviewed one-send transport uses protected durable controls and no automatic retry. It used the production mail transport, with no fabricated payment or paid outbox record.
 - The mail server accepted that one message. The correct company mailbox then displayed its exact subject/body/attachment. The received attachment was downloaded; its bytes matched the approved file exactly. Twelve pages, every30-question prompt/answer and the source-linked worksheet were recovered from the received document.
+- The later backend-only callback hotfix was applied as immutable source `67f159924de305329d817fe557928188938c589b`. The saved updater receipt records `completed=true`, phase `updated_disabled`, and process3122292→3139479. Environment bytes/permissions/ownership, the private database inode, and static/Nginx/Studio state were preserved. This update sent no additional email and created no payment or paid outbox record.
+- Root's fresh readback at2026-11-01T21:44:53.441273+00:00 confirms the backend current release is67f1599, the dedicated service is active with process3139479, and canonical HTTPS configuration remains99USD with `purchase_enabled=false`. The static release is still `2d8d23e3a8a9c4d4c92b695324754ed5b12eca42` (47USD/10questions), and the reviewed Nginx hash is unchanged. An unsigned callback returned HTTP400. This negative signature check does not prove successful signed paid fulfillment.
 
 Approved report/received-attachment SHA256: `6d4b0a5314f33b8efa6507b53bab96d9b64896cdd66799bbb70b0874d4d30a7d`.
 
 Approved message SHA256 before normal transport Date/Message-ID headers: `9483a8e3ee3997b13defcc6d008edee7ca1c1d6e94d524836f5c81893e51b25b`.
 
 The report records an earlier, explicitly operator-prepared readiness snapshot. Actual internal inbox delivery does not establish a customer result, useful buyer decision, willingness to pay or signed paid fulfillment.
+
+Private execution evidence: `private/owner-mail-test/inbox-receipt.json` records the downloaded, byte-identical12-page attachment and all30answers/worksheet; `private/hotfix-completion-receipt.json` records the successful updater and fresh backend/public-configuration readback. This document update used those saved receipts and performed no additional host readback or send.
 
 ## Failures retained and repaired
 
@@ -29,6 +33,6 @@ Final Python suite after that repair: **52 run,51 passed,1 POSIX-only check skip
 
 ## Remaining gates
 
-The restricted payment key is waiting for the merchant owner's Stripe identity verification at this snapshot. Its real permissions, actual price retrieval, tax/checkout creation and full signed paid delivery are not established by the manual internal email. No real charge occurred. Coordinate the99USD frontend, server gate, product/default-price and historical-link handling only after applicable readiness checks; retain existing-order fulfillment during any rollback.
+The restricted payment key is waiting for the merchant owner's additional Stripe identity verification at this snapshot. Its real permissions, actual price retrieval, tax/checkout creation and full signed paid delivery remain unverified. The successful internal email and unsigned-callback rejection do not establish those outcomes. No real charge occurred. Coordinate the99USD frontend, server gate, product/default-price and historical-link handling only after applicable readiness checks; retain existing-order fulfillment during any rollback.
 
-The callback source repair is a later candidate than the initial staged source and needs its own exact immutable backend update/readback. No marketing email, post, follow-up, advertisement or campaign activation follows from the single internal email approval. All new research/contact qualification and external content/batch approvals remain separate.
+The callback source repair is now deployed and read back in backend67f1599; the public frontend remains47USD and checkout for the new99USD backend remains disabled. No marketing email, post, follow-up, advertisement or campaign activation follows from the single internal email approval. All new research/contact qualification and external content/batch approvals remain separate.
