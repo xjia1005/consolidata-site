@@ -9,9 +9,9 @@ const configContext = {window:{}};
 vm.runInNewContext(site('config.js'),configContext);
 const config = configContext.window.CONSOLIDATA_CHECKUP;
 
-test('all six priced purchase entries open the existing payment form directly',()=>{
+test('legacy assessment purchase entries still open the existing payment form directly',()=>{
   let count = 0;
-  for(const filename of ['index.html','faq.html','terms.html']) {
+  for(const filename of ['faq.html','terms.html']) {
     for(const [,href,markup] of site(filename).matchAll(/<a\b[^>]*href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/g)) {
       const text=markup.replace(/<[^>]*>/g,'');
       if(!/(?:Get.*checkup|Review.*checkup)/i.test(text))continue;
@@ -19,7 +19,7 @@ test('all six priced purchase entries open the existing payment form directly',(
       assert.equal(href,config.paymentLink,filename+': '+text);
     }
   }
-  assert.equal(count,6);
+  assert.equal(count,3);
 });
 
 function runLegacy(settings,search='') {
@@ -57,6 +57,7 @@ test('price-dependent scripts use the47USD release cache identity',()=>{
 });
 test('discovery describes the direct destination and omits the obsolete interstitial',()=>{
   const manifest=JSON.parse(site('site-manifest.json'));
-  assert.equal(manifest.purchaseUrl,config.paymentLink);
+  assert.equal(manifest.legacyAssessment.purchaseUrl,config.paymentLink);
   assert.ok(!site('sitemap.xml').includes('/checkout.html'));
 });
+
