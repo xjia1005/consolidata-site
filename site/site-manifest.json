@@ -1,12 +1,42 @@
 {
-  "name": "CONSOLIDATA Marketing Checkup",
+  "name": "CONSOLIDATA Medical Device Launch Marketing",
   "url": "https://cdatats.com/",
   "language": "en",
-  "audience": "Owners and CEOs of already-selling consumer businesses in the United States",
-  "price": {"amount": 47, "currency": "USD", "recurring": false, "tax": "Additional where applicable, shown at Stripe checkout"},
-  "purchaseUrl": "https://buy.stripe.com/5kQ00l3Vf4t0a8AaE983C0e",
-  "actionStatus": "Purchase buttons open the hosted product-and-payment form directly, followed by shareable browser-local questionnaire",
-  "deliverable": "Ten-question fixed-rule report, strengths, unknowns, up to three priorities, actions and full answer summary; local download/print",
-  "limitations": ["Self-reported selections, no independent account audit", "Notes do not change findings", "No external AI processing", "No per-order access authentication or cloud storage", "No guaranteed sales, profit or winning campaign", "Follow-on services separately agreed"],
-  "contact": "alvinj@consolidatats.com"
+  "audience": "Founders, marketing leaders and commercial teams launching medical devices in the United States and Canada, including overseas manufacturers",
+  "services": [
+    "Buyer research",
+    "Campaign message, format and channel testing",
+    "Sales enablement"
+  ],
+  "actionStatus": "Request a launch conversation; the browser prepares a message for the visitor to review and send. No automatic submission or booking.",
+  "pricing": "Project scope, fees and any media budget agreed separately in writing",
+  "limitations": [
+    "Customer reviews product claims and approves content and spending",
+    "No guaranteed sales, advertising return or clinical outcome"
+  ],
+  "contact": "alvinj@consolidatats.com",
+  "legacyAssessment": {
+    "name": "CONSOLIDATA Marketing Checkup",
+    "url": "https://cdatats.com/",
+    "language": "en",
+    "audience": "Owners and CEOs of already-selling consumer businesses in the United States",
+    "price": {
+      "amount": 47,
+      "currency": "USD",
+      "recurring": false,
+      "tax": "Additional where applicable, shown at Stripe checkout"
+    },
+    "purchaseUrl": "https://buy.stripe.com/5kQ00l3Vf4t0a8AaE983C0e",
+    "actionStatus": "Purchase buttons open the hosted product-and-payment form directly, followed by shareable browser-local questionnaire",
+    "deliverable": "Ten-question fixed-rule report, strengths, unknowns, up to three priorities, actions and full answer summary; local download/print",
+    "limitations": [
+      "Self-reported selections, no independent account audit",
+      "Notes do not change findings",
+      "No external AI processing",
+      "No per-order access authentication or cloud storage",
+      "No guaranteed sales, profit or winning campaign",
+      "Follow-on services separately agreed"
+    ],
+    "contact": "alvinj@consolidatats.com"
+  }
 }
