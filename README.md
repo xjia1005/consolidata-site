@@ -1,6 +1,6 @@
-# CONSOLIDATA Marketing Checkup
+# CONSOLIDATA Medical Device Launch Marketing
 
-Static dependency-free website for owners of already-selling consumer businesses in the United States. Canonical URL: https://cdatats.com/.
+Static dependency-free service homepage for medical device companies launching in the United States and Canada, including overseas manufacturers. Buyer research, campaign testing and sales enablement are separately scoped; the homepage CTA prepares a launch conversation request for manual sending. The existing standalone checkup and its payment/delivery flow remain available through the legacy FAQ. Canonical URL: https://cdatats.com/.
 
 ## Offer and delivery
 USD47 one time plus applicable tax, paid through hosted Stripe checkout. Ten questions and optional notes produce a fixed-rule, answer-based marketing report: described strengths, unknowns, up to three priorities, practical actions, discussion prompts and a full answer summary. Optional notes appear as written and do not change findings. Account audits, customer interviews, campaign testing and ongoing work require a separate agreement. No commercial outcome is guaranteed.
@@ -27,3 +27,4 @@ The contact-request builder only prepares text; the visitor reviews and sends ma
 Private prospect lists, recordings, customer data, credentials and internal business records do not belong in this source repository. Operational evidence is retained separately; no marketing post or email is sent by publishing this code.
 
 Copyright 2026 CONSOLIDATA. All rights reserved.
+
