@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 Disallow: /assessment.html
+Disallow: /sandbox-assessment.html
 Sitemap: https://cdatats.com/sitemap.xml

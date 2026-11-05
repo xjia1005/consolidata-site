@@ -1,0 +1,23 @@
+.outcome-page .outcome-hero { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr); gap:clamp(32px,7vw,90px); align-items:center; padding:88px 0 96px; }
+.outcome-page h1 { font-size:clamp(2.8rem,5.2vw,5rem); line-height:1.04; letter-spacing:-.055em; margin:14px 0 26px; }
+.outcome-page h1 em { color:#214a39; font-style:normal; }
+.outcome-page .outcome-hero p:not(.eyebrow) { max-width:620px; font-size:1.1rem; }
+.outcome-page .outcome-hero .button { margin-top:18px; }
+.outcome-page .outcome-hero .outcome-note { font-size:.95rem; color:#365145; margin-top:16px; }
+.outcome-card { background:#16392d; color:#f6f1e7; border-radius:4px; padding:40px; box-shadow:12px 12px 0 #d5d0c7; }
+.outcome-card-label,.outcome-card span,.outcome-prompt span { display:block; font-size:.8rem; letter-spacing:.1em; font-weight:700; }
+.outcome-card p { font-size:1.8rem !important; line-height:1.25; font-weight:600; margin:28px 0; }
+.outcome-card-rule { height:1px; background:#83a38f; margin:26px 0; }
+.outcome-card span:not(.outcome-card-label) { margin-top:15px; letter-spacing:.02em; font-size:.95rem; font-weight:400; }
+.outcome-band { background:#f2efe9; padding:20px 0; font-weight:650; }
+.outcome-approach { padding:82px 0; }
+.outcome-heading h2,.outcome-offer h2 { font-size:clamp(2.2rem,4vw,3.5rem); line-height:1.08; letter-spacing:-.04em; margin:12px 0 16px; }
+.outcome-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:32px; margin-top:46px; }
+.outcome-grid article { border-top:1px solid #9baa9b; padding-top:20px; }
+.outcome-grid article span { font-weight:700; color:#294039; }
+.outcome-grid h3 { font-size:1.25rem; margin:20px 0 10px; }
+.outcome-offer { display:grid; grid-template-columns:1fr 1fr; gap:55px; border-top:1px solid #9baa9b; padding:70px 0 85px; }
+.outcome-link { display:inline-block; font-weight:700; padding:10px 0; }
+.outcome-prompt { background:#f2efe9; padding:36px; align-self:center; }
+.outcome-prompt p { font-size:1.5rem; line-height:1.3; font-weight:600; }
+@media (max-width:800px) { .outcome-page .outcome-hero,.outcome-offer { grid-template-columns:1fr; } .outcome-page .outcome-hero { padding:48px 0 65px; } .outcome-card { padding:28px; } .outcome-grid { grid-template-columns:1fr; gap:22px; } .outcome-approach { padding:58px 0; } .outcome-offer { gap:25px; padding:50px 0 65px; } }

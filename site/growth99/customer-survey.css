@@ -1,0 +1,44 @@
+.survey-main { max-width: 880px; padding-top: 64px; padding-bottom: 80px; }
+.survey-main h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.06; margin: 16px 0 20px; }
+.survey-intro { max-width: 710px; font-size: 1.15rem; }
+.survey-notice { margin: 32px 0 42px; background: #efede7; border-left: 4px solid #16392d; padding: 22px 24px; color: #172821; }
+.survey-notice p { margin: 8px 0 0; font-size: .96rem; }
+.survey-main fieldset { border: 0; border-top: 1px solid #a5b0a8; margin: 0; padding: 34px 0; min-width: 0; }
+.survey-main legend { font-size: 1.45rem; font-weight: 700; padding: 0 12px 0 0; color: #172821; }
+.survey-main legend span { color: #3a5a4c; font-size: .9rem; margin-right: 12px; }
+.survey-main .why { margin: 10px 0 22px; color: #364b40; }
+.survey-main label { display: block; font-weight: 650; margin: 18px 0 7px; }
+.survey-main input,.survey-main textarea,.survey-main select { display: block; width: 100%; max-width: 100%; border: 1px solid #697a6f; border-radius: 4px; background: #fff; color: #172821; font: inherit; padding: 12px; }
+.survey-main input[type="checkbox"] { display:inline-block; width:auto; margin:0 8px 0 0; }
+.survey-main textarea { resize: vertical; }
+.survey-main input:focus,.survey-main textarea:focus,.survey-main select:focus,.survey-main button:focus-visible,.survey-main a:focus-visible { outline: 3px solid #bc681c; outline-offset: 3px; }
+.survey-main small,.survey-fine { display:block; color:#354b40; margin-top:8px; }
+.survey-columns { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 20px; }
+.dictate { display:inline-flex; align-items:center; gap:8px; background:#fff; border:1px solid #426653; border-radius:6px; color:#164c37; cursor:pointer; padding:9px 13px; margin-top:10px; font:inherit; font-weight:650; }
+.dictate::before { content:'●'; font-size:.65rem; }
+.speech-status { min-height:1.5em; color:#172821; }
+.survey-result { margin-top:55px; padding:32px; border:1px solid #9eafa3; background:#f2efe9; scroll-margin-top:30px; }
+.survey-result h2 { font-size:clamp(1.8rem,4vw,2.5rem); line-height:1.15; }
+.survey-result pre { background:#fff; color:#172821; border:1px solid #a5b0a8; padding:20px; white-space:pre-wrap; overflow-wrap:anywhere; font:inherit; }
+.survey-actions { display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+.survey-secondary { background:#fff; border:1px solid #16392d; color:#16392d; }
+.survey-email { font-weight:700; }
+.survey-nav a { color:#172821; font-weight:650; }
+.survey-page [hidden] { display:none !important; }
+.survey-notice summary { cursor:pointer; font-weight:700; }
+.survey-progress { margin:34px 0 0; scroll-margin-top:24px; }
+.survey-progress-text { display:flex; justify-content:space-between; font-weight:700; color:#193d2e; margin:0 0 10px; }
+.survey-progress progress { display:block; width:100%; height:12px; border:0; border-radius:9px; overflow:hidden; accent-color:#16392d; background:#d4ddd7; }
+.survey-progress progress::-webkit-progress-bar { background:#d4ddd7; }
+.survey-progress progress::-webkit-progress-value { background:#16392d; }
+.survey-question { min-height:240px; padding:40px 0 20px; }
+.survey-question > label { font-size:clamp(1.4rem,2.8vw,2rem); line-height:1.25; letter-spacing:-.02em; margin:0 0 12px; }
+.survey-question-group h2 { font-size:clamp(1.5rem,3vw,2rem); margin:0 0 22px; }
+.survey-question-group > label { font-size:1.1rem; margin:20px 0 8px; }
+.survey-question .why { margin:0 0 22px; }
+.survey-question .voice-settings { margin-top:8px; max-width:240px; }
+.survey-question .voice-settings label { font-size:.9rem; margin-top:12px; }
+.survey-navigation { display:flex; align-items:center; gap:14px; flex-wrap:wrap; border-top:1px solid #a5b0a8; padding-top:24px; }
+.survey-navigation .button-primary { margin-left:auto; }
+.survey-skip { background:transparent; border:0; padding:12px; color:#234b39; font:inherit; font-weight:650; text-decoration:underline; cursor:pointer; }
+@media(max-width:600px) { .survey-main { padding-top:38px; } .survey-columns { grid-template-columns:1fr; } .survey-result { padding:22px; } .survey-actions { align-items:stretch; flex-direction:column; } }

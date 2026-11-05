@@ -1,0 +1,39 @@
+/* User-approved horizontal lockup: the original image is cropped only at display time. */
+.checkup-body .brand { display:inline-flex; align-items:center; gap:14px; text-decoration:none; }
+.checkup-body .brand .brand-mark-window { position:relative; display:block; width:64px; height:56px; flex:0 0 64px; overflow:hidden; background:transparent; }
+.checkup-body .brand .brand-mark-window .brand-logo { position:absolute; display:block; width:128px; height:128px; max-width:none; object-fit:fill; left:-32px; top:-20px; mix-blend-mode:multiply; }
+.checkup-body .brand .brand-lockup { display:flex; flex-direction:column; align-items:flex-start; gap:5px; min-width:0; }
+.checkup-body .brand .brand-lockup .brand-wordmark { color:#12211d; font:800 22px/1.1 Arial, sans-serif; letter-spacing:.005em; }
+.checkup-body .brand .brand-tagline { color:#294039; font:400 13px/1.25 Arial, sans-serif; letter-spacing:0; white-space:nowrap; }
+
+/* Plain type and neutral panels; retain the dark green as the primary accent. */
+.v3-page { --v3-panel:#f2efe9; --v3-note:#f2efe9; --v3-method:#f2efe9; --v3-shadow:#d5d0c7; --v3-muted:#365145; }
+.v3-page, .v3-page h1, .v3-page h2, .v3-page h3, .v3-page button, .v3-page input, .v3-page textarea { font-family:Arial, sans-serif; }
+.v3-page h1, .v3-page h2 { font-weight:700; letter-spacing:-.025em; }
+.v3-page h1 em { font-style:normal; }
+.v3-page .v3-closing { background:#f2efe9; }
+.v3-page .v3-entry-offer { background:#f2efe9; }
+.checkup-body:not(.v3-page) { --lime:#f2efe9; --mist:#e7e3dc; --muted:#365145; }
+.checkup-body:not(.v3-page) .button-primary { color:#fffdf8; background:#16392d; border-color:#16392d; }
+.checkup-body:not(.v3-page) .answer-option:has(input:checked) { background:#f2efe9; }
+
+/* Override shared paragraph colors inside the dark card, including hover-free text. */
+.v3-page.outcome-page .outcome-hero .outcome-card p,
+.v3-page.outcome-page .outcome-hero .outcome-card span { color:#fffdf8; }
+.outcome-page .outcome-card { box-shadow:12px 12px 0 #d5d0c7; }
+.outcome-page .outcome-band, .outcome-page .outcome-prompt { background:#f2efe9; }
+.outcome-page .outcome-grid article span { color:#294039; }
+
+@media (max-width:600px) {
+  .checkup-body .brand { gap:8px; }
+  .checkup-body .brand .brand-mark-window { width:55px; height:50px; flex-basis:55px; }
+  .checkup-body .brand .brand-mark-window .brand-logo { width:110px; height:110px; left:-27.5px; top:-17px; }
+  .checkup-body .brand .brand-lockup .brand-wordmark { font-size:18px; }
+  .checkup-body .brand .brand-tagline { font-size:12px; letter-spacing:0; }
+}
+@media (max-width:360px) {
+  .checkup-body.v3-page .site-header { padding-left:12px; padding-right:12px; }
+  .checkup-body .brand .brand-mark-window { width:44px; height:40px; flex-basis:44px; }
+  .checkup-body .brand .brand-mark-window .brand-logo { width:88px; height:88px; left:-22px; top:-13.6px; }
+  .checkup-body:not(.v3-page) .checkup-header { flex-wrap:wrap; gap:0 8px; }
+}

@@ -1,0 +1,197 @@
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory();
+  else root.CheckupEngine = factory();
+}(typeof globalThis !== 'undefined' ? globalThis : this, function () {
+  'use strict';
+
+  const definitions = [
+    {
+      id: 'buying_reason', title: 'What customer problem does your offer help with?',
+      explanation: 'Example: a bicycle rack’s steel frame is a feature. Taking two bikes to the trail in a small car is a customer situation and buying reason. Which best describes your main offer?',
+      labels: ['We describe a specific buyer, situation and buying reason, supported by customer evidence.', 'We mainly describe features or general benefits.', 'We have a buying reason in mind, but it is still an assumption.'],
+      values: ['scene', 'features', 'assumed'],
+      strength: 'Your answer describes a specific customer situation and buying reason supported by customer evidence.',
+      priority: {
+        title: 'Connect one offer to a customer buying reason',
+        ideal: 'A specific buyer can recognize their situation, problem and reason to choose this offer.',
+        action: 'Choose one buyer situation. Write “When [situation], [buyer] needs [result] because [problem].” Compare it with one recent customer conversation before changing your message.'
+      },
+      discussion: 'What did a recent customer say made this problem worth solving now?',
+      unknown: 'Ask the person who last spoke with a buyer to share the customer’s own words.'
+    },
+    {
+      id: 'customer_evidence', title: 'What do you know from actual customers?',
+      explanation: 'Customer questions, scoped requests, purchase decisions and reasons for declining can help explain a buying reason. Views and likes show attention, but do not establish why someone buys.',
+      labels: ['We keep specific customer conversations, requests or purchase reasons and use them in decisions.', 'We hear useful feedback, but it is scattered or mostly informal.', 'We mainly use internal opinions or attention such as views and likes.'],
+      values: ['records', 'informal', 'assumptions'],
+      strength: 'Your answer describes customer evidence that is kept and used in marketing decisions.',
+      priority: {
+        title: 'Keep the evidence behind a buying decision',
+        ideal: 'Marketing decisions can refer to actual customer questions, requests and reasons to buy or decline.',
+        action: 'Capture three recent customer interactions in one place: their situation, exact question, next action and what remains unknown. Keep attention counts separate from purchase evidence.'
+      },
+      discussion: 'Which customer interaction would most change your current marketing decision?',
+      unknown: 'Find one recent customer conversation or purchase record before judging the evidence available.'
+    },
+    {
+      id: 'scene_library', title: 'Can you reuse what you learn about customer situations?',
+      explanation: 'A scene library can be a simple document with customer type, situation, problem, buying reason and its source. It does not need special software.',
+      labels: ['We have a usable set of customer situations with sources, and update it as we learn.', 'We have examples, but they live in messages, files or people’s memories.', 'We have no shared record of customer situations.'],
+      values: ['usable', 'scattered', 'none'],
+      strength: 'Your answer describes a reusable, source-linked record of customer situations.',
+      priority: {
+        title: 'Make one customer situation reusable',
+        ideal: 'The team can find the customer situation, buying reason and source without reconstructing old conversations.',
+        action: 'Start one shared page for your current offer. Add one customer situation, its source and date, the wording used, and the next question to check. Reuse that page in the next message review.'
+      },
+      discussion: 'Where could a teammate find the evidence behind your main customer situation?',
+      unknown: 'Look for an existing record before creating a new document.'
+    },
+    {
+      id: 'channels', title: 'What tells you a marketing channel is useful?',
+      explanation: 'A channel might be referrals, email, search, an event or social media. A useful record follows attention through customer replies, qualified requests and orders when those stages apply.',
+      labels: ['We connect channel activity to relevant customer replies, qualified requests or orders.', 'We mainly compare reach, clicks, views or other attention.', 'We do not consistently record which channel led to a customer action.'],
+      values: ['qualified', 'attention', 'untracked'],
+      strength: 'Your answer describes channel decisions linked to customer actions beyond attention alone.',
+      priority: {
+        title: 'Follow one channel to a customer action',
+        ideal: 'A channel decision shows which buyer action happened and which later stages remain unconfirmed.',
+        action: 'Choose one active channel and one offer. For the next review, record the message, relevant replies, qualified requests and orders separately. Pick one stage to improve.'
+      },
+      discussion: 'Which channel currently produces the clearest relevant customer response?',
+      unknown: 'Check how one recent customer first found the offer and what they did next.'
+    },
+    {
+      id: 'purchase_path', title: 'Is the next step clear from first interest to purchase?',
+      explanation: 'For a service business this may include a reply, call, scoped proposal and agreed order. For a product it may include selection, checkout and confirmation.',
+      labels: ['We have checked the path, each next step is clear, and we record where people stop.', 'Parts work, but handoffs or the next action are unclear.', 'We have not mapped or checked the path a customer must follow.'],
+      values: ['checked', 'partial', 'unchecked'],
+      strength: 'Your answer describes a checked purchase path with clear next steps and recorded stopping points.',
+      priority: {
+        title: 'Check one path from interest to purchase',
+        ideal: 'A customer can understand the offer, take the next step and receive a clear confirmation.',
+        action: 'Walk through one customer path from the first message to order confirmation. Write down the required actions and handoffs. Choose one unclear step to clarify, then check it again.'
+      },
+      discussion: 'At which step does an interested customer most often need help or stop?',
+      unknown: 'Walk through the current path with the person who handles new inquiries.'
+    },
+    {
+      id: 'order_records', title: 'Can you connect marketing work to actual orders?',
+      explanation: 'A simple order record can include the offer, customer, channel when known, date, value and status. A proposal or booked call is a different stage from an order or payment.',
+      labels: ['Our records distinguish inquiries, proposals, orders and payments, with the source when known.', 'Orders are recorded, but the connection to marketing is incomplete.', 'We do not have a usable shared order record.'],
+      values: ['connected', 'separate', 'absent'],
+      strength: 'Your answer describes records that distinguish customer progression, orders and payments.',
+      priority: {
+        title: 'Connect a small set of orders to their source',
+        ideal: 'The team can distinguish activity, customer progression, agreed orders and received payment.',
+        action: 'Review a small recent set of orders. Record the offer, date, status and source where known. Mark missing sources unknown and keep inquiries and proposals in separate stages.'
+      },
+      discussion: 'Which order record could you trace back to a particular offer and source?',
+      unknown: 'Ask the order owner which records exist and which statuses they distinguish.'
+    },
+    {
+      id: 'costs_refunds', title: 'What costs do you include when reviewing marketing?',
+      explanation: 'Sales value alone does not show what is left after marketing, fulfillment, refunds and other relevant costs. Include costs that apply to your business; this checkup does not estimate profit.',
+      labels: ['We review relevant marketing and delivery costs, cancellations and refunds alongside sales.', 'We track some costs, but important costs or refunds are separate.', 'We mainly review sales value without the relevant costs.'],
+      values: ['included', 'partial', 'excluded'],
+      strength: 'Your answer describes reviews that consider relevant costs and reversals alongside sales.',
+      priority: {
+        title: 'Put relevant costs beside sales',
+        ideal: 'A marketing review includes relevant acquisition and delivery costs, cancellations and refunds.',
+        action: 'Take one recent offer and list the costs and reversals that apply. Put the available amounts beside its sales record, mark missing amounts unknown, and review them with the person responsible.'
+      },
+      discussion: 'Which missing cost or reversal could change a spending decision?',
+      unknown: 'Confirm which costs and reversal records the responsible person can provide.'
+    },
+    {
+      id: 'repeat_tests', title: 'Can you learn from one marketing test to the next?',
+      explanation: 'A useful test states one question, a bounded change, an observation window and a decision. Keeping enough context consistent helps you interpret what happened.',
+      labels: ['We record a question, bounded change, observation window, result and next decision.', 'We try changes, but several things change at once or results are not recorded.', 'We do not run or review repeatable marketing tests.'],
+      values: ['comparable', 'changing', 'none'],
+      strength: 'Your answer describes bounded marketing tests with an observation window and recorded decisions.',
+      priority: {
+        title: 'Make the next test small enough to interpret',
+        ideal: 'A test has one question, a bounded change, a read window and an explicit next decision.',
+        action: 'For one offer and customer situation, write one test question and change one message or step. Choose the customer action to observe and a review date before starting. Record what happened without assuming the change caused it.'
+      },
+      discussion: 'What single question should the next test help you decide?',
+      unknown: 'Find the latest test and check whether its question and decision were recorded.'
+    },
+    {
+      id: 'spend_rules', title: 'How do you decide whether to continue spending?',
+      explanation: 'A decision rule can include a spending limit, evidence to watch, a review date and conditions to continue, change or stop. It can apply to time as well as money.',
+      labels: ['We set limits and evidence-based continue, change or stop rules before spending.', 'We have rough limits, but decisions depend mostly on judgment at the time.', 'We continue or stop without agreed limits or review rules.'],
+      values: ['defined', 'informal', 'absent'],
+      strength: 'Your answer describes agreed spending limits and continue, change or stop rules.',
+      priority: {
+        title: 'Agree a limit and a spending decision rule',
+        ideal: 'The owner knows the limit, review date and evidence needed to continue, change or stop.',
+        action: 'Before the next test, agree a time or money limit, a review date and the customer evidence to consider. Write the conditions to continue, change or stop and name who decides.'
+      },
+      discussion: 'What evidence and limit would make a stop decision clear?',
+      unknown: 'Ask the budget owner what limits and review conditions already apply.'
+    },
+    {
+      id: 'review_ownership', title: 'Who turns the review into the next decision?',
+      explanation: 'A review needs an owner, a date and a record of the decision. A small team can use one named person; a separate tool or committee is optional.',
+      labels: ['A named owner reviews evidence on agreed dates and records decisions and next actions.', 'Someone usually reviews it, but dates, decisions or follow-through are informal.', 'No one consistently owns the review and next action.'],
+      values: ['named', 'informal', 'absent'],
+      strength: 'Your answer describes a named review owner, agreed dates and recorded next actions.',
+      priority: {
+        title: 'Give the next review an owner and date',
+        ideal: 'One person can bring the evidence together and record the decision and next action.',
+        action: 'Name one owner for the next marketing review and set a date. Bring the offer, customer evidence, results and relevant costs. Record one decision, its reason and the person responsible for the next action.'
+      },
+      discussion: 'Who will make and record the next decision, and on what date?',
+      unknown: 'Confirm who currently owns the review before assigning new work.'
+    }
+  ];
+
+  const questions = definitions.map(function (item) {
+    return {
+      id: item.id,
+      title: item.title,
+      explanation: item.explanation,
+      options: item.values.map(function (value, index) { return { value: value, label: item.labels[index] }; }).concat([
+        { value: 'unknown', label: 'I am not sure / I need to check.' },
+        { value: 'na', label: 'This does not apply to our current business.' }
+      ])
+    };
+  });
+
+  function buildReport(answers, notes) {
+    if (!answers || typeof answers !== 'object' || Array.isArray(answers)) throw new TypeError('Answers must contain a selection for every question.');
+    if (notes === undefined) notes = {};
+    if (!notes || typeof notes !== 'object' || Array.isArray(notes)) throw new TypeError('Notes must be text keyed by question.');
+    const report = { version: '1.0', strengths: [], unknowns: [], priorities: [], discussionQuestions: [], answerSummary: [] };
+
+    questions.forEach(function (question, index) {
+      const definition = definitions[index];
+      const value = Object.prototype.hasOwnProperty.call(answers, question.id) ? answers[question.id] : undefined;
+      const option = question.options.find(function (candidate) { return candidate.value === value; });
+      if (!option) throw new TypeError('Choose a valid answer for: ' + question.title);
+      const note = Object.prototype.hasOwnProperty.call(notes, question.id) ? notes[question.id] : '';
+      if (typeof note !== 'string') throw new TypeError('Notes must be text strings.');
+      if (note.length > 600) throw new RangeError('Notes must be 600 characters or fewer.');
+      report.answerSummary.push({ id: question.id, title: question.title, answer: option.label, note: note });
+
+      if (value === 'unknown') {
+        report.unknowns.push(question.title + ' — not yet established from your answer. ' + definition.unknown);
+      } else if (value === definition.values[0]) {
+        report.strengths.push(definition.strength);
+      } else if (value !== 'na' && report.priorities.length < 3) {
+        report.priorities.push({ title: definition.priority.title, current: 'You selected: ' + option.label, ideal: definition.priority.ideal, action: definition.priority.action });
+        report.discussionQuestions.push(definition.discussion);
+      }
+    });
+
+    if (report.discussionQuestions.length === 0) {
+      if (report.unknowns.length) report.discussionQuestions.push('Which unknown can you clarify from an existing customer, order or review record first?');
+      else if (report.strengths.length) report.discussionQuestions.push('Which recent customer or order record would help you confirm that these practices are working as described?');
+      else report.discussionQuestions.push('Which of these topics might become relevant at your next business stage?');
+    }
+    return report;
+  }
+
+  return { questions: questions, buildReport: buildReport };
+}));

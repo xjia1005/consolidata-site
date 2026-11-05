@@ -1,12 +1,76 @@
 {
-  "name": "CONSOLIDATA Marketing Checkup",
+  "name": "CONSOLIDATA Growth Clarity Assessment",
   "url": "https://cdatats.com/",
   "language": "en",
-  "audience": "Owners and CEOs of already-selling consumer businesses in the United States",
-  "price": {"amount": 47, "currency": "USD", "recurring": false, "tax": "Additional where applicable, shown at Stripe checkout"},
-  "purchaseUrl": "https://buy.stripe.com/5kQ00l3Vf4t0a8AaE983C0e",
-  "actionStatus": "Purchase buttons open the hosted product-and-payment form directly, followed by shareable browser-local questionnaire",
-  "deliverable": "Ten-question fixed-rule report, strengths, unknowns, up to three priorities, actions and full answer summary; local download/print",
-  "limitations": ["Self-reported selections, no independent account audit", "Notes do not change findings", "No external AI processing", "No per-order access authentication or cloud storage", "No guaranteed sales, profit or winning campaign", "Follow-on services separately agreed"],
-  "contact": "alvinj@consolidatats.com"
+  "audience": "Businesses in the United States and Canada seeking help with customer understanding, marketing messages or a current growth decision; suitability depends on the actual work.",
+  "price": {
+    "amount": 99,
+    "currency": "USD",
+    "recurring": false,
+    "tax": "Additional where applicable, shown before payment"
+  },
+  "questionCount": 30,
+  "structure": "Six common questions plus six groups of four: reach, response, first useful result, purchase, continued use and evidence",
+  "assessmentUrl": "https://cdatats.com/growth-assessment.html",
+  "purchaseUrl": null,
+  "readinessEndpoint": "/api/checkup/config",
+  "emailEndpoint": "/api/checkup/email",
+  "actionStatus": "Start assessment; answer or defer 30 questions; review; server must explicitly confirm purchase eligibility; add one concrete product, customer or decision fact if all answers and notes lack context; save work email; review US$99 report purchase and applicable tax; checkout also requires configured payment, analysis and report-email services",
+  "delivery": "email-pdf-attachment",
+  "deliverable": "Initial artificial intelligence assisted analysis of all 30 answers and optional notes: customer, situation, problem, desired benefit, alternatives and buying-reason brief; provisional explanations where supported; source-linked quotations, contradictions, unknowns and one bounded next check; complete answer record. The private report follows verified payment by PDF email attachment and is useful independently of later services.",
+  "method": "After server-verified payment, an explicitly configured OpenAI or Anthropic service interprets all 30 answers and optional notes. The assessment names the configured provider before purchase; there is no automatic provider fallback. Code copies cited quotations directly from saved answers and notes. Delivery email, payment details and assessment reference are excluded from the analysis input. OpenAI requests use store: false; Anthropic Messages requests do not use that OpenAI setting. See the privacy notice for provider processing details.",
+  "limitations": [
+    "All submitted information is self-reported and not independently verified",
+    "Source quotations establish text provenance; they do not verify a statement or prove a hypothesis",
+    "Initial unverified hypotheses are not a causal diagnosis; no certified single cause, outcome probability or guaranteed growth, sales or profit",
+    "No human advisory review, interviews or campaign execution included",
+    "No public full-report display, download or export endpoint",
+    "Email-service acceptance does not prove inbox delivery",
+    "ConsoliData research, positioning, offer, content, outreach or measurement help is conditional on evidence and the current decision; further research and implementation are separately scoped and agreed",
+    "Product, continued-use, operations or financial issues may need another responsible owner",
+    "Provider or checkout availability and commercial effectiveness are not established by this source description",
+    "Saving a work email does not verify address ownership or subscribe the visitor to marketing",
+    "Payment willingness or funding alone does not establish suitability or the cause of a growth problem"
+  ],
+  "contact": "alvinj@consolidatats.com",
+  "version": "growth-clarity-20261103-brand-live99",
+  "purpose": "Clarify who the company serves, in what situation, the problem and desired benefit, current alternatives, buying reason, relevant growth observations, evidence gaps and one next investigation.",
+  "serviceOptions": [
+    {
+      "name": "Customer Buying-Reason Research",
+      "currency": "USD",
+      "basis": "Decision-specific scope and written acceptance; no universal interview count or coverage claim",
+      "pricing": "Quoted to agreed scope and requirements."
+    },
+    {
+      "name": "Message and Channel Validation",
+      "currency": "USD",
+      "basis": "Bounded first phase with agreed comparison design, channels, formats, audience and budget",
+      "pricing": "Quoted to agreed scope and requirements."
+    },
+    {
+      "name": "Content and Learning Program",
+      "currency": "USD",
+      "basis": "Per month; deliverables, channels, review cadence and revisions are agreed for the customer.",
+      "pricing": "Quoted to agreed scope and requirements."
+    },
+    {
+      "name": "Standalone advertising management",
+      "currency": "USD",
+      "basis": "Agreed platforms and account scope; media spending separate; included management never billed twice.",
+      "pricing": "Quoted to agreed scope and requirements."
+    }
+  ],
+  "firstEnterpriseValidation": "No prepaid service fee. Scope, inputs, period, evidence, acceptance standard, fee and payment date are agreed in writing before work. Payment follows agreed acceptance. A valid first validation missing its standard has no service fee; insufficiency, unmet prerequisites and further rounds follow separately agreed terms. The US$99 assessment is a separate paid product.",
+  "servicesUrl": "https://cdatats.com/services.html",
+  "sampleReportUrl": "https://cdatats.com/sample-report.html",
+  "brand": {
+    "name": "CONSOLIDATA",
+    "legalName": "ConsoliData Tech to Services Ltd",
+    "tagline": "Understand customers. Make more money.",
+    "logo": "https://cdatats.com/assets/brand/consolidata-linkedin-logo.jpg",
+    "companyPage": "https://www.linkedin.com/company/consolidata-tech-to-services/"
+  },
+  "bookingUrl": "https://cdatats.com/book.html",
+  "postReportJourney": "The assessment is optional. Visitors may discuss a marketing question directly; the separate scheduler requires confirmation and does not receive report answers or references automatically."
 }
