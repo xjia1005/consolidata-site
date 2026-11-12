@@ -47,3 +47,33 @@
 
   go(0);
 })();
+
+/* ---- per-recipient open tracking (uses nginx access log; no backend) ---- */
+(function () {
+  function slug() {
+    try {
+      var v = new URLSearchParams(location.search).get('u');
+      return v ? v.replace(/[^a-zA-Z0-9._-]/g, '').slice(0, 48) : '';
+    } catch (e) { return ''; }
+  }
+  var u = slug();
+  if (!u) return;
+  function ping(ev) {
+    try {
+      var img = new Image();
+      img.src = '/t.gif?u=' + encodeURIComponent(u) + '&e=' + ev +
+                '&r=' + Math.random().toString(36).slice(2, 8);
+    } catch (e) {}
+  }
+  ping('open');
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    while (t && t !== document) {
+      if (t.tagName === 'A' && t.className && String(t.className).indexOf('cta') > -1) {
+        ping('cta');
+        return;
+      }
+      t = t.parentNode;
+    }
+  }, true);
+})();
