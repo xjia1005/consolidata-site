@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Sample account brief for medical device sales teams.">
+<title>Account Brief — Product Walkthrough</title>
+<style>
+  :root{
+    --navy:#0e2440; --navy2:#16375c; --ink:#0f1724; --muted:#5c6a7a;
+    --line:#e2e8f0; --bg:#f4f7fb; --teal:#0f7a6b; --teal2:#0b5d52;
+    --gold:#b9822a; --card:#ffffff; --soft:#eef3f8;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       background:var(--bg);color:var(--ink);overflow:hidden}
+  .slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+         padding:5vh 7vw;opacity:0;transform:translateY(14px);pointer-events:none;
+         transition:opacity .45s ease, transform .45s ease}
+  .slide.on{opacity:1;transform:none;pointer-events:auto}
+  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);font-weight:800;margin-bottom:14px}
+  h1{font-size:clamp(28px,4.4vw,58px);line-height:1.08;margin:0 0 10px;letter-spacing:-.02em}
+  h2{font-size:clamp(22px,3.2vw,40px);line-height:1.12;margin:0 0 14px;letter-spacing:-.015em}
+  h3{font-size:clamp(15px,1.5vw,19px);margin:0 0 8px}
+  p.lead{font-size:clamp(15px,1.7vw,21px);color:var(--muted);max-width:62ch;margin:0}
+  .accent{color:var(--teal)}
+  .dark{background:linear-gradient(140deg,var(--navy),var(--navy2));color:#fff}
+  .dark .kicker{color:#8fd8cc}
+  .dark p.lead{color:#c7d6e5}
+  .cols{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:26px}
+  .col{border:1px solid var(--line);border-radius:12px;background:#fff;padding:16px}
+  .col .t{font-weight:800;font-size:15px;margin-bottom:6px;color:var(--navy)}
+  .col .d{font-size:13.5px;color:var(--muted);line-height:1.45}
+  .rule{height:1px;background:var(--line);margin:22px 0}
+  .bignum{display:flex;gap:14px;margin-top:24px;flex-wrap:wrap}
+  .chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font-size:13.5px;font-weight:600}
+  .steps{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;align-items:center}
+  .step{border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px 14px;font-size:13.5px;font-weight:700;color:var(--navy)}
+  .arrow{color:var(--teal);font-weight:900}
+  ul.clean{margin:16px 0 0;padding-left:0;list-style:none}
+  ul.clean li{position:relative;padding-left:26px;margin:10px 0;font-size:clamp(15px,1.6vw,19px)}
+  ul.clean li:before{content:"—";position:absolute;left:0;color:var(--teal);font-weight:900}
+  .quote{font-size:clamp(20px,2.6vw,32px);font-style:italic;line-height:1.3;margin:18px 0;max-width:24ch}
+
+  /* mock app frame */
+  .frame{border:1px solid #22364e;border-radius:14px;overflow:hidden;background:#0f1a28;box-shadow:0 18px 50px rgba(12,28,48,.25);margin-top:24px}
+  .bar{display:flex;align-items:center;gap:8px;padding:9px 12px;background:#122236}
+  .dot{width:9px;height:9px;border-radius:50%;background:#3a5070}
+  .bar .addr{margin-left:8px;font-size:11px;color:#7d93ad;background:#0c1725;border-radius:6px;padding:4px 10px}
+  .screen{display:grid;grid-template-columns:1fr 300px;gap:0;min-height:230px}
+  .screen .main{background:#f7fafd;padding:14px 16px}
+  .screen .side{background:#eef3f8;border-left:1px solid #dbe5ef;padding:12px 14px}
+  .mini-tabs{display:flex;gap:6px;margin-bottom:12px}
+  .mini-tab{font-size:11px;padding:5px 10px;border-radius:7px;border:1px solid #d8e2ec;background:#fff;color:#5c6a7a;font-weight:700}
+  .mini-tab.a{background:#0e2440;border-color:#0e2440;color:#fff}
+  .mini-h{font-size:12px;font-weight:800;color:#0e2440;margin:2px 0 8px}
+  .mini-line{height:7px;border-radius:4px;background:#dfe8f2;margin:6px 0}
+  .mini-line.w60{width:60%}.mini-line.w80{width:80%}.mini-line.w45{width:45%}
+  .mini-card{background:#fff;border:1px solid #dbe5ef;border-radius:9px;padding:10px 12px;margin-bottom:8px}
+  .upload{display:flex;align-items:center;gap:8px;background:#0f1a28;border-radius:10px;padding:8px 10px;margin-top:10px}
+  .upload .txt{flex:1;font-size:10.5px;color:#8aa0b8}
+  .upload .mic,.upload .up{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:12px}
+  .upload .mic{background:#1d3a5a;color:#cfe3f5}
+  .upload .up{background:#0f7a6b;color:#fff}
+
+  .navdots{position:fixed;right:26px;bottom:22px;display:flex;gap:7px;z-index:9}
+  .navdots i{width:8px;height:8px;border-radius:50%;background:#c3cedb;cursor:pointer;display:block}
+  .navdots i.on{background:var(--navy)}
+  .counter{position:fixed;right:26px;bottom:40px;font-size:11px;color:#8b99aa;letter-spacing:.1em}
+  .hint{position:fixed;left:26px;bottom:24px;font-size:11px;color:#9aa8b8;letter-spacing:.06em}
+  .logo{position:fixed;left:26px;top:22px;font-size:12px;font-weight:800;letter-spacing:.14em;color:#9aa8b8}
+  @media(max-width:820px){.cols{grid-template-columns:1fr 1fr}.screen{grid-template-columns:1fr}.screen .side{display:none}}
+</style>
+</head>
+<body>
+<div class="logo">CONSOLIDATA · ACCOUNT BRIEF</div>
+
+<!-- 1 -->
+<section class="slide dark on">
+  <div class="kicker">Sales intelligence for medical device teams</div>
+  <h1>Your reps already know how to sell.</h1>
+  <h2 style="color:#8fd8cc;margin-top:2px">We make sure they don't miss anything.</h2>
+  <p class="lead">A per-stakeholder account brief for every hospital — built once, updated after every conversation, and sent as one link per person.</p>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <div class="kicker">The problem</div>
+  <h2>One deck. Four people. Zero fit.</h2>
+  <p class="lead">To get into a hospital, four different people have to say yes.</p>
+  <div class="cols">
+    <div class="col"><div class="t">Surgeon</div><div class="d">Wants clinical evidence and a technique that fits.</div></div>
+    <div class="col"><div class="t">OR Nurse</div><div class="d">Wants a clear setup, training, and reprocessing.</div></div>
+    <div class="col"><div class="t">Purchasing</div><div class="d">Wants supply, lead time, and a clean contract.</div></div>
+    <div class="col"><div class="t">Finance</div><div class="d">Wants one number: what it costs, what it saves.</div></div>
+  </div>
+  <div class="rule"></div>
+  <p class="lead">Send the same deck to all four, and none of them reads it past page two.</p>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <div class="kicker">The idea</div>
+  <h2>One brief. Four views.</h2>
+  <p class="lead">Each stakeholder gets a link to their own one page — not a 40-slide deck.</p>
+  <div class="frame">
+    <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="addr">account brief · sample</span></div>
+    <div class="screen">
+      <div class="main">
+        <div class="mini-tabs">
+          <span class="mini-tab a">Surgeon</span><span class="mini-tab">OR Nurse</span>
+          <span class="mini-tab">Purchasing</span><span class="mini-tab">Finance</span>
+        </div>
+        <div class="mini-h">Why this might matter to your OR</div>
+        <div class="mini-card">
+          <div class="mini-line w80"></div><div class="mini-line w60"></div><div class="mini-line w45"></div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-line w80"></div><div class="mini-line w60"></div>
+        </div>
+      </div>
+      <div class="side">
+        <div class="mini-h">Your input</div>
+        <div class="mini-line w80"></div><div class="mini-line w60"></div><div class="mini-line w45"></div>
+        <div class="upload"><span class="mic">🎙</span><span class="txt">Type, speak, or attach…</span><span class="up">↑</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <div class="kicker">How it works</div>
+  <h2>It gets better every time.</h2>
+  <div class="steps">
+    <span class="step">Upload</span><span class="arrow">→</span>
+    <span class="step">RA review</span><span class="arrow">→</span>
+    <span class="step">4 views</span><span class="arrow">→</span>
+    <span class="step">Send link</span><span class="arrow">→</span>
+    <span class="step">Feedback</span><span class="arrow">→</span>
+    <span class="step">v2</span>
+  </div>
+  <div class="frame">
+    <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="addr">workspace · Maxx Freedom Knee × [hospital]</span></div>
+    <div class="screen">
+      <div class="main">
+        <div class="mini-h">Materials</div>
+        <div class="mini-card"><div class="mini-line w60"></div></div>
+        <div class="mini-card"><div class="mini-line w80"></div></div>
+        <div class="mini-h" style="margin-top:12px">RA review</div>
+        <div class="mini-card" style="border-color:#f0c36d;background:#fffaf0">
+          <div class="mini-line w80"></div><div class="mini-line w45"></div>
+        </div>
+        <div class="upload"><span class="mic">🎙</span><span class="txt">Add a note, file, or photo…</span><span class="up">↑</span></div>
+      </div>
+      <div class="side">
+        <div class="mini-h">Views</div>
+        <div class="mini-card"><div class="mini-line w60"></div></div>
+        <div class="mini-card"><div class="mini-line w60"></div></div>
+        <div class="mini-card"><div class="mini-line w60"></div></div>
+        <div class="mini-card"><div class="mini-line w60"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="slide dark">
+  <div class="kicker">Compliance is the product</div>
+  <h2>Every claim comes from your RA-approved library.</h2>
+  <ul class="clean">
+    <li>We don't write clinical claims. We structure the ones your RA already approved.</li>
+    <li>Structure can change. The claim text doesn't — it's copied verbatim.</li>
+    <li>Your RA reviews the library once, not every version.</li>
+    <li>If a stakeholder asks for a new claim, it goes back to RA. Never straight into the brief.</li>
+  </ul>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <div class="kicker">The hospital side</div>
+  <h2>Your hospital feels heard.</h2>
+  <div class="quote">“They asked what we worry about before proposing.”</div>
+  <p class="lead">Each stakeholder gets one link. No navigation, no other pages. They read, leave a note — by typing or speaking — and that's it.</p>
+  <div class="frame" style="max-width:760px">
+    <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="addr">one-time link · for the Finance lead</span></div>
+    <div class="screen" style="grid-template-columns:1fr">
+      <div class="main">
+        <div class="mini-h">Budget impact at a glance</div>
+        <div class="mini-line w80"></div><div class="mini-line w60"></div>
+        <div class="mini-h" style="margin-top:14px">Your input</div>
+        <div class="upload"><span class="mic">🎙</span><span class="txt">What did we miss? Speak or type…</span><span class="up">↑</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <div class="kicker">What it changes</div>
+  <h2>Sales enablement, not sales coaching.</h2>
+  <ul class="clean">
+    <li>Nothing gets missed — every account has the same four-page checklist.</li>
+    <li>Your whole team works from the same baseline, not just your best rep.</li>
+    <li>Faster answers to what the committee actually asks.</li>
+    <li>And a paper trail: who said what, and which version changed because of it.</li>
+  </ul>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <div class="kicker">What you get</div>
+  <h2>Per account</h2>
+  <div class="bignum">
+    <span class="chip">Master brief</span>
+    <span class="chip">4 stakeholder pages</span>
+    <span class="chip">Version history</span>
+    <span class="chip">Feedback record</span>
+    <span class="chip">Renewal reminders</span>
+  </div>
+  <div class="rule"></div>
+  <p class="lead">Built around the two gates that decide most hospital purchases: the value-analysis committee and your own RA review.</p>
+</section>
+
+<!-- 9 -->
+<section class="slide dark">
+  <div class="kicker">Next step</div>
+  <h2>See one real account, free.</h2>
+  <p class="lead">Send us one product and one hospital. We return v1 — stock and custom — in a week. If it's useful, we keep going. If not, you've lost nothing.</p>
+  <div class="bignum">
+    <span class="chip" style="background:#ffffff14;border-color:#ffffff33;color:#fff">1 product</span>
+    <span class="chip" style="background:#ffffff14;border-color:#ffffff33;color:#fff">1 hospital</span>
+    <span class="chip" style="background:#ffffff14;border-color:#ffffff33;color:#fff">v1 in 7 days</span>
+  </div>
+</section>
+
+<div class="counter" id="counter">01 / 09</div>
+<div class="navdots" id="dots"></div>
+<div class="hint">← → to navigate</div>
+
+<script>
+(function(){
+  const slides = Array.from(document.querySelectorAll(".slide"));
+  const dots = document.getElementById("dots");
+  const counter = document.getElementById("counter");
+  let i = 0;
+  slides.forEach((_,n)=>{
+    const d = document.createElement("i");
+    d.addEventListener("click", ()=>go(n));
+    dots.appendChild(d);
+  });
+  function go(n){
+    i = Math.max(0, Math.min(slides.length-1, n));
+    slides.forEach((s,k)=>s.classList.toggle("on", k===i));
+    Array.from(dots.children).forEach((d,k)=>d.classList.toggle("on", k===i));
+    counter.textContent = String(i+1).padStart(2,"0") + " / " + String(slides.length).padStart(2,"0");
+    try{ history.replaceState(null,"","#slide-"+(i+1)); }catch(e){}
+  }
+  document.addEventListener("keydown", e=>{
+    if(e.key==="ArrowRight"||e.key==="ArrowDown"||e.key===" "||e.key==="PageDown"){ e.preventDefault(); go(i+1); }
+    if(e.key==="ArrowLeft"||e.key==="ArrowUp"||e.key==="PageUp"){ e.preventDefault(); go(i-1); }
+  });
+  // wheel navigation with debounce
+  let lock = 0;
+  window.addEventListener("wheel", e=>{
+    const now = Date.now();
+    if(now - lock < 550) return;
+    if(Math.abs(e.deltaY) < 18) return;
+    lock = now; go(i + (e.deltaY>0?1:-1));
+  }, {passive:true});
+  // touch
+  let tx=0;
+  window.addEventListener("touchstart", e=>{ tx=e.touches[0].clientX; }, {passive:true});
+  window.addEventListener("touchend", e=>{
+    const dx = e.changedTouches[0].clientX - tx;
+    if(Math.abs(dx)>50) go(i + (dx<0?1:-1));
+  }, {passive:true});
+  go(0);
+})();
+</script>
+</body>
+</html>
