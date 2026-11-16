@@ -1,0 +1,178 @@
+{
+  "verdict": "SHIP",
+  "status": "PASS",
+  "reviewed_at_utc": "2026-11-16T17:16:05.922188+00:00",
+  "scope": "Independent cold-read and bounded source/scope review before publication. Actual public-page text, metadata, stylesheet, builder/validator changes, approved PNG/SVG and local gate evidence inspected. This does not certify browser layout, live publication, remote readiness, booking completion, payment/provider readiness or commercial effectiveness.",
+  "reader_takeaway": "ConsoliData offers one continuous service that improves and connects marketing, sales, onboarding/training, everyday support and continued purchasing, then uses actual work and final business results to improve the next interaction.",
+  "customer_problem_first": {
+    "status": "PASS",
+    "evidence": "The opening names repeated unanswered questions caused by customer knowledge staying in separate sales/support conversations and documents. The concrete service follows, before the single discussion action."
+  },
+  "customer_problem_to_service_to_action": {
+    "status": "PASS",
+    "evidence": "Home and services explain the customer task, connected work, concrete deliverables and a consistent Discuss your customer journey action to book.html. A recent task starts the service without shrinking the main offer to one report, list or piece of content."
+  },
+  "focus_and_thesis_integrity": {
+    "status": "PASS",
+    "findings": [
+      "Primary service is full-journey connected continuous improvement; content/list research are components, not separate conflicting primary offers.",
+      "Useful content identifies relevant people through real questions and requests, followed by actual work, corrections and costs. It is not framed as community membership, agreement or automatically identifying anonymous readers.",
+      "Evaluation/purchasing, approved onboarding/training, everyday support, repeat use/purchasing and company knowledge all remain present.",
+      "Comparison and observation period are agreed; one factor changes; paid purchases, continued purchasing and contribution after costs are final outcomes. Questions and observations explain the process rather than substitute for the business result.",
+      "Company-wide copy fits actual purchasing/use paths and does not assume all readers are doctors or introduce a broad new outreach program."
+    ]
+  },
+  "evidence_boundary": {
+    "status": "PASS",
+    "findings": [
+      "No invented customer success, conversion percentage, guaranteed profit/share/sales, autonomous deployed platform or new marketing-subscription claim.",
+      "Artificial intelligence is described as helping research, analysis and preparation; the client reviews product-specific information and agrees changes.",
+      "Funnel is readable in the actual PNG inspected by reviewer, has no obvious cropping/overlap, preserves the customer journey and labels its widths as conceptual rather than measured conversion.",
+      "Approved own PNG/SVG files are exact hashes in the source-scope check; the graphical feedback loop includes listening, final results, retained learning and one-factor improvement."
+    ]
+  },
+  "human_texture": {
+    "status": "PASS",
+    "findings": [
+      "Short concrete examples include a customer objection, training handoff, recurring support issue, source-linked buying evidence and checked answers.",
+      "Headers and paragraphs stay on the connected-service thesis; entry through real work and final discussion action are understandable.",
+      "No sender-centered testing/pilot opener, not-X-but-Y framing or unexplained sales/technical abbreviation found in the changed public copy."
+    ]
+  },
+  "commercial_terms": {
+    "status": "PASS",
+    "findings": [
+      "First enterprise validation retains no prepaid service fee, written scope/input/time/evidence/acceptance/fee/payment-date requirements, payment after acceptance and no service fee for a valid validation that misses its standard.",
+      "Continued work has defined monitoring/maintenance/improvement scope; extra work and third-party costs are separately agreed. No open-ended free operation or automatic advertising spend.",
+      "Existing99USD standalone assessment remains optional and separate. Public manifest adds primaryService plus assessmentScope while preserving price/question/delivery/processing fields.",
+      "Book page invitation broadens to the journey but keeps existing Cal destination and email links; source preservation is not a claim that the calendar is available or a meeting was booked."
+    ]
+  },
+  "source_scope": {
+    "status": "PASS",
+    "findings": [
+      "Tracked public differences are index/services/book, llms, site-manifest and narrowly adjusted source validator. Untracked public additions are exactly the dedicated stylesheet and two approved funnel assets.",
+      "No tracked backend/deploy/payment/report/deck source difference seen. Existing source-scope evidence reports73 protected public/backend/deploy files unchanged; this reviewer read the script and result rather than rerunning every protected byte comparison.",
+      "Cache validator permits only the new named stylesheet/version and changes the old homepage-positioning assertion; assessment/payment/privacy/bank/link checks remain intact.",
+      "No comment widget, new analytics, new collection backend, payment setting, appointment setting or unrelated site change introduced."
+    ]
+  },
+  "baseline_test_context": {
+    "status": "PASS_WITH_EXISTING_FAILURES",
+    "after_summary": [
+      "# tests 28",
+      "# pass 24",
+      "# fail 4"
+    ],
+    "existing_failure_names": [
+      "all six priced purchase entries open the existing payment form directly",
+      "legacy page offers a labelled real payment fallback without JavaScript",
+      "price-dependent scripts use the47USD release cache identity",
+      "discovery describes the direct destination and omits the obsolete interstitial"
+    ],
+    "new_failures": [],
+    "qualification": "Saved baseline-node log covers19 tests; the after run covers28. The same four failing names target retired public direct-payment/price/cache contracts. These tests remain visible and were not fixed or suppressed in this content task. No claim that all tests pass."
+  },
+  "specific_failures": [],
+  "repair_brief": [],
+  "required_recheck": [
+    "If any pinned public text, asset, stylesheet, builder or validator changes, recheck the changed portion and update pins.",
+    "Integrator must separately finish real-browser desktop/mobile checks and actual deployment/readback gates before reporting live completion."
+  ],
+  "source_pins": [
+    {
+      "path": "site/index.html",
+      "bytes": 9528,
+      "sha256": "1492ddee551fb8edb0906d42ca7dd0e2c089188e3c048ded6bdad06e482f0500"
+    },
+    {
+      "path": "site/services.html",
+      "bytes": 8881,
+      "sha256": "31815e22b5226b507ba97f1c1f233e04d1b3913b979a516034c90520958dd77e"
+    },
+    {
+      "path": "site/book.html",
+      "bytes": 5332,
+      "sha256": "cce69105c6931ee30406d046bfbbc4497101ed00ad5b6ca325a3054a1050e36d"
+    },
+    {
+      "path": "site/llms.txt",
+      "bytes": 7581,
+      "sha256": "bf19b557e24a1e35299d3fa8ed93205ca214cde710eb4e94aff281e67d68d7d1"
+    },
+    {
+      "path": "site/site-manifest.json",
+      "bytes": 6204,
+      "sha256": "c4f143f80c3c9db221f39c1544649738d0c856c40ee38e4113938cd5808f252e"
+    },
+    {
+      "path": "site/growth99/customer-loop.css",
+      "bytes": 4269,
+      "sha256": "1fdfbfa54e1b5ae4a2adcd15dfd52550bd56d83606234b2b0390f79cf3d144cf"
+    },
+    {
+      "path": "site/assets/customer-feedback-funnel-en-20261116.svg",
+      "bytes": 19449,
+      "sha256": "c6d948f55e28b75c45780ba015eba26950a45d5c1b422bc38c7f0fb09e65e49d"
+    },
+    {
+      "path": "site/assets/customer-feedback-funnel-en-20261116.png",
+      "bytes": 227248,
+      "sha256": "9acd3476044d6391f90f1421a498308ee47f0c6c24362879efd33ab7ec885591"
+    },
+    {
+      "path": "tools/validate-checkup.py",
+      "bytes": 7158,
+      "sha256": "d6275ca1f47e1eba90bd7a5d9022b17c492c596aae978549adac99829778585c"
+    },
+    {
+      "path": "tools/build-customer-feedback-site.py",
+      "bytes": 17784,
+      "sha256": "8d314d477cfa1ce2e72d184c470c0b76d147b1757d0cd85f250a67505659ad87"
+    },
+    {
+      "path": "tools/verify-customer-feedback-release.py",
+      "bytes": 3230,
+      "sha256": "1b82e2a1aae381145cb76f01f54dd0f71e35cd2c68db3bb390fb79cbba3d5a6c"
+    }
+  ],
+  "evidence_pins": [
+    {
+      "path": "verification/customer-loop/source-scope-check.json",
+      "sha256": "d685268cc5736790ec7eadc2c803b840581c778c385e59aa4e7e4b107aaa7245"
+    },
+    {
+      "path": "verification/customer-loop/node-comparison.json",
+      "sha256": "27574dcd97f2ef4db3a1ef2a5cfed75359f294a31e933b49e471d7ef2c19c05b"
+    }
+  ],
+  "brief_review_snapshot": {
+    "path": "docs/tasks/2026-11-16-customer-feedback-service.md",
+    "sha256": "55995c71f869b47f10a2d116bcbc1c399a7f2ad5acd79a2dcecc0053d3b74b47",
+    "purpose": "Historical review brief only; later mechanical status/commit updates do not change this content verdict."
+  },
+  "actual_actions": {
+    "read_only_sources": [
+      "site/index.html",
+      "site/services.html",
+      "site/book.html",
+      "site/llms.txt",
+      "site/site-manifest.json",
+      "site/growth99/customer-loop.css",
+      "site/assets/customer-feedback-funnel-en-20261116.svg",
+      "site/assets/customer-feedback-funnel-en-20261116.png",
+      "tools/validate-checkup.py",
+      "tools/build-customer-feedback-site.py",
+      "tools/verify-customer-feedback-release.py"
+    ],
+    "review_outputs": [
+      "verification/customer-loop/review/pre-release-review.json"
+    ],
+    "network": false,
+    "external_contact": false,
+    "publication": false,
+    "source_changes": false,
+    "browser_checks": false,
+    "market_effect_validation": false
+  }
+}

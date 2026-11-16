@@ -1,0 +1,27 @@
+{
+  "files": [
+    "tests\\checkout.test.cjs",
+    "tests\\checkup-engine.test.cjs",
+    "tests\\direct-payment.test.cjs"
+  ],
+  "exit_code": 1,
+  "baseline_failures": [
+    "all six priced purchase entries open the existing payment form directly",
+    "legacy page offers a labelled real payment fallback without JavaScript",
+    "price-dependent scripts use the47USD release cache identity",
+    "discovery describes the direct destination and omits the obsolete interstitial"
+  ],
+  "after_failures": [
+    "all six priced purchase entries open the existing payment form directly",
+    "legacy page offers a labelled real payment fallback without JavaScript",
+    "price-dependent scripts use the47USD release cache identity",
+    "discovery describes the direct destination and omits the obsolete interstitial"
+  ],
+  "new_failures": [],
+  "summary": [
+    "# tests 28",
+    "# pass 24",
+    "# fail 4"
+  ],
+  "note": "4 pre-existing assertions target retired27USD public home/direct payment contracts. Preserved, not repaired or suppressed in this static-content task."
+}

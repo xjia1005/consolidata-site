@@ -2,7 +2,7 @@
   "name": "CONSOLIDATA Growth Clarity Assessment",
   "url": "https://cdatats.com/",
   "language": "en",
-  "audience": "Businesses in the United States and Canada seeking help with customer understanding, marketing messages or a current growth decision; suitability depends on the actual work.",
+  "audience": "Businesses in the United States and Canada seeking a connected improvement process across customer research, marketing, sales, training and support; suitability depends on the actual product, customer and work.",
   "price": {
     "amount": 99,
     "currency": "USD",
@@ -37,28 +37,10 @@
   "purpose": "Clarify who the company serves, in what situation, the problem and desired benefit, current alternatives, buying reason, relevant growth observations, evidence gaps and one next investigation.",
   "serviceOptions": [
     {
-      "name": "Customer Buying-Reason Research",
+      "name": "Customer Journey Improvement Service",
       "currency": "USD",
-      "basis": "Decision-specific scope and written acceptance; no universal interview count or coverage claim",
-      "pricing": "Quoted to agreed scope and requirements."
-    },
-    {
-      "name": "Message and Channel Validation",
-      "currency": "USD",
-      "basis": "Bounded first phase with agreed comparison design, channels, formats, audience and budget",
-      "pricing": "Quoted to agreed scope and requirements."
-    },
-    {
-      "name": "Content and Learning Program",
-      "currency": "USD",
-      "basis": "Per month; deliverables, channels, review cadence and revisions are agreed for the customer.",
-      "pricing": "Quoted to agreed scope and requirements."
-    },
-    {
-      "name": "Standalone advertising management",
-      "currency": "USD",
-      "basis": "Agreed platforms and account scope; media spending separate; included management never billed twice.",
-      "pricing": "Quoted to agreed scope and requirements."
+      "basis": "Scoped ongoing work across research, useful content, sales materials, onboarding/training, support records and final-result feedback. Start with one actual task and connect the wider journey.",
+      "pricing": "Quoted to agreed scope, responsibilities and acceptance. Third-party costs agreed separately."
     }
   ],
   "firstEnterpriseValidation": "No prepaid service fee. Scope, inputs, period, evidence, acceptance standard, fee and payment date are agreed in writing before work. Payment follows agreed acceptance. A valid first validation missing its standard has no service fee; insufficiency, unmet prerequisites and further rounds follow separately agreed terms. The US$99 assessment is a separate paid product.",
@@ -72,5 +54,15 @@
     "companyPage": "https://www.linkedin.com/company/consolidata-tech-to-services/"
   },
   "bookingUrl": "https://cdatats.com/book.html",
-  "postReportJourney": "The assessment is optional. Visitors may discuss a marketing question directly; the separate scheduler requires confirmation and does not receive report answers or references automatically."
+  "postReportJourney": "The assessment is optional. Visitors may discuss a marketing question directly; the separate scheduler requires confirmation and does not receive report answers or references automatically.",
+  "primaryService": {
+    "name": "Customer Journey Improvement Service",
+    "url": "https://cdatats.com/services.html",
+    "description": "A continuous service connecting marketing, sales, onboarding, training, support and continued purchasing through a final-result feedback process.",
+    "cycle": "Agree the task, result, comparison and period; change one factor; implement; follow the final business result; retain context and improve the next interaction.",
+    "customerAsset": "Working materials and records the company can maintain, use and export.",
+    "discussionUrl": "https://cdatats.com/book.html",
+    "scope": "Deliverables, ownership, data, review, cost and acceptance are agreed for the actual product, customer and task."
+  },
+  "assessmentScope": "The existing price, questionCount, delivery and assessment fields describe the separate optional Growth Clarity Assessment, not the ongoing primary service."
 }

@@ -39,7 +39,8 @@ for page in SITE.rglob('*.html'):
         url = urlsplit(asset)
         if not url.scheme and not url.netloc and not legacy:
             survey_asset = page.name == 'customer-survey.html' and (url.path, url.query) in (('growth99/customer-survey.css', 'v=5'), ('growth99/customer-survey.js', 'v=8'), ('growth99/customer-survey-session.js', 'v=2'), ('growth99/customer-survey-recording.js', 'v=1'))
-            assert url.path.startswith('growth99/') and (url.query == ASSET_QUERY or (url.path == 'growth99/outcome-home.css' and url.query == 'v=20261104-1') or (url.path == 'growth99/brand-readable.css' and url.query == 'v=20261104-brand-v3') or survey_asset), (page.name, asset)
+            customer_loop_asset = url.path == 'growth99/customer-loop.css' and url.query == 'v=20261116-loop-v1'
+            assert url.path.startswith('growth99/') and (url.query == ASSET_QUERY or (url.path == 'growth99/outcome-home.css' and url.query == 'v=20261104-1') or (url.path == 'growth99/brand-readable.css' and url.query == 'v=20261104-brand-v3') or survey_asset or customer_loop_asset), (page.name, asset)
 for name, page in pages.items():
     for link in page.links:
         url = urlsplit(link)
@@ -48,7 +49,7 @@ for name, page in pages.items():
         assert target.is_relative_to(SITE.resolve()) and target.is_file(), (name, link)
         if url.fragment and target.suffix == '.html': assert unquote(url.fragment) in pages[str(target.relative_to(SITE.resolve())).replace('\\','/')].ids, (name, link)
 home = (SITE / 'index.html').read_text(encoding='utf-8')
-assert 'a compelling reason to pay' in home
+assert 'Make each customer interaction' in home and 'one feedback system' in home
 assert 'noindex' not in home
 assert 'growth-assessment.html' in pages['index.html'].links
 assert 'book.html' in pages['index.html'].links

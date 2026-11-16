@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "base": "fb803c0655d12e238055cd47e755acebe31dcf6a",
+  "changed_tracked_paths": [
+    "site/book.html",
+    "site/index.html",
+    "site/llms.txt",
+    "site/services.html",
+    "site/site-manifest.json",
+    "tools/validate-checkup.py"
+  ],
+  "protected_public_backend_deploy_files": 73,
+  "existing_booking_destination_unchanged": true,
+  "mail_links_unchanged": true,
+  "acceptance_section_exact": true,
+  "assessment_manifest_fields_unchanged": true,
+  "approved_funnel_assets_exact": true,
+  "scope": "source protection, not payment/provider readiness or business effectiveness"
+}

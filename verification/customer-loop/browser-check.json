@@ -1,0 +1,13 @@
+{
+  "status": "passed_local_UI_checks",
+  "method": "Actual CUA in-app browser against the task's localhost public site directory; selected observations recorded, not a full DOM export.",
+  "home_desktop": {"width": 1280, "height": 720, "scroll_width": 1265, "h1": "Make each customer interaction improve the next.", "funnel_loaded": true, "funnel_natural_size": [1843, 1037]},
+  "home_mobile": {"width": 390, "height": 844, "scroll_width": 375, "journey_stages": 6, "menu_open_exposes_services_and_discussion": true},
+  "services_mobile": {"width": 390, "scroll_width": 375, "h1": "A continuous improvement service across your customer journey.", "deliverable_groups": 6, "original_no_prepaid_acceptance_visible": true},
+  "book_mobile": {"width": 390, "scroll_width": 375, "h1": "Make each customer interaction improve the next. Let’s discuss your journey.", "booking_destination": "https://cal.com/consolidata/marketing-conversation", "booking_submitted": false},
+  "tested_navigation": "Home mobile menu -> Services -> Discuss your customer journey -> booking page",
+  "console_errors_observed_on_test_tab": [],
+  "viewport_reset": true,
+  "screenshots": ["screenshots/local-home-desktop.jpg", "screenshots/local-home-mobile.jpg"],
+  "limits": "No external appointment was made; existing destination preserved by source parity. No payment, report-generation or email-delivery test. Public deployment and readback are a separate stage."
+}
