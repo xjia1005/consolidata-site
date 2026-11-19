@@ -1,0 +1,108 @@
+{
+  "status": "PASS",
+  "runtime": "Installed Playwright with installed Chrome; ephemeral browser profile",
+  "results": [
+    {
+      "label": "desktop",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "images": [
+        {
+          "src": "assets/medical-device-visual-guides/01-surgeon.png",
+          "loaded": true,
+          "width": 1122,
+          "height": 1402
+        },
+        {
+          "src": "assets/medical-device-visual-guides/02-care-team.png",
+          "loaded": true,
+          "width": 1122,
+          "height": 1402
+        },
+        {
+          "src": "assets/medical-device-visual-guides/03-buyer.png",
+          "loaded": true,
+          "width": 1122,
+          "height": 1402
+        }
+      ],
+      "segments": 6,
+      "targets": [
+        44,
+        44,
+        44,
+        44,
+        44,
+        44
+      ],
+      "unreviewed": true,
+      "orderReview": true,
+      "screenshot": "desktop-visual-guides.png"
+    },
+    {
+      "label": "desktop",
+      "route": "index.html",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "entryLink": true
+    },
+    {
+      "label": "desktop",
+      "route": "services.html",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "entryLink": true
+    },
+    {
+      "label": "mobile",
+      "width": 390,
+      "scrollWidth": 390,
+      "images": [
+        {
+          "src": "assets/medical-device-visual-guides/01-surgeon.png",
+          "loaded": true,
+          "width": 1122,
+          "height": 1402
+        },
+        {
+          "src": "assets/medical-device-visual-guides/02-care-team.png",
+          "loaded": true,
+          "width": 1122,
+          "height": 1402
+        },
+        {
+          "src": "assets/medical-device-visual-guides/03-buyer.png",
+          "loaded": true,
+          "width": 1122,
+          "height": 1402
+        }
+      ],
+      "segments": 6,
+      "targets": [
+        44,
+        44,
+        44,
+        44,
+        51.1875,
+        44
+      ],
+      "unreviewed": true,
+      "orderReview": true,
+      "screenshot": "mobile-visual-guides.png"
+    },
+    {
+      "label": "mobile",
+      "route": "index.html",
+      "width": 390,
+      "scrollWidth": 390,
+      "entryLink": true
+    },
+    {
+      "label": "mobile",
+      "route": "services.html",
+      "width": 390,
+      "scrollWidth": 390,
+      "entryLink": true
+    }
+  ]
+}

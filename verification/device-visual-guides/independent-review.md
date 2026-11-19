@@ -1,0 +1,4 @@
+# Independent technical and editorial review
+2026-11-19. Root checked the actual local page, complete manufacturer PDF page12 text and source identity/page links. Required wording corrections, proposed-order boundary and imaging-confirmation context were applied.
+Root independently inspected the final desktop1440 and mobile390 screenshot files: readable sections/cards, no observed clipping or horizontal overflow, role images and full-size links visible, mobile navigation visible. The installed Playwright browser also passed 1440x1000 and390x844 layout checks on the new page, homepage and services; all3 original images loaded,6 review segments and text targets at least44px. See responsive-qa.json.
+This is technical/editorial QA. No manufacturer approval, clinical validation or qualified clinical approval has occurred. Public material is an independent, unreviewed draft for content review. Exact source context remains controlling.

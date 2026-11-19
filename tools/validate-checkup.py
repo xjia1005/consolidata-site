@@ -40,7 +40,7 @@ for page in SITE.rglob('*.html'):
         if not url.scheme and not url.netloc and not legacy:
             survey_asset = page.name == 'customer-survey.html' and (url.path, url.query) in (('growth99/customer-survey.css', 'v=5'), ('growth99/customer-survey.js', 'v=8'), ('growth99/customer-survey-session.js', 'v=2'), ('growth99/customer-survey-recording.js', 'v=1'))
             customer_loop_asset = url.path == 'growth99/customer-loop.css' and url.query == 'v=20261116-loop-v1'
-            assert url.path.startswith('growth99/') and (url.query == ASSET_QUERY or (url.path == 'growth99/outcome-home.css' and url.query == 'v=20261104-1') or (url.path == 'growth99/brand-readable.css' and url.query == 'v=20261104-brand-v3') or survey_asset or customer_loop_asset), (page.name, asset)
+            assert url.path.startswith('growth99/') and (url.query == ASSET_QUERY or (url.path == 'growth99/outcome-home.css' and url.query == 'v=20261104-1') or (url.path == 'growth99/brand-readable.css' and url.query == 'v=20261104-brand-v3') or survey_asset or customer_loop_asset or (url.path == 'growth99/visual-guides.css' and url.query == 'v=20261119')), (page.name, asset)
 for name, page in pages.items():
     for link in page.links:
         url = urlsplit(link)
